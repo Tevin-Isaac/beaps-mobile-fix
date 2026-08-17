@@ -37,16 +37,12 @@ export default function Header() {
       <div style={{ maxWidth: 1180, margin: "0 auto", padding: "12px 20px", display: "flex", alignItems: "center", gap: 14 }}>
         <Link href="/" style={{ display: "flex", alignItems: "center", gap: 10, cursor: "pointer", flexShrink: 0 }}>
           <img
-            src="/assets/f27e3daa-731a-4ff3-aeaf-8eb04ed19fb8.jpg"
+            src="/logo.png"
             alt="BEAPS Mobile Fix"
             style={{
               height: 46,
               width: 46,
-              objectFit: "cover",
-              objectPosition: "center 42%",
-              borderRadius: 999,
-              background: "#fff",
-              boxShadow: "0 0 0 1px var(--white-a12), 0 0 22px rgba(31,161,58,0.35)",
+              objectFit: "contain",
             }}
           />
           <div style={{ display: "flex", flexDirection: "column", lineHeight: 1 }}>

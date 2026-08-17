@@ -11,7 +11,7 @@ export default function Footer() {
       <div style={{ maxWidth: 1180, margin: "0 auto", padding: "44px 20px", display: "grid", gridTemplateColumns: autoFit(190), gap: 28 }}>
         <div>
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            <img src="/assets/f27e3daa-731a-4ff3-aeaf-8eb04ed19fb8.jpg" alt="BEAPS Mobile Fix" style={{ height: 40, width: 40, objectFit: "cover", objectPosition: "center 42%", borderRadius: 999, background: "#fff" }} />
+            <img src="/logo.png" alt="BEAPS Mobile Fix" style={{ height: 40, width: 40, objectFit: "contain" }} />
             <div style={{ lineHeight: 1.2 }}>
               <div style={{ fontSize: 15, fontWeight: 700, letterSpacing: "-0.03em" }}>BEAPS Mobile Fix</div>
               <div style={{ fontSize: 11, color: "var(--text-tertiary)" }}>All phone repair services</div>
