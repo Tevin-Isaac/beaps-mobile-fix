@@ -411,11 +411,16 @@ button {
   cursor: pointer;
   border: none;
   box-shadow: 0 0 30px rgba(31, 161, 58, 0.42);
-  transition: background 0.15s;
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
 }
 .btn-solid:hover {
   background: var(--brand-solid-hover);
   color: var(--text-on-brand);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 34px rgba(31, 161, 58, 0.55);
+}
+.btn-solid:active {
+  transform: translateY(0);
 }
 .btn-solid.sm {
   height: 44px;
@@ -444,11 +449,16 @@ button {
   font-weight: 500;
   cursor: pointer;
   background: none;
-  transition: background 0.15s;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
 }
 .btn-outline:hover {
   background: var(--white-a06);
+  border-color: var(--brand-solid);
   color: var(--text-primary);
+  transform: translateY(-2px);
+}
+.btn-outline:active {
+  transform: translateY(0);
 }
 .btn-outline.md {
   height: 52px;
@@ -469,31 +479,40 @@ button {
   cursor: pointer;
   background: none;
   color: var(--text-primary);
+  transition: transform 0.15s, border-color 0.15s;
+}
+.chip:hover {
+  transform: translateY(-1px);
+  border-color: var(--brand-solid);
 }
 
 .card {
   padding: 20px;
   border: 1px solid var(--border-subtle);
-  border-radius: 18px;
+  border-radius: 20px;
   background: var(--surface-card);
-  transition: background 0.15s, border-color 0.15s;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s;
 }
 .card:hover {
   background: var(--surface-raised);
   border-color: var(--border-default);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
 }
 
 .product-card {
   border: 1px solid var(--border-subtle);
-  border-radius: 18px;
+  border-radius: 20px;
   background: var(--surface-card);
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  transition: border-color 0.15s;
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
 }
 .product-card:hover {
   border-color: var(--border-default);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
 }
 
 .add-btn {
@@ -576,13 +595,6 @@ button {
 
 .visual-box {
   height: var(--visual-h);
-}
-
-@media (max-width: 640px) {
-  .hero-badge {
-    left: 12px !important;
-    bottom: 12px !important;
-  }
 }
 
 /* ============================================================

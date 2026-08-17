@@ -102,7 +102,7 @@ const Home: NextPageWithTitle = () => {
           <h1 style={{ margin: 0, fontSize: "clamp(34px, 5.4vw, 60px)", lineHeight: 1.04, fontWeight: 700, letterSpacing: "-0.032em" }}>
             <WordReveal text="Cracked screen?" startDelay={0.3} />
             <br />
-            <WordReveal text="Walk out fixed today." startDelay={0.5} />
+            <WordReveal text="Walk out fixed today." startDelay={0.5} accentWords={["fixed"]} />
           </h1>
           <p className="animate-fade-up delay-900" style={{ margin: "20px 0 0", fontSize: 18, lineHeight: 1.55, color: "var(--text-secondary)", maxWidth: 520 }}>
             Certified technicians, genuine parts, and a 90-day warranty on every repair. Phones, power banks and accessories at the same counter — no appointment, just walk in.
@@ -147,16 +147,6 @@ const Home: NextPageWithTitle = () => {
               alt="Technician repairing a phone at the BEAPS Mobile Fix bench"
               style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }}
             />
-          </div>
-          <div className="hero-badge" style={{ position: "absolute", bottom: -18, left: -18, display: "flex", alignItems: "center", gap: 10, padding: "12px 16px", borderRadius: 14, background: "rgba(20,20,20,0.9)", backdropFilter: "blur(12px)", border: "1px solid var(--border-default)" }}>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--orange-400)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path>
-              <path d="m9 12 2 2 4-4"></path>
-            </svg>
-            <div>
-              <div style={{ fontSize: 13, fontWeight: 600 }}>Genuine parts only</div>
-              <div style={{ fontSize: 11, color: "var(--text-secondary)" }}>Tested before you leave the shop</div>
-            </div>
           </div>
         </div>
       </section>
