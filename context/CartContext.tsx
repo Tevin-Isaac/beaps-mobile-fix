@@ -1,18 +1,36 @@
-import { createContext, useContext, useMemo, useState } from "react";
+import { createContext, useContext, useMemo, useState, ReactNode } from "react";
 import { PRODUCTS, money, whatsappLink } from "../lib/data";
+import type { CartItem } from "../lib/types";
 
-const CartContext = createContext(null);
+type CartMap = Record<string, number>;
 
-export function CartProvider({ children }) {
-  const [cart, setCart] = useState({});
+interface CartContextValue {
+  cart: CartMap;
+  cartItems: CartItem[];
+  cartTotal: number;
+  cartTotalFmt: string;
+  cartCount: number;
+  hasCart: boolean;
+  cartEmpty: boolean;
+  cartOpen: boolean;
+  toggleCart: () => void;
+  addTo: (id: string) => void;
+  bump: (id: string, d: number) => void;
+  waLink: string;
+}
+
+const CartContext = createContext<CartContextValue | null>(null);
+
+export function CartProvider({ children }: { children: ReactNode }) {
+  const [cart, setCart] = useState<CartMap>({});
   const [cartOpen, setCartOpen] = useState(false);
 
-  const addTo = (id) => {
+  const addTo = (id: string) => {
     setCart((c) => ({ ...c, [id]: (c[id] || 0) + 1 }));
     setCartOpen(true);
   };
 
-  const bump = (id, d) => {
+  const bump = (id: string, d: number) => {
     setCart((c) => {
       const next = { ...c };
       const q = (next[id] || 0) + d;
@@ -24,17 +42,17 @@ export function CartProvider({ children }) {
 
   const toggleCart = () => setCartOpen((v) => !v);
 
-  const cartItems = useMemo(
+  const cartItems = useMemo<CartItem[]>(
     () =>
       Object.keys(cart).map((id) => {
-        const p = PRODUCTS.find((x) => x.id === id);
+        const p = PRODUCTS.find((x) => x.id === id)!;
         return { id, name: p.name, priceFmt: money(p.price), qty: cart[id] };
       }),
     [cart]
   );
 
   const cartTotal = useMemo(
-    () => Object.keys(cart).reduce((t, id) => t + PRODUCTS.find((x) => x.id === id).price * cart[id], 0),
+    () => Object.keys(cart).reduce((t, id) => t + PRODUCTS.find((x) => x.id === id)!.price * cart[id], 0),
     [cart]
   );
 
@@ -48,7 +66,7 @@ export function CartProvider({ children }) {
     return whatsappLink(orderText);
   }, [cartItems, cartTotal]);
 
-  const value = {
+  const value: CartContextValue = {
     cart,
     cartItems,
     cartTotal,
@@ -66,7 +84,7 @@ export function CartProvider({ children }) {
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }
 
-export function useCart() {
+export function useCart(): CartContextValue {
   const ctx = useContext(CartContext);
   if (!ctx) throw new Error("useCart must be used within a CartProvider");
   return ctx;

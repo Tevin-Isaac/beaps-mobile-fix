@@ -1,6 +1,7 @@
 import { autoFit } from "../lib/style";
+import type { NextPageWithTitle } from "../lib/types";
 
-export default function Contact() {
+const Contact: NextPageWithTitle = () => {
   return (
     <div data-screen-label="Contact" style={{ maxWidth: 1180, margin: "0 auto", padding: "56px 20px 72px" }}>
       <h1 style={{ margin: 0, fontSize: "clamp(30px, 4.6vw, 48px)", fontWeight: 700, letterSpacing: "-0.032em" }}>Find us</h1>
@@ -79,6 +80,8 @@ export default function Contact() {
       </div>
     </div>
   );
-}
+};
 
 Contact.pageTitle = "Contact — BEAPS Mobile Fix";
+
+export default Contact;

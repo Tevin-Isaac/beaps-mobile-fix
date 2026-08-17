@@ -1,9 +1,12 @@
 import { useRef, useState } from "react";
 import { TIMELINE } from "../lib/data";
+import type { NextPageWithTitle } from "../lib/types";
 
-export default function Track() {
-  const ticketRef = useRef(null);
-  const [status, setStatus] = useState(null); // null | 'found' | 'missing'
+type TrackStatus = "found" | "missing" | null;
+
+const Track: NextPageWithTitle = () => {
+  const ticketRef = useRef<HTMLInputElement>(null);
+  const [status, setStatus] = useState<TrackStatus>(null);
 
   const lookup = () => {
     const v = (ticketRef.current?.value || "").trim().toUpperCase();
@@ -69,6 +72,8 @@ export default function Track() {
       )}
     </div>
   );
-}
+};
 
 Track.pageTitle = "Track your repair — BEAPS Mobile Fix";
+
+export default Track;

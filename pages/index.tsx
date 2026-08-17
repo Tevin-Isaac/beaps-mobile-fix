@@ -1,9 +1,16 @@
+import { ReactNode } from "react";
 import { useRouter } from "next/router";
 import { useCart } from "../context/CartContext";
 import { FEATURED_IDS, PRODUCTS, money } from "../lib/data";
 import { autoFit } from "../lib/style";
+import type { NextPageWithTitle } from "../lib/types";
 
-const FEATURES = [
+interface FeatureItem {
+  icon: ReactNode;
+  label: string;
+}
+
+const FEATURES: FeatureItem[] = [
   {
     icon: (
       <>
@@ -44,7 +51,14 @@ const FEATURES = [
   },
 ];
 
-const REPAIR_CARDS = [
+interface RepairCard {
+  icon: ReactNode;
+  title: string;
+  desc: string;
+  price: string;
+}
+
+const REPAIR_CARDS: RepairCard[] = [
   { icon: <><rect x="5" y="2" width="14" height="20" rx="2"></rect><path d="m9 7 3 4-2 2 3 4"></path></>, title: "Screen replacement", desc: "Cracked glass, dead touch, lines on the display. Original-grade panels.", price: "from KSh 2,500" },
   { icon: <><rect x="2" y="7" width="16" height="10" rx="2"></rect><path d="M22 11v2M10 10v4"></path></>, title: "Battery & charging", desc: "Dies by noon, won't hold charge, loose charging port.", price: "from KSh 1,200" },
   { icon: <path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5S12.5 4 12 2c-.5 2-2 4-4 5.5S5 13 5 15a7 7 0 0 0 7 7z"></path>, title: "Water damage", desc: "Ultrasonic board cleaning and component-level drying. Bring it in fast.", price: "from KSh 2,000" },
@@ -74,7 +88,7 @@ function Star() {
   );
 }
 
-export default function Home() {
+const Home: NextPageWithTitle = () => {
   const router = useRouter();
   const { addTo } = useCart();
   const featured = PRODUCTS.filter((p) => FEATURED_IDS.includes(p.id));
@@ -265,6 +279,8 @@ export default function Home() {
       </section>
     </div>
   );
-}
+};
 
 Home.pageTitle = "BEAPS Mobile Fix — Phone repairs, Nairobi CBD";
+
+export default Home;

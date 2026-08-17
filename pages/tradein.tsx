@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { TI_DEVICES, TI_CONDS, chipStyle, money, round100 } from "../lib/data";
 import { autoFit } from "../lib/style";
+import type { NextPageWithTitle } from "../lib/types";
 
-export default function Tradein() {
-  const [tiDev, setTiDev] = useState(null);
-  const [tiCond, setTiCond] = useState(null);
+const Tradein: NextPageWithTitle = () => {
+  const [tiDev, setTiDev] = useState<string | null>(null);
+  const [tiCond, setTiCond] = useState<string | null>(null);
 
   const selectedDevice = TI_DEVICES.find((d) => d.id === tiDev);
   const selectedCond = TI_CONDS.find((c) => c.id === tiCond);
@@ -54,6 +55,8 @@ export default function Tradein() {
       </div>
     </div>
   );
-}
+};
 
 Tradein.pageTitle = "Trade-in — BEAPS Mobile Fix";
+
+export default Tradein;

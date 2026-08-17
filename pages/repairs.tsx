@@ -1,7 +1,8 @@
 import { useRouter } from "next/router";
 import { REPAIRS, money } from "../lib/data";
+import type { NextPageWithTitle } from "../lib/types";
 
-export default function Repairs() {
+const Repairs: NextPageWithTitle = () => {
   const router = useRouter();
 
   return (
@@ -44,6 +45,8 @@ export default function Repairs() {
       </div>
     </div>
   );
-}
+};
 
 Repairs.pageTitle = "Repairs & prices — BEAPS Mobile Fix";
+
+export default Repairs;

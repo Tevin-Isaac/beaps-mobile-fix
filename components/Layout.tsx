@@ -1,9 +1,15 @@
 import Head from "next/head";
+import { ReactNode } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import CartDrawer from "./CartDrawer";
 
-export default function Layout({ children, title = "BEAPS Mobile Fix — Phone repairs, Nairobi CBD" }) {
+interface LayoutProps {
+  children: ReactNode;
+  title?: string;
+}
+
+export default function Layout({ children, title = "BEAPS Mobile Fix — Phone repairs, Nairobi CBD" }: LayoutProps) {
   return (
     <>
       <Head>

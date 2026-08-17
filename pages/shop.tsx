@@ -2,8 +2,9 @@ import { useMemo, useState } from "react";
 import { PRODUCTS, money, chipStyle } from "../lib/data";
 import { useCart } from "../context/CartContext";
 import { autoFit } from "../lib/style";
+import type { NextPageWithTitle } from "../lib/types";
 
-export default function Shop() {
+const Shop: NextPageWithTitle = () => {
   const { addTo } = useCart();
   const [cat, setCat] = useState("All");
 
@@ -43,6 +44,8 @@ export default function Shop() {
       </div>
     </div>
   );
-}
+};
 
 Shop.pageTitle = "Shop — BEAPS Mobile Fix";
+
+export default Shop;

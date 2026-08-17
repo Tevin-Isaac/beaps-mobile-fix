@@ -1,8 +1,10 @@
+import type { Product, Repair, DeviceOption, IssueOption, TiDeviceOption, TiCondOption, TimelineStep } from "./types";
+
 export const PHONE_DISPLAY = "0720 668 668";
 export const PHONE_TEL = "+254720668668";
 export const WHATSAPP_NUMBER = "254720668668";
 
-export const PRODUCTS = [
+export const PRODUCTS: Product[] = [
   { id: "p1", name: "Samsung Galaxy A05", cat: "New phones", price: 14500, tag: "New", note: '6.7" display, 5000mAh, sealed box' },
   { id: "p2", name: "Redmi 13C", cat: "New phones", price: 13900, tag: "New", note: "Dual SIM, 128GB storage" },
   { id: "p3", name: "Tecno Spark 20", cat: "New phones", price: 15200, tag: "New", note: "Popular pick for students" },
@@ -25,7 +27,7 @@ export const PRODUCTS = [
 
 export const FEATURED_IDS = ["p6", "p4", "p8", "p13"];
 
-export const REPAIRS = [
+export const REPAIRS: Repair[] = [
   { name: "Screen replacement", covers: "Cracked glass, dead touch, lines or black display", price: 2500, eta: "45–90 min" },
   { name: "Battery replacement", covers: "Fast drain, sudden shutdowns, swollen battery", price: 1500, eta: "30–60 min" },
   { name: "Charging port", covers: "Loose cable, slow or no charging, port cleaning", price: 1200, eta: "45 min" },
@@ -39,7 +41,7 @@ export const REPAIRS = [
   { name: "Laptop repairs", covers: "Screens, keyboards, hinges, fans and upgrades", price: 3000, eta: "1–3 days" },
 ];
 
-export const DEVICES = [
+export const DEVICES: DeviceOption[] = [
   { id: "budget", label: "Android — everyday", ex: "Tecno, Infinix, Redmi, itel", mult: 1 },
   { id: "flagship", label: "Android — flagship", ex: "Samsung S/Note, Pixel, Huawei P", mult: 1.8 },
   { id: "iphone", label: "iPhone", ex: "iPhone 8 through 15 Pro Max", mult: 2.4 },
@@ -48,7 +50,7 @@ export const DEVICES = [
   { id: "other", label: "Something else", ex: "Smartwatch, feature phone, console", mult: 1.4 },
 ];
 
-export const ISSUES = [
+export const ISSUES: IssueOption[] = [
   { id: "screen", label: "Cracked screen", base: 2500 },
   { id: "battery", label: "Battery", base: 1500 },
   { id: "port", label: "Charging port", base: 1200 },
@@ -60,34 +62,34 @@ export const ISSUES = [
   { id: "board", label: "Not powering on", base: 3500 },
 ];
 
-export const TI_DEVICES = [
+export const TI_DEVICES: TiDeviceOption[] = [
   { id: "android", label: "Android — everyday", ex: "Tecno, Infinix, Redmi", base: 4000 },
   { id: "flagship", label: "Android — flagship", ex: "Samsung S series, Pixel", base: 14000 },
   { id: "iphone", label: "iPhone", ex: "iPhone 8 and newer", base: 18000 },
 ];
 
-export const TI_CONDS = [
+export const TI_CONDS: TiCondOption[] = [
   { id: "mint", label: "Like new", mult: 1 },
   { id: "good", label: "Good, minor marks", mult: 0.78 },
   { id: "cracked", label: "Cracked screen", mult: 0.5 },
   { id: "dead", label: "Not switching on", mult: 0.28 },
 ];
 
-export const TIMELINE = [
+export const TIMELINE: TimelineStep[] = [
   { step: "Received at the bench", detail: "Drop-off logged, free diagnostic queued", at: "09:12" },
   { step: "Diagnostic complete", detail: "Display assembly faulty, board healthy. Quote approved by SMS.", at: "09:48" },
   { step: "In repair", detail: "Original-grade panel being fitted by John K.", at: "11:20" },
   { step: "Testing & collection", detail: "Touch, camera, speaker and charge test before handover", at: "Pending" },
 ];
 
-export const money = (n) => n.toLocaleString("en-KE");
-export const round100 = (n) => Math.round(n / 100) * 100;
+export const money = (n: number): string => n.toLocaleString("en-KE");
+export const round100 = (n: number): number => Math.round(n / 100) * 100;
 
-export function whatsappLink(text) {
+export function whatsappLink(text: string): string {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
 }
 
-export function chipStyle(active) {
+export function chipStyle(active: boolean): { borderColor: string; background: string } {
   return active
     ? { borderColor: "var(--brand-solid)", background: "var(--brand-tint-strong)" }
     : { borderColor: "var(--border-default)", background: "var(--surface-raised)" };

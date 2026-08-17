@@ -1,18 +1,19 @@
 import { useRef, useState } from "react";
 import { DEVICES, ISSUES, chipStyle, money, round100, whatsappLink } from "../lib/data";
 import { autoFit } from "../lib/style";
+import type { NextPageWithTitle, Booking } from "../lib/types";
 
-export default function Quote() {
-  const [dev, setDev] = useState(null);
-  const [issue, setIssue] = useState(null);
+const Quote: NextPageWithTitle = () => {
+  const [dev, setDev] = useState<string | null>(null);
+  const [issue, setIssue] = useState<string | null>(null);
   const [booked, setBooked] = useState(false);
-  const [booking, setBooking] = useState(null);
+  const [booking, setBooking] = useState<Booking | null>(null);
 
-  const nameRef = useRef(null);
-  const phoneRef = useRef(null);
-  const modelRef = useRef(null);
-  const dateRef = useRef(null);
-  const timeRef = useRef(null);
+  const nameRef = useRef<HTMLInputElement>(null);
+  const phoneRef = useRef<HTMLInputElement>(null);
+  const modelRef = useRef<HTMLInputElement>(null);
+  const dateRef = useRef<HTMLInputElement>(null);
+  const timeRef = useRef<HTMLSelectElement>(null);
 
   const selectedDevice = DEVICES.find((d) => d.id === dev);
   const selectedIssue = ISSUES.find((i) => i.id === issue);
@@ -26,7 +27,7 @@ export default function Quote() {
   }
 
   const book = () => {
-    const b = {
+    const b: Booking = {
       name: nameRef.current?.value || "Walk-in",
       phone: phoneRef.current?.value || "",
       model: modelRef.current?.value || "device",
@@ -137,6 +138,8 @@ export default function Quote() {
       </div>
     </div>
   );
-}
+};
 
 Quote.pageTitle = "Instant quote — BEAPS Mobile Fix";
+
+export default Quote;

@@ -4,7 +4,7 @@ import { autoFit } from "../lib/style";
 
 export default function Footer() {
   const router = useRouter();
-  const go = (href) => () => router.push(href);
+  const go = (href: string) => () => router.push(href);
 
   return (
     <footer style={{ borderTop: "1px solid var(--border-subtle)", background: "var(--surface-sunken)", position: "relative", zIndex: 1 }}>

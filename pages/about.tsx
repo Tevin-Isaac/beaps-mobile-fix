@@ -1,4 +1,5 @@
 import { autoFit } from "../lib/style";
+import type { NextPageWithTitle } from "../lib/types";
 
 const STATS = [
   { n: "8", label: "Years on Kimathi St" },
@@ -12,7 +13,7 @@ const VALUES = [
   { title: "Written warranty", desc: "Every repair leaves with a slip: what was done, which part, and how long it is covered." },
 ];
 
-export default function About() {
+const About: NextPageWithTitle = () => {
   return (
     <div data-screen-label="About" style={{ maxWidth: 1180, margin: "0 auto", padding: "56px 20px 72px" }}>
       <div style={{ display: "grid", gridTemplateColumns: autoFit(360), gap: 44, alignItems: "center" }}>
@@ -48,6 +49,8 @@ export default function About() {
       </div>
     </div>
   );
-}
+};
 
 About.pageTitle = "About — BEAPS Mobile Fix";
+
+export default About;
