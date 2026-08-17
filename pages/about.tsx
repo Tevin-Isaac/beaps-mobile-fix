@@ -35,8 +35,12 @@ const About: NextPageWithTitle = () => {
             ))}
           </div>
         </div>
-        <div className="visual-box" style={{ width: "100%", border: "1px solid var(--border-default)", borderRadius: 24, overflow: "hidden", background: "var(--surface-card)", display: "flex", alignItems: "center", justifyContent: "center", padding: 20, textAlign: "center", color: "var(--text-tertiary)", fontSize: 13 }}>
-          Drop a photo of the shop or the team
+        <div className="visual-box" style={{ width: "100%", border: "1px solid var(--border-default)", borderRadius: 24, overflow: "hidden", background: "var(--surface-card)" }}>
+          <img
+            src="/about-shop.jpg"
+            alt="A BEAPS Mobile Fix technician repairing a phone at the workbench"
+            style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 20%" }}
+          />
         </div>
       </div>
 
