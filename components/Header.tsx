@@ -25,6 +25,7 @@ export default function Header() {
 
   return (
     <header
+      className="animate-fade-in"
       style={{
         position: "sticky",
         top: 0,
@@ -35,7 +36,7 @@ export default function Header() {
       }}
     >
       <div style={{ maxWidth: 1180, margin: "0 auto", padding: "12px 20px", display: "flex", alignItems: "center", gap: 14 }}>
-        <Link href="/" style={{ display: "flex", alignItems: "center", gap: 10, cursor: "pointer", flexShrink: 0 }}>
+        <Link href="/" className="animate-slide-left delay-200" style={{ display: "flex", alignItems: "center", gap: 10, cursor: "pointer", flexShrink: 0 }}>
           <img
             src="/logo.png"
             alt="BEAPS Mobile Fix"
@@ -51,7 +52,7 @@ export default function Header() {
           </div>
         </Link>
 
-        <nav className="nav-desktop" style={{ alignItems: "center", gap: 4, marginLeft: "auto", flexWrap: "nowrap", minWidth: 0 }}>
+        <nav className="nav-desktop animate-fade-in delay-400" style={{ alignItems: "center", gap: 4, marginLeft: "auto", flexWrap: "nowrap", minWidth: 0 }}>
           {NAV_LINKS.map((l) => (
             <Link key={l.href} href={l.href} className={`nav-link${router.pathname === l.href ? " is-active" : ""}`}>
               {l.label}
@@ -59,7 +60,7 @@ export default function Header() {
           ))}
         </nav>
 
-        <div style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0, marginLeft: "auto" }}>
+        <div className="animate-slide-right delay-300" style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0, marginLeft: "auto" }}>
           <button
             type="button"
             className="icon-btn nav-toggle"

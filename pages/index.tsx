@@ -4,6 +4,7 @@ import { useCart } from "../context/CartContext";
 import { FEATURED_IDS, PRODUCTS, money } from "../lib/data";
 import { autoFit } from "../lib/style";
 import type { NextPageWithTitle } from "../lib/types";
+import WordReveal from "../components/WordReveal";
 
 interface FeatureItem {
   icon: ReactNode;
@@ -97,14 +98,18 @@ const Home: NextPageWithTitle = () => {
     <div data-screen-label="Home">
       <section style={{ maxWidth: 1180, margin: "0 auto", padding: "64px 20px 40px", display: "grid", gridTemplateColumns: autoFit(400), gap: 48, alignItems: "center" }}>
         <div>
-          <div style={{ display: "inline-flex", alignItems: "center", gap: 9, padding: "7px 14px", borderRadius: 999, background: "var(--brand-tint)", border: "1px solid var(--orange-a20)", fontSize: 12, color: "var(--orange-300)", letterSpacing: "0.02em" }}>
+          <div className="animate-fade-in" style={{ display: "inline-flex", alignItems: "center", gap: 9, padding: "7px 14px", borderRadius: 999, background: "var(--brand-tint)", border: "1px solid var(--orange-a20)", fontSize: 12, color: "var(--orange-300)", letterSpacing: "0.02em" }}>
             Open now · Kimathi St, Nairobi CBD
           </div>
-          <h1 style={{ margin: "20px 0 0", fontSize: "clamp(34px, 5.4vw, 60px)", lineHeight: 1.04, fontWeight: 700, letterSpacing: "-0.032em" }}>Cracked screen at 9. Fixed by lunch.</h1>
-          <p style={{ margin: "20px 0 0", fontSize: 18, lineHeight: 1.55, color: "var(--text-secondary)", maxWidth: 520 }}>
+          <h1 style={{ margin: "20px 0 0", fontSize: "clamp(34px, 5.4vw, 60px)", lineHeight: 1.04, fontWeight: 700, letterSpacing: "-0.032em" }}>
+            <WordReveal text="Cracked screen at 9." startDelay={0.3} />
+            <br />
+            <WordReveal text="Fixed by lunch." startDelay={0.7} />
+          </h1>
+          <p className="animate-fade-up delay-900" style={{ margin: "20px 0 0", fontSize: 18, lineHeight: 1.55, color: "var(--text-secondary)", maxWidth: 520 }}>
             Certified technicians, genuine parts and a warranty on every repair — plus phones, power banks and accessories from the same counter. Free diagnostics, walk in without an appointment.
           </p>
-          <div style={{ display: "flex", gap: 12, marginTop: 30, flexWrap: "wrap" }}>
+          <div className="animate-fade-up delay-900" style={{ display: "flex", gap: 12, marginTop: 30, flexWrap: "wrap" }}>
             <button type="button" className="btn-solid" onClick={() => router.push("/quote")}>
               Get an instant quote
               <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
@@ -119,7 +124,7 @@ const Home: NextPageWithTitle = () => {
               Book a time
             </button>
           </div>
-          <div style={{ display: "flex", gap: 26, marginTop: 34, flexWrap: "wrap" }}>
+          <div className="animate-fade-up delay-900" style={{ display: "flex", gap: 26, marginTop: 34, flexWrap: "wrap" }}>
             <div>
               <div style={{ fontFamily: "'Geist Mono', monospace", fontSize: 24, fontWeight: 600, letterSpacing: "-0.02em", color: "var(--orange-400)" }}>45 min</div>
               <div style={{ fontSize: 12, color: "var(--text-tertiary)", marginTop: 3 }}>Average screen swap</div>
@@ -136,7 +141,7 @@ const Home: NextPageWithTitle = () => {
             </div>
           </div>
         </div>
-        <div style={{ position: "relative" }}>
+        <div className="animate-scale-in delay-700" style={{ position: "relative" }}>
           <div style={{ position: "absolute", inset: -40, background: "radial-gradient(circle at 60% 40%, rgba(31,161,58,0.28), transparent 65%)", pointerEvents: "none" }} />
           <div className="visual-box" style={{ position: "relative", width: "100%", border: "1px solid var(--border-default)", borderRadius: 18, overflow: "hidden", background: "var(--surface-card)", display: "flex", alignItems: "center", justifyContent: "center", padding: 20, textAlign: "center", color: "var(--text-tertiary)", fontSize: 13 }}>
             Drop a photo of the bench / a repair in progress
