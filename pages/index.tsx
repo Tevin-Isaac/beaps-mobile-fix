@@ -143,8 +143,12 @@ const Home: NextPageWithTitle = () => {
         </div>
         <div className="animate-scale-in delay-700" style={{ position: "relative" }}>
           <div style={{ position: "absolute", inset: -40, background: "radial-gradient(circle at 60% 40%, rgba(31,161,58,0.28), transparent 65%)", pointerEvents: "none" }} />
-          <div className="visual-box" style={{ position: "relative", width: "100%", border: "1px solid var(--border-default)", borderRadius: 18, overflow: "hidden", background: "var(--surface-card)", display: "flex", alignItems: "center", justifyContent: "center", padding: 20, textAlign: "center", color: "var(--text-tertiary)", fontSize: 13 }}>
-            Drop a photo of the bench / a repair in progress
+          <div className="visual-box" style={{ position: "relative", width: "100%", border: "1px solid var(--border-default)", borderRadius: 18, overflow: "hidden", background: "var(--surface-card)" }}>
+            <img
+              src="/hero-repair.jpg"
+              alt="Technician repairing a phone at the BEAPS Mobile Fix bench"
+              style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }}
+            />
           </div>
           <div className="hero-badge" style={{ position: "absolute", bottom: -18, left: -18, display: "flex", alignItems: "center", gap: 10, padding: "12px 16px", borderRadius: 14, background: "rgba(20,20,20,0.9)", backdropFilter: "blur(12px)", border: "1px solid var(--border-default)" }}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--orange-400)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
