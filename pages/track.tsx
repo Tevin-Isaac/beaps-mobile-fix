@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { TIMELINE } from "../lib/data";
 import type { NextPageWithTitle } from "../lib/types";
+import Reveal from "../components/Reveal";
 
 type TrackStatus = "found" | "missing" | null;
 
@@ -21,8 +22,8 @@ const Track: NextPageWithTitle = () => {
 
   return (
     <div data-screen-label="Track repair" style={{ maxWidth: 760, margin: "0 auto", padding: "56px 20px 72px" }}>
-      <h1 style={{ margin: 0, fontSize: "clamp(30px, 4.6vw, 48px)", fontWeight: 700, letterSpacing: "-0.032em" }}>Track your repair</h1>
-      <p style={{ margin: "14px 0 0", fontSize: 17, color: "var(--text-secondary)" }}>
+      <h1 className="animate-fade-up" style={{ margin: 0, fontSize: "clamp(30px, 4.6vw, 48px)", fontWeight: 700, letterSpacing: "-0.032em" }}>Track your repair</h1>
+      <p className="animate-fade-up delay-200" style={{ margin: "14px 0 0", fontSize: 17, color: "var(--text-secondary)" }}>
         Enter the ticket number on your drop-off slip. Try <span style={{ fontFamily: "'Geist Mono', monospace", color: "var(--orange-400)" }}>BMF-1042</span>.
       </p>
 
@@ -32,6 +33,7 @@ const Track: NextPageWithTitle = () => {
       </div>
 
       {status === "found" && (
+        <Reveal>
         <div style={{ marginTop: 26, padding: 26, border: "1px solid var(--border-subtle)", borderRadius: 24, background: "var(--surface-card)" }}>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, flexWrap: "wrap" }}>
             <div>
@@ -63,12 +65,15 @@ const Track: NextPageWithTitle = () => {
             <a href="https://wa.me/254720668668" target="_blank" rel="noreferrer" className="btn-outline sm">Ask the technician</a>
           </div>
         </div>
+        </Reveal>
       )}
 
       {status === "missing" && (
+        <Reveal>
         <div style={{ marginTop: 26, padding: 22, border: "1px solid var(--border-default)", borderRadius: 18, background: "var(--surface-card)", fontSize: 14, color: "var(--text-secondary)" }}>
           No repair found for that number. Check the slip, or WhatsApp us on 0720 668 668 and we will look it up.
         </div>
+        </Reveal>
       )}
     </div>
   );

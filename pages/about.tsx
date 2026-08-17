@@ -1,5 +1,6 @@
 import { autoFit } from "../lib/style";
 import type { NextPageWithTitle } from "../lib/types";
+import Reveal from "../components/Reveal";
 
 const STATS = [
   { n: "8", label: "Years on Kimathi St" },
@@ -18,11 +19,11 @@ const About: NextPageWithTitle = () => {
     <div data-screen-label="About" style={{ maxWidth: 1180, margin: "0 auto", padding: "56px 20px 72px" }}>
       <div style={{ display: "grid", gridTemplateColumns: autoFit(360), gap: 44, alignItems: "center" }}>
         <div>
-          <h1 style={{ margin: 0, fontSize: "clamp(30px, 4.6vw, 48px)", fontWeight: 700, letterSpacing: "-0.032em" }}>A bench, not a counter</h1>
-          <p style={{ margin: "18px 0 0", fontSize: 17, lineHeight: 1.6, color: "var(--text-secondary)" }}>
+          <h1 className="animate-fade-up" style={{ margin: 0, fontSize: "clamp(30px, 4.6vw, 48px)", fontWeight: 700, letterSpacing: "-0.032em" }}>A bench, not a counter</h1>
+          <p className="animate-fade-up delay-200" style={{ margin: "18px 0 0", fontSize: 17, lineHeight: 1.6, color: "var(--text-secondary)" }}>
             BEAPS Mobile Fix has worked out of the Old Mutual Building on Kimathi Street for eight years. Most of what walks through the door is a cracked screen, a tired battery or a phone that met the rain — and most of it leaves the same day.
           </p>
-          <p style={{ margin: "14px 0 0", fontSize: 17, lineHeight: 1.6, color: "var(--text-secondary)" }}>
+          <p className="animate-fade-up delay-300" style={{ margin: "14px 0 0", fontSize: 17, lineHeight: 1.6, color: "var(--text-secondary)" }}>
             We are certified technicians who fit genuine parts, show you the part that came out, and put a 90-day warranty in writing. When a board is beyond economical repair we say so instead of billing you for hope. The same bench sells phones, power banks and accessories, so you can walk out working rather than waiting.
           </p>
           <div style={{ display: "grid", gridTemplateColumns: autoFit(120), gap: 18, marginTop: 30 }}>
@@ -39,6 +40,7 @@ const About: NextPageWithTitle = () => {
         </div>
       </div>
 
+      <Reveal>
       <div style={{ display: "grid", gridTemplateColumns: autoFit(240), gap: 14, marginTop: 44 }}>
         {VALUES.map((v) => (
           <div key={v.title} style={{ padding: 22, border: "1px solid var(--border-subtle)", borderRadius: 18, background: "var(--surface-card)" }}>
@@ -47,6 +49,7 @@ const About: NextPageWithTitle = () => {
           </div>
         ))}
       </div>
+      </Reveal>
     </div>
   );
 };

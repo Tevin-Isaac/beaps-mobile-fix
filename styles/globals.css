@@ -118,6 +118,9 @@
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.45);
   --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.5);
   --shadow-lg: 0 14px 40px rgba(0, 0, 0, 0.6);
+
+  --header-bg: rgba(10, 10, 10, 0.72);
+  --scrim-bg: rgba(5, 5, 5, 0.72);
 }
 
 *,
@@ -178,6 +181,53 @@ a {
 a:hover {
   color: var(--orange-300);
 }
+
+/* ---- Light mode override ---- */
+html.theme-light {
+  --surface-base: #fbfaf6;
+  --surface-sunken: #f2f0ea;
+  --surface-card: #ffffff;
+  --surface-raised: #f5f4ef;
+  --surface-elevated: #ebe9e2;
+  --surface-overlay: rgba(255, 255, 255, 0.85);
+
+  --text-primary: #14140f;
+  --text-secondary: #5c5c52;
+  --text-tertiary: #85857a;
+  --text-disabled: #b8b8ac;
+  --text-inverse: #ffffff;
+
+  --border-subtle: rgba(0, 0, 0, 0.07);
+  --border-default: rgba(0, 0, 0, 0.13);
+  --border-strong: rgba(0, 0, 0, 0.2);
+
+  /* Hover/overlay tints used throughout components: darken instead of lighten */
+  --white-a04: rgba(0, 0, 0, 0.035);
+  --white-a06: rgba(0, 0, 0, 0.05);
+  --white-a08: rgba(0, 0, 0, 0.07);
+  --white-a12: rgba(0, 0, 0, 0.1);
+  --white-a18: rgba(0, 0, 0, 0.15);
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 14px 40px rgba(0, 0, 0, 0.14);
+
+  --header-bg: rgba(251, 250, 246, 0.82);
+  --scrim-bg: rgba(20, 20, 15, 0.4);
+}
+
+html,
+body {
+  transition: background-color 0.25s ease;
+}
+body,
+.icon-btn,
+.btn-outline,
+.card,
+.product-card,
+header {
+  transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+}
 input,
 select,
 textarea,
@@ -222,15 +272,9 @@ button {
   background: var(--white-a06);
 }
 
-/* ---- Header responsiveness: pill nav on desktop, hamburger on mobile ---- */
+/* ---- Header responsiveness: pill nav on desktop only; mobile uses the bottom tab bar ---- */
 .nav-desktop {
   display: flex;
-}
-.nav-toggle {
-  display: none;
-}
-.nav-mobile-panel {
-  display: none;
 }
 .call-btn-label {
   display: inline;
@@ -239,30 +283,6 @@ button {
 @media (max-width: 860px) {
   .nav-desktop {
     display: none;
-  }
-  .nav-toggle {
-    display: flex;
-  }
-  .nav-mobile-panel {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    padding: 8px 16px 16px;
-    border-top: 1px solid var(--border-subtle);
-  }
-  .nav-mobile-link {
-    padding: 13px 10px;
-    border-radius: 12px;
-    font-size: 15px;
-    color: var(--text-secondary);
-    min-height: var(--tap-min, 48px);
-    display: flex;
-    align-items: center;
-  }
-  .nav-mobile-link:hover,
-  .nav-mobile-link.is-active {
-    background: var(--white-a06);
-    color: var(--text-primary);
   }
 }
 
@@ -274,6 +294,87 @@ button {
     width: 44px;
     padding: 0;
   }
+}
+
+/* ---- Bottom tab bar (mobile only) ---- */
+.bottom-nav {
+  display: none;
+}
+
+@media (max-width: 860px) {
+  .bottom-nav {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 45;
+    height: 64px;
+    align-items: stretch;
+    background: var(--header-bg);
+    backdrop-filter: blur(16px);
+    border-top: 1px solid var(--border-subtle);
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+  .bottom-nav-spacer {
+    display: block;
+    height: 64px;
+  }
+}
+
+.bottom-nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  background: none;
+  border: none;
+  color: var(--text-tertiary);
+  font-size: 10px;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+.bottom-nav-item.is-active {
+  color: var(--brand-solid);
+}
+.bottom-nav-item:hover {
+  color: var(--text-primary);
+}
+
+.more-sheet-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: var(--scrim-bg);
+  backdrop-filter: blur(4px);
+}
+.more-sheet {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 61;
+  background: var(--surface-card);
+  border-top: 1px solid var(--border-default);
+  border-radius: 20px 20px 0 0;
+  padding: 10px 16px calc(16px + env(safe-area-inset-bottom, 0));
+  animation: fadeUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.more-sheet-link {
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 0 10px;
+  border-radius: 12px;
+  font-size: 16px;
+  color: var(--text-primary);
+}
+.more-sheet-link:hover,
+.more-sheet-link.is-active {
+  background: var(--white-a06);
 }
 
 .icon-btn {

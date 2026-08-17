@@ -6,7 +6,7 @@ export default function CartDrawer() {
   if (!cartOpen) return null;
 
   return (
-    <div style={{ position: "fixed", inset: 0, zIndex: 60, background: "rgba(5,5,5,0.72)", backdropFilter: "blur(6px)", display: "flex", justifyContent: "flex-end" }}>
+    <div style={{ position: "fixed", inset: 0, zIndex: 60, background: "var(--scrim-bg)", backdropFilter: "blur(6px)", display: "flex", justifyContent: "flex-end" }}>
       <div onClick={toggleCart} style={{ position: "absolute", inset: 0 }} />
       <div
         style={{

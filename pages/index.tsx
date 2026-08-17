@@ -5,6 +5,7 @@ import { FEATURED_IDS, PRODUCTS, money } from "../lib/data";
 import { autoFit } from "../lib/style";
 import type { NextPageWithTitle } from "../lib/types";
 import WordReveal from "../components/WordReveal";
+import Reveal from "../components/Reveal";
 
 interface FeatureItem {
   icon: ReactNode;
@@ -98,10 +99,7 @@ const Home: NextPageWithTitle = () => {
     <div data-screen-label="Home">
       <section style={{ maxWidth: 1180, margin: "0 auto", padding: "64px 20px 40px", display: "grid", gridTemplateColumns: autoFit(400), gap: 48, alignItems: "center" }}>
         <div>
-          <div className="animate-fade-in" style={{ display: "inline-flex", alignItems: "center", gap: 9, padding: "7px 14px", borderRadius: 999, background: "var(--brand-tint)", border: "1px solid var(--orange-a20)", fontSize: 12, color: "var(--orange-300)", letterSpacing: "0.02em" }}>
-            Open now · Kimathi St, Nairobi CBD
-          </div>
-          <h1 style={{ margin: "20px 0 0", fontSize: "clamp(34px, 5.4vw, 60px)", lineHeight: 1.04, fontWeight: 700, letterSpacing: "-0.032em" }}>
+          <h1 style={{ margin: 0, fontSize: "clamp(34px, 5.4vw, 60px)", lineHeight: 1.04, fontWeight: 700, letterSpacing: "-0.032em" }}>
             <WordReveal text="Cracked screen?" startDelay={0.3} />
             <br />
             <WordReveal text="Walk out fixed today." startDelay={0.5} />
@@ -163,6 +161,7 @@ const Home: NextPageWithTitle = () => {
         </div>
       </section>
 
+      <Reveal>
       <section style={{ maxWidth: 1180, margin: "0 auto", padding: "24px 20px" }}>
         <div style={{ display: "grid", gridTemplateColumns: autoFit(220), gap: 14 }}>
           {FEATURES.map((f) => (
@@ -175,7 +174,9 @@ const Home: NextPageWithTitle = () => {
           ))}
         </div>
       </section>
+      </Reveal>
 
+      <Reveal>
       <section style={{ maxWidth: 1180, margin: "0 auto", padding: "48px 20px 24px" }}>
         <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 20, flexWrap: "wrap" }}>
           <div>
@@ -201,7 +202,9 @@ const Home: NextPageWithTitle = () => {
           ))}
         </div>
       </section>
+      </Reveal>
 
+      <Reveal>
       <section style={{ maxWidth: 1180, margin: "0 auto", padding: "48px 20px 24px" }}>
         <div style={{ border: "1px solid var(--border-subtle)", borderRadius: 24, background: "var(--surface-card)", padding: 34 }}>
           <h2 style={{ margin: 0, fontSize: "clamp(26px, 3.4vw, 34px)", fontWeight: 600, letterSpacing: "-0.03em" }}>How it works</h2>
@@ -216,7 +219,9 @@ const Home: NextPageWithTitle = () => {
           </div>
         </div>
       </section>
+      </Reveal>
 
+      <Reveal>
       <section style={{ maxWidth: 1180, margin: "0 auto", padding: "48px 20px 24px" }}>
         <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 20, flexWrap: "wrap" }}>
           <div>
@@ -242,7 +247,9 @@ const Home: NextPageWithTitle = () => {
           ))}
         </div>
       </section>
+      </Reveal>
 
+      <Reveal>
       <section style={{ maxWidth: 1180, margin: "0 auto", padding: "48px 20px 24px" }}>
         <h2 style={{ margin: 0, fontSize: "clamp(26px, 3.4vw, 34px)", fontWeight: 600, letterSpacing: "-0.03em" }}>What customers say</h2>
         <div style={{ display: "grid", gridTemplateColumns: autoFit(280), gap: 14, marginTop: 22 }}>
@@ -259,7 +266,9 @@ const Home: NextPageWithTitle = () => {
           ))}
         </div>
       </section>
+      </Reveal>
 
+      <Reveal>
       <section style={{ maxWidth: 1180, margin: "0 auto", padding: "48px 20px 72px" }}>
         <div
           style={{
@@ -286,6 +295,7 @@ const Home: NextPageWithTitle = () => {
           </div>
         </div>
       </section>
+      </Reveal>
     </div>
   );
 };

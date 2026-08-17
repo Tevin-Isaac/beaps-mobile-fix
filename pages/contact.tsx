@@ -1,10 +1,12 @@
 import { autoFit } from "../lib/style";
 import type { NextPageWithTitle } from "../lib/types";
+import Reveal from "../components/Reveal";
 
 const Contact: NextPageWithTitle = () => {
   return (
     <div data-screen-label="Contact" style={{ maxWidth: 1180, margin: "0 auto", padding: "56px 20px 72px" }}>
-      <h1 style={{ margin: 0, fontSize: "clamp(30px, 4.6vw, 48px)", fontWeight: 700, letterSpacing: "-0.032em" }}>Find us</h1>
+      <h1 className="animate-fade-up" style={{ margin: 0, fontSize: "clamp(30px, 4.6vw, 48px)", fontWeight: 700, letterSpacing: "-0.032em" }}>Find us</h1>
+      <Reveal>
       <div style={{ display: "grid", gridTemplateColumns: autoFit(340), gap: 34, marginTop: 32, alignItems: "start" }}>
         <div style={{ padding: 26, border: "1px solid var(--border-subtle)", borderRadius: 24, background: "var(--surface-card)", display: "flex", flexDirection: "column", gap: 22 }}>
           <div style={{ display: "flex", gap: 14 }}>
@@ -78,6 +80,7 @@ const Contact: NextPageWithTitle = () => {
           </div>
         </div>
       </div>
+      </Reveal>
     </div>
   );
 };

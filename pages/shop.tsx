@@ -3,6 +3,7 @@ import { PRODUCTS, money, chipStyle } from "../lib/data";
 import { useCart } from "../context/CartContext";
 import { autoFit } from "../lib/style";
 import type { NextPageWithTitle } from "../lib/types";
+import Reveal from "../components/Reveal";
 
 const Shop: NextPageWithTitle = () => {
   const { addTo } = useCart();
@@ -13,8 +14,8 @@ const Shop: NextPageWithTitle = () => {
 
   return (
     <div data-screen-label="Shop" style={{ maxWidth: 1180, margin: "0 auto", padding: "56px 20px 72px" }}>
-      <h1 style={{ margin: 0, fontSize: "clamp(30px, 4.6vw, 48px)", fontWeight: 700, letterSpacing: "-0.032em" }}>Shop</h1>
-      <p style={{ margin: "14px 0 0", fontSize: 17, color: "var(--text-secondary)", maxWidth: 620 }}>
+      <h1 className="animate-fade-up" style={{ margin: 0, fontSize: "clamp(30px, 4.6vw, 48px)", fontWeight: 700, letterSpacing: "-0.032em" }}>Shop</h1>
+      <p className="animate-fade-up delay-200" style={{ margin: "14px 0 0", fontSize: 17, color: "var(--text-secondary)", maxWidth: 620 }}>
         Phones, power banks, chargers and everyday accessories. Add what you want, send the order on WhatsApp, and pay on collection or by M-Pesa.
       </p>
 
@@ -26,6 +27,7 @@ const Shop: NextPageWithTitle = () => {
         ))}
       </div>
 
+      <Reveal>
       <div style={{ display: "grid", gridTemplateColumns: autoFit(220), gap: 14, marginTop: 24 }}>
         {shown.map((p) => (
           <div key={p.id} className="product-card">
@@ -42,6 +44,7 @@ const Shop: NextPageWithTitle = () => {
           </div>
         ))}
       </div>
+      </Reveal>
     </div>
   );
 };

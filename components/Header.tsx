@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useCart } from "../context/CartContext";
+import { useTheme } from "../context/ThemeContext";
 import { PHONE_DISPLAY, PHONE_TEL } from "../lib/data";
 
 const NAV_LINKS = [
@@ -17,11 +17,7 @@ const NAV_LINKS = [
 export default function Header() {
   const router = useRouter();
   const { cartCount, hasCart, toggleCart } = useCart();
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  useEffect(() => {
-    setMenuOpen(false);
-  }, [router.pathname]);
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <header
@@ -31,7 +27,7 @@ export default function Header() {
         top: 0,
         zIndex: 40,
         backdropFilter: "blur(16px)",
-        background: "rgba(10,10,10,0.72)",
+        background: "var(--header-bg)",
         borderBottom: "1px solid var(--border-subtle)",
       }}
     >
@@ -63,18 +59,18 @@ export default function Header() {
         <div className="animate-slide-right delay-300" style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0, marginLeft: "auto" }}>
           <button
             type="button"
-            className="icon-btn nav-toggle"
-            aria-label={menuOpen ? "Close menu" : "Open menu"}
-            aria-expanded={menuOpen}
-            onClick={() => setMenuOpen((v) => !v)}
+            className="icon-btn"
+            aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+            onClick={toggleTheme}
           >
-            {menuOpen ? (
+            {theme === "dark" ? (
               <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M18 6 6 18M6 6l12 12"></path>
+                <circle cx="12" cy="12" r="4"></circle>
+                <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
               </svg>
             ) : (
               <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M3 6h18M3 12h18M3 18h18"></path>
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
               </svg>
             )}
           </button>
@@ -116,16 +112,6 @@ export default function Header() {
           </a>
         </div>
       </div>
-
-      {menuOpen && (
-        <nav className="nav-mobile-panel">
-          {NAV_LINKS.map((l) => (
-            <Link key={l.href} href={l.href} className={`nav-mobile-link${router.pathname === l.href ? " is-active" : ""}`}>
-              {l.label}
-            </Link>
-          ))}
-        </nav>
-      )}
     </header>
   );
 }

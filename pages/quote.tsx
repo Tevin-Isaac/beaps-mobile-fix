@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { DEVICES, ISSUES, chipStyle, money, round100, whatsappLink } from "../lib/data";
 import { autoFit } from "../lib/style";
 import type { NextPageWithTitle, Booking } from "../lib/types";
+import Reveal from "../components/Reveal";
 
 const Quote: NextPageWithTitle = () => {
   const [dev, setDev] = useState<string | null>(null);
@@ -49,9 +50,10 @@ const Quote: NextPageWithTitle = () => {
 
   return (
     <div data-screen-label="Instant quote" style={{ maxWidth: 900, margin: "0 auto", padding: "56px 20px 72px" }}>
-      <h1 style={{ margin: 0, fontSize: "clamp(30px, 4.6vw, 48px)", fontWeight: 700, letterSpacing: "-0.032em" }}>Instant quote</h1>
-      <p style={{ margin: "14px 0 0", fontSize: 17, color: "var(--text-secondary)" }}>Two taps for an estimate range, then book a time if it works for you.</p>
+      <h1 className="animate-fade-up" style={{ margin: 0, fontSize: "clamp(30px, 4.6vw, 48px)", fontWeight: 700, letterSpacing: "-0.032em" }}>Instant quote</h1>
+      <p className="animate-fade-up delay-200" style={{ margin: "14px 0 0", fontSize: 17, color: "var(--text-secondary)" }}>Two taps for an estimate range, then book a time if it works for you.</p>
 
+      <Reveal>
       <div style={{ marginTop: 32, padding: 26, border: "1px solid var(--border-subtle)", borderRadius: 24, background: "var(--surface-card)" }}>
         <div style={{ fontFamily: "'Geist Mono', monospace", fontSize: 12, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--text-tertiary)" }}>Step 01 — your device</div>
         <div style={{ display: "grid", gridTemplateColumns: autoFit(200), gap: 12, marginTop: 14 }}>
@@ -78,7 +80,9 @@ const Quote: NextPageWithTitle = () => {
           <div style={{ fontSize: 13, color: "var(--text-tertiary)", marginTop: 8 }}>Confirmed after a free diagnostic. Parts carry a 90-day warranty.</div>
         </div>
       </div>
+      </Reveal>
 
+      <Reveal delay={0.1}>
       <div style={{ marginTop: 20, padding: 26, border: "1px solid var(--border-subtle)", borderRadius: 24, background: "var(--surface-card)" }}>
         <div style={{ fontFamily: "'Geist Mono', monospace", fontSize: 12, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--text-tertiary)" }}>Step 03 — book a time</div>
 
@@ -136,6 +140,7 @@ const Quote: NextPageWithTitle = () => {
           </div>
         )}
       </div>
+      </Reveal>
     </div>
   );
 };

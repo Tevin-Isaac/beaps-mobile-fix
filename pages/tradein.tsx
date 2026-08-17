@@ -2,6 +2,7 @@ import { useState } from "react";
 import { TI_DEVICES, TI_CONDS, chipStyle, money, round100 } from "../lib/data";
 import { autoFit } from "../lib/style";
 import type { NextPageWithTitle } from "../lib/types";
+import Reveal from "../components/Reveal";
 
 const Tradein: NextPageWithTitle = () => {
   const [tiDev, setTiDev] = useState<string | null>(null);
@@ -20,11 +21,12 @@ const Tradein: NextPageWithTitle = () => {
 
   return (
     <div data-screen-label="Trade-in" style={{ maxWidth: 900, margin: "0 auto", padding: "56px 20px 72px" }}>
-      <h1 style={{ margin: 0, fontSize: "clamp(30px, 4.6vw, 48px)", fontWeight: 700, letterSpacing: "-0.032em" }}>Sell or trade in your phone</h1>
-      <p style={{ margin: "14px 0 0", fontSize: 17, color: "var(--text-secondary)", maxWidth: 620 }}>
+      <h1 className="animate-fade-up" style={{ margin: 0, fontSize: "clamp(30px, 4.6vw, 48px)", fontWeight: 700, letterSpacing: "-0.032em" }}>Sell or trade in your phone</h1>
+      <p className="animate-fade-up delay-200" style={{ margin: "14px 0 0", fontSize: 17, color: "var(--text-secondary)", maxWidth: 620 }}>
         We buy working and repairable phones, and take them off the price of anything in the shop. Pick your device and condition for an indicative offer.
       </p>
 
+      <Reveal>
       <div style={{ marginTop: 32, padding: 26, border: "1px solid var(--border-subtle)", borderRadius: 24, background: "var(--surface-card)" }}>
         <div style={{ fontFamily: "'Geist Mono', monospace", fontSize: 12, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--text-tertiary)" }}>Your device</div>
         <div style={{ display: "grid", gridTemplateColumns: autoFit(200), gap: 12, marginTop: 14 }}>
@@ -53,6 +55,7 @@ const Tradein: NextPageWithTitle = () => {
 
         <a href="https://wa.me/254720668668" target="_blank" rel="noreferrer" className="btn-solid md" style={{ marginTop: 20 }}>Send photos on WhatsApp</a>
       </div>
+      </Reveal>
     </div>
   );
 };

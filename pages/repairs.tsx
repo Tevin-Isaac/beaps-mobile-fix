@@ -1,17 +1,19 @@
 import { useRouter } from "next/router";
 import { REPAIRS, money } from "../lib/data";
 import type { NextPageWithTitle } from "../lib/types";
+import Reveal from "../components/Reveal";
 
 const Repairs: NextPageWithTitle = () => {
   const router = useRouter();
 
   return (
     <div data-screen-label="Repairs and prices" style={{ maxWidth: 1180, margin: "0 auto", padding: "56px 20px 72px" }}>
-      <h1 style={{ margin: 0, fontSize: "clamp(30px, 4.6vw, 48px)", fontWeight: 700, letterSpacing: "-0.032em" }}>Repairs &amp; prices</h1>
-      <p style={{ margin: "14px 0 0", fontSize: 17, color: "var(--text-secondary)", maxWidth: 640 }}>
+      <h1 className="animate-fade-up" style={{ margin: 0, fontSize: "clamp(30px, 4.6vw, 48px)", fontWeight: 700, letterSpacing: "-0.032em" }}>Repairs &amp; prices</h1>
+      <p className="animate-fade-up delay-200" style={{ margin: "14px 0 0", fontSize: 17, color: "var(--text-secondary)", maxWidth: 640 }}>
         Every price below is a from-price in Kenya Shillings — the real figure depends on your model and the part grade. Diagnostics are free and we confirm the price before we start.
       </p>
 
+      <Reveal>
       <div style={{ marginTop: 32, border: "1px solid var(--border-subtle)", borderRadius: 18, background: "var(--surface-card)", overflow: "hidden", overflowX: "auto" }}>
         <div style={{ display: "grid", gridTemplateColumns: "1.4fr 1.6fr 0.7fr 0.7fr", minWidth: 680, gap: 16, padding: "14px 20px", borderBottom: "1px solid var(--border-subtle)", fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--text-tertiary)" }}>
           <span>Repair</span>
@@ -28,6 +30,7 @@ const Repairs: NextPageWithTitle = () => {
           </div>
         ))}
       </div>
+      </Reveal>
 
       <div style={{ display: "flex", gap: 12, marginTop: 28, flexWrap: "wrap" }}>
         <button type="button" className="btn-solid md" onClick={() => router.push("/quote")}>Get my exact estimate</button>
