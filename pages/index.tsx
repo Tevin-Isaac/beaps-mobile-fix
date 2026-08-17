@@ -102,12 +102,12 @@ const Home: NextPageWithTitle = () => {
             Open now · Kimathi St, Nairobi CBD
           </div>
           <h1 style={{ margin: "20px 0 0", fontSize: "clamp(34px, 5.4vw, 60px)", lineHeight: 1.04, fontWeight: 700, letterSpacing: "-0.032em" }}>
-            <WordReveal text="Cracked screen at 9." startDelay={0.3} />
+            <WordReveal text="Cracked screen?" startDelay={0.3} />
             <br />
-            <WordReveal text="Fixed by lunch." startDelay={0.7} />
+            <WordReveal text="Walk out fixed today." startDelay={0.5} />
           </h1>
           <p className="animate-fade-up delay-900" style={{ margin: "20px 0 0", fontSize: 18, lineHeight: 1.55, color: "var(--text-secondary)", maxWidth: 520 }}>
-            Certified technicians, genuine parts and a warranty on every repair — plus phones, power banks and accessories from the same counter. Free diagnostics, walk in without an appointment.
+            Certified technicians, genuine parts, and a 90-day warranty on every repair. Phones, power banks and accessories at the same counter — no appointment, just walk in.
           </p>
           <div className="animate-fade-up delay-900" style={{ display: "flex", gap: 12, marginTop: 30, flexWrap: "wrap" }}>
             <button type="button" className="btn-solid" onClick={() => router.push("/quote")}>
