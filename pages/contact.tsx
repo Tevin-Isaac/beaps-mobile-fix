@@ -55,22 +55,24 @@ const Contact: NextPageWithTitle = () => {
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+          <div style={{ height: 300, border: "1px solid var(--border-default)", borderRadius: 24, overflow: "hidden", background: "var(--surface-card)" }}>
+            <iframe
+              title="BEAPS Mobile Fix on Google Maps — Old Mutual Building, Kimathi Street"
+              src="https://www.google.com/maps?q=Old+Mutual+Building+Kimathi+Street+Nairobi&output=embed"
+              width="100%"
+              height="100%"
+              style={{ border: 0, display: "block", filter: "var(--map-filter, none)" }}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </div>
           <a
             href="https://www.google.com/maps/search/?api=1&query=Old+Mutual+Building+Kimathi+Street+Nairobi"
             target="_blank"
             rel="noreferrer"
-            style={{ display: "block", height: 300, border: "1px solid var(--border-default)", borderRadius: 24, overflow: "hidden", position: "relative", background: "var(--surface-card)" }}
+            style={{ fontSize: 13, color: "var(--orange-400)", textAlign: "right" }}
           >
-            <div style={{ position: "absolute", inset: 0, background: "repeating-linear-gradient(0deg, rgba(255,255,255,0.05) 0 1px, transparent 1px 46px), repeating-linear-gradient(90deg, rgba(255,255,255,0.05) 0 1px, transparent 1px 46px)" }} />
-            <div style={{ position: "absolute", inset: 0, background: "radial-gradient(circle at 50% 46%, rgba(31,161,58,0.28), transparent 60%)" }} />
-            <div style={{ position: "absolute", top: "44%", left: "50%", transform: "translate(-50%, -50%)", display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
-              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--orange-400)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"></path>
-                <circle cx="12" cy="10" r="3"></circle>
-              </svg>
-              <span style={{ fontSize: 13, color: "var(--text-primary)" }}>Kimathi St · room 420</span>
-            </div>
-            <span style={{ position: "absolute", bottom: 16, left: "50%", transform: "translateX(-50%)", fontSize: 13, color: "var(--orange-400)" }}>Open in Google Maps →</span>
+            Open in Google Maps →
           </a>
           <div style={{ padding: 22, border: "1px solid var(--border-subtle)", borderRadius: 18, background: "var(--surface-card)" }}>
             <h3 style={{ margin: 0, fontSize: 16, fontWeight: 600, letterSpacing: "-0.02em" }}>Getting to room 420</h3>
