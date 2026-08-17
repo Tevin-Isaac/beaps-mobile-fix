@@ -31,9 +31,10 @@ const Shop: NextPageWithTitle = () => {
       <div style={{ display: "grid", gridTemplateColumns: autoFit(220), gap: 14, marginTop: 24 }}>
         {shown.map((p) => (
           <div key={p.id} className="product-card">
-            <div style={{ height: 160, background: "linear-gradient(150deg, rgba(31,161,58,0.16), rgba(10,10,10,0.9))", display: "flex", alignItems: "flex-end", justifyContent: "space-between", padding: 14, borderBottom: "1px solid var(--border-subtle)" }}>
-              <span style={{ fontFamily: "'Geist Mono', monospace", fontSize: 10, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--text-tertiary)" }}>{p.cat}</span>
-              <span style={{ fontSize: 10, letterSpacing: "0.1em", textTransform: "uppercase", padding: "4px 9px", borderRadius: 999, background: "var(--brand-tint)", color: "var(--orange-300)" }}>{p.tag}</span>
+            <div style={{ position: "relative", height: 160, borderBottom: "1px solid var(--border-subtle)" }}>
+              <img src={p.image} alt={p.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+              <span style={{ position: "absolute", top: 10, left: 10, fontFamily: "'Geist Mono', monospace", fontSize: 10, letterSpacing: "0.1em", textTransform: "uppercase", padding: "4px 8px", borderRadius: 999, background: "rgba(10,10,10,0.72)", backdropFilter: "blur(4px)", color: "var(--text-secondary)" }}>{p.cat}</span>
+              <span style={{ position: "absolute", top: 10, right: 10, fontSize: 10, letterSpacing: "0.1em", textTransform: "uppercase", padding: "4px 9px", borderRadius: 999, background: "var(--brand-tint-strong)", color: "var(--orange-300)", backdropFilter: "blur(4px)" }}>{p.tag}</span>
             </div>
             <div style={{ padding: 16, display: "flex", flexDirection: "column", gap: 10, flex: 1 }}>
               <div style={{ fontSize: 14, fontWeight: 500, lineHeight: 1.35 }}>{p.name}</div>

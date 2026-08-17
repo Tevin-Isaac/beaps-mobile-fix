@@ -1,3 +1,5 @@
+import { Fragment } from "react";
+
 interface WordRevealProps {
   text: string;
   startDelay?: number;
@@ -17,19 +19,21 @@ export default function WordReveal({ text, startDelay = 0.3, step = 0.1, accentW
       {words.map((word, i) => {
         const isAccent = accentWords.some((a) => word.toLowerCase().startsWith(a.toLowerCase()));
         return (
-          <span key={i} style={{ display: "inline-block", overflow: "hidden", verticalAlign: "bottom" }}>
-            <span
-              style={{
-                display: "inline-block",
-                animation: "wordReveal 0.7s cubic-bezier(0.16,1,0.3,1) both",
-                animationDelay: `${startDelay + i * step}s`,
-                ...(isAccent ? accentStyle : null),
-              }}
-            >
-              {word}
-              {i < words.length - 1 ? " " : ""}
+          <Fragment key={i}>
+            <span style={{ display: "inline-block", overflow: "hidden", verticalAlign: "bottom" }}>
+              <span
+                style={{
+                  display: "inline-block",
+                  animation: "wordReveal 0.7s cubic-bezier(0.16,1,0.3,1) both",
+                  animationDelay: `${startDelay + i * step}s`,
+                  ...(isAccent ? accentStyle : null),
+                }}
+              >
+                {word}
+              </span>
             </span>
-          </span>
+            {i < words.length - 1 ? " " : ""}
+          </Fragment>
         );
       })}
     </>

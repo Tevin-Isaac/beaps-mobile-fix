@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import { REPAIRS, money } from "../lib/data";
+import { autoFit } from "../lib/style";
 import type { NextPageWithTitle } from "../lib/types";
 import Reveal from "../components/Reveal";
 
@@ -13,26 +14,33 @@ const Repairs: NextPageWithTitle = () => {
         Every price below is a from-price in Kenya Shillings — the real figure depends on your model and the part grade. Diagnostics are free and we confirm the price before we start.
       </p>
 
-      <Reveal>
-      <div style={{ marginTop: 32, border: "1px solid var(--border-subtle)", borderRadius: 18, background: "var(--surface-card)", overflow: "hidden", overflowX: "auto" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1.4fr 1.6fr 0.7fr 0.7fr", minWidth: 680, gap: 16, padding: "14px 20px", borderBottom: "1px solid var(--border-subtle)", fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--text-tertiary)" }}>
-          <span>Repair</span>
-          <span>What it covers</span>
-          <span style={{ textAlign: "right" }}>From</span>
-          <span style={{ textAlign: "right" }}>Turnaround</span>
-        </div>
-        {REPAIRS.map((r) => (
-          <div key={r.name} className="repair-row">
-            <span style={{ fontSize: 15, fontWeight: 500 }}>{r.name}</span>
-            <span style={{ fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.45 }}>{r.covers}</span>
-            <span style={{ fontFamily: "'Geist Mono', monospace", fontSize: 15, textAlign: "right", letterSpacing: "-0.02em", color: "var(--orange-400)" }}>KSh {money(r.price)}</span>
-            <span style={{ fontFamily: "'Geist Mono', monospace", fontSize: 13, textAlign: "right", color: "var(--text-secondary)" }}>{r.eta}</span>
-          </div>
+      <div style={{ display: "grid", gridTemplateColumns: autoFit(280), gap: 16, marginTop: 32 }}>
+        {REPAIRS.map((r, i) => (
+          <Reveal key={r.name} delay={(i % 3) * 0.08}>
+            <div className="product-card" style={{ height: "100%" }}>
+              <div style={{ height: 170, overflow: "hidden" }}>
+                <img
+                  src={r.image}
+                  alt={r.name}
+                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                />
+              </div>
+              <div style={{ padding: 18, display: "flex", flexDirection: "column", gap: 8, flex: 1 }}>
+                <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 10 }}>
+                  <h3 style={{ margin: 0, fontSize: 16, fontWeight: 600, letterSpacing: "-0.02em" }}>{r.name}</h3>
+                </div>
+                <p style={{ margin: 0, fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.45, flex: 1 }}>{r.covers}</p>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: 6, paddingTop: 10, borderTop: "1px solid var(--border-subtle)" }}>
+                  <span style={{ fontFamily: "'Geist Mono', monospace", fontSize: 15, letterSpacing: "-0.02em", color: "var(--orange-400)" }}>from KSh {money(r.price)}</span>
+                  <span style={{ fontFamily: "'Geist Mono', monospace", fontSize: 12, color: "var(--text-tertiary)" }}>{r.eta}</span>
+                </div>
+              </div>
+            </div>
+          </Reveal>
         ))}
       </div>
-      </Reveal>
 
-      <div style={{ display: "flex", gap: 12, marginTop: 28, flexWrap: "wrap" }}>
+      <div style={{ display: "flex", gap: 12, marginTop: 32, flexWrap: "wrap" }}>
         <button type="button" className="btn-solid md" onClick={() => router.push("/quote")}>Get my exact estimate</button>
         <a href="https://wa.me/254720668668" target="_blank" rel="noreferrer" className="btn-outline md">Ask about my model</a>
       </div>

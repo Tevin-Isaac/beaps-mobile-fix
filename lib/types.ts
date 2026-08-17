@@ -8,6 +8,7 @@ export interface Product {
   price: number;
   tag: string;
   note: string;
+  image: string;
 }
 
 export interface Repair {
@@ -15,6 +16,7 @@ export interface Repair {
   covers: string;
   price: number;
   eta: string;
+  image: string;
 }
 
 export interface DeviceOption {
@@ -41,12 +43,6 @@ export interface TiCondOption {
   id: string;
   label: string;
   mult: number;
-}
-
-export interface TimelineStep {
-  step: string;
-  detail: string;
-  at: string;
 }
 
 export interface CartItem {

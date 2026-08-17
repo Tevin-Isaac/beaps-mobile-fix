@@ -9,7 +9,6 @@ const NAV_LINKS = [
   { href: "/repairs", label: "Repairs & prices" },
   { href: "/shop", label: "Shop" },
   { href: "/tradein", label: "Trade-in" },
-  { href: "/track", label: "Track repair" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];

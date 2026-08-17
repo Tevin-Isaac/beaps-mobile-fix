@@ -32,19 +32,20 @@ const PRIMARY_ITEMS = [
     ),
   },
   {
-    href: "/track",
-    label: "Track",
+    href: "/tradein",
+    label: "Trade-in",
     icon: (
       <>
-        <circle cx="12" cy="12" r="10"></circle>
-        <path d="M12 6v6l4 2"></path>
+        <path d="M8 3 4 7l4 4"></path>
+        <path d="M4 7h16"></path>
+        <path d="m16 21 4-4-4-4"></path>
+        <path d="M20 17H4"></path>
       </>
     ),
   },
 ];
 
 const MORE_LINKS = [
-  { href: "/tradein", label: "Trade-in" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];

@@ -105,7 +105,7 @@ const Home: NextPageWithTitle = () => {
             <WordReveal text="Walk out fixed today." startDelay={0.5} accentWords={["fixed"]} />
           </h1>
           <p className="animate-fade-up delay-900" style={{ margin: "20px 0 0", fontSize: 18, lineHeight: 1.55, color: "var(--text-secondary)", maxWidth: 520 }}>
-            Certified technicians, genuine parts, and a 90-day warranty on every repair. Phones, power banks and accessories at the same counter — no appointment, just walk in.
+            Our certified technicians repair every device with genuine parts and back it with a 90-day warranty — and if you need a phone, power bank or accessory too, it's all at the same counter. No appointment necessary, just walk in.
           </p>
           <div className="animate-fade-up delay-900" style={{ display: "flex", gap: 12, marginTop: 30, flexWrap: "wrap" }}>
             <button type="button" className="btn-solid" onClick={() => router.push("/quote")}>
@@ -225,8 +225,8 @@ const Home: NextPageWithTitle = () => {
         <div style={{ display: "grid", gridTemplateColumns: autoFit(220), gap: 14, marginTop: 22 }}>
           {featured.map((p) => (
             <div key={p.id} className="product-card">
-              <div style={{ height: 150, background: "linear-gradient(150deg, rgba(31,161,58,0.16), rgba(10,10,10,0.9))", display: "flex", alignItems: "center", justifyContent: "center", borderBottom: "1px solid var(--border-subtle)" }}>
-                <span style={{ fontFamily: "'Geist Mono', monospace", fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--text-tertiary)" }}>{p.cat}</span>
+              <div style={{ height: 150, borderBottom: "1px solid var(--border-subtle)" }}>
+                <img src={p.image} alt={p.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
               </div>
               <div style={{ padding: 16, display: "flex", flexDirection: "column", gap: 10, flex: 1 }}>
                 <div style={{ fontSize: 14, fontWeight: 500, lineHeight: 1.35 }}>{p.name}</div>
