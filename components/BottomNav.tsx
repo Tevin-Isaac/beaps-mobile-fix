@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import SideMenu from "./SideMenu";
 
 const PRIMARY_ITEMS = [
   {
@@ -45,20 +46,17 @@ const PRIMARY_ITEMS = [
   },
 ];
 
-const MORE_LINKS = [
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
-];
+const MORE_ROUTES = ["/about", "/contact"];
 
 export default function BottomNav() {
   const router = useRouter();
-  const [moreOpen, setMoreOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    setMoreOpen(false);
+    setMenuOpen(false);
   }, [router.pathname]);
 
-  const moreIsActive = MORE_LINKS.some((l) => l.href === router.pathname);
+  const moreIsActive = MORE_ROUTES.includes(router.pathname);
 
   return (
     <>
@@ -72,28 +70,15 @@ export default function BottomNav() {
             {item.label}
           </Link>
         ))}
-        <button type="button" className={`bottom-nav-item${moreIsActive ? " is-active" : ""}`} onClick={() => setMoreOpen(true)} aria-haspopup="true" aria-expanded={moreOpen}>
+        <button type="button" className={`bottom-nav-item${moreIsActive ? " is-active" : ""}`} onClick={() => setMenuOpen(true)} aria-haspopup="true" aria-expanded={menuOpen}>
           <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <circle cx="5" cy="12" r="1"></circle>
-            <circle cx="12" cy="12" r="1"></circle>
-            <circle cx="19" cy="12" r="1"></circle>
+            <path d="M4 6h16M4 12h16M4 18h16"></path>
           </svg>
-          More
+          Menu
         </button>
       </nav>
 
-      {moreOpen && (
-        <>
-          <div className="more-sheet-backdrop" onClick={() => setMoreOpen(false)} />
-          <div className="more-sheet">
-            {MORE_LINKS.map((l) => (
-              <Link key={l.href} href={l.href} className={`more-sheet-link${router.pathname === l.href ? " is-active" : ""}`}>
-                {l.label}
-              </Link>
-            ))}
-          </div>
-        </>
-      )}
+      <SideMenu open={menuOpen} onClose={() => setMenuOpen(false)} />
     </>
   );
 }
