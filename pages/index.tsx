@@ -104,27 +104,6 @@ const Home: NextPageWithTitle = () => {
         </div>
 
         <div className="hero-fullbleed-content">
-          <div className="animate-fade-up trust-row">
-            <div className="trust-avatars">
-              <span className="trust-avatar">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94z"></path>
-                </svg>
-              </span>
-              <span className="trust-avatar">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path>
-                </svg>
-              </span>
-              <span className="trust-avatar">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"></path>
-                </svg>
-              </span>
-            </div>
-            <span className="trust-pill">11+ years fixing phones in Nairobi</span>
-          </div>
-
           <h1 className="hero-fullbleed-headline">
             <WordReveal text="Cracked screen?" startDelay={0.3} />
             <br />
@@ -205,18 +184,20 @@ const Home: NextPageWithTitle = () => {
             All repairs &amp; prices →
           </button>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: autoFit(280), gap: 14, marginTop: 22 }}>
-          {REPAIR_CARDS.map((c) => (
-            <div key={c.title} className="card">
-              <div style={{ width: 42, height: 42, borderRadius: 14, background: "var(--brand-tint)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="var(--orange-400)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  {c.icon}
-                </svg>
+        <div style={{ display: "grid", gridTemplateColumns: autoFit(210), gap: 12, marginTop: 22 }}>
+          {REPAIR_CARDS.map((c, i) => (
+            <Reveal key={c.title} delay={(i % 6) * 0.06}>
+              <div className="fix-card">
+                <div className="fix-card-icon">
+                  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    {c.icon}
+                  </svg>
+                </div>
+                <h3 className="fix-card-title">{c.title}</h3>
+                <p className="fix-card-desc">{c.desc}</p>
+                <div className="fix-card-price">{c.price}</div>
               </div>
-              <h3 style={{ margin: "14px 0 0", fontSize: 17, fontWeight: 600, letterSpacing: "-0.02em" }}>{c.title}</h3>
-              <p style={{ margin: "7px 0 0", fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.5 }}>{c.desc}</p>
-              <div style={{ fontFamily: "'Geist Mono', monospace", fontSize: 15, color: "var(--orange-400)", marginTop: 14, letterSpacing: "-0.02em" }}>{c.price}</div>
-            </div>
+            </Reveal>
           ))}
         </div>
       </section>
@@ -224,17 +205,18 @@ const Home: NextPageWithTitle = () => {
 
       <Reveal>
       <section style={{ maxWidth: 1180, margin: "0 auto", padding: "48px 20px 24px" }}>
-        <div style={{ border: "1px solid var(--border-subtle)", borderRadius: 24, background: "var(--surface-card)", padding: 34 }}>
-          <h2 style={{ margin: 0, fontSize: "clamp(26px, 3.4vw, 34px)", fontWeight: 600, letterSpacing: "-0.03em" }}>How it works</h2>
-          <div style={{ display: "grid", gridTemplateColumns: autoFit(200), gap: 20, marginTop: 26 }}>
-            {HOW_IT_WORKS.map((s) => (
-              <div key={s.n}>
-                <div style={{ fontFamily: "'Geist Mono', monospace", fontSize: 13, color: "var(--orange-400)" }}>{s.n}</div>
-                <h3 style={{ margin: "8px 0 0", fontSize: 17, fontWeight: 600, letterSpacing: "-0.02em" }}>{s.title}</h3>
-                <p style={{ margin: "6px 0 0", fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.5 }}>{s.desc}</p>
+        <h2 style={{ margin: 0, fontSize: "clamp(26px, 3.4vw, 34px)", fontWeight: 600, letterSpacing: "-0.03em" }}>How it works</h2>
+        <div className="how-steps">
+          {HOW_IT_WORKS.map((s, i) => (
+            <Reveal key={s.n} delay={i * 0.1}>
+              <div className="how-step">
+                <div className="how-step-num">{s.n}</div>
+                {i < HOW_IT_WORKS.length - 1 && <div className="how-step-line" />}
+                <h3 className="how-step-title">{s.title}</h3>
+                <p className="how-step-desc">{s.desc}</p>
               </div>
-            ))}
-          </div>
+            </Reveal>
+          ))}
         </div>
       </section>
       </Reveal>

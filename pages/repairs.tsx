@@ -1,11 +1,12 @@
-import { useRouter } from "next/router";
-import { REPAIRS, money } from "../lib/data";
+import { REPAIRS, money, whatsappLink } from "../lib/data";
 import { autoFit } from "../lib/style";
 import type { NextPageWithTitle } from "../lib/types";
 import Reveal from "../components/Reveal";
 
 const Repairs: NextPageWithTitle = () => {
-  const router = useRouter();
+  const exactEstimateLink = whatsappLink(
+    "Hi BEAPS, I'd like an exact estimate for a repair. My device is: "
+  );
 
   return (
     <div data-screen-label="Repairs and prices" style={{ maxWidth: 1180, margin: "0 auto", padding: "56px 20px 72px" }}>
@@ -41,7 +42,7 @@ const Repairs: NextPageWithTitle = () => {
       </div>
 
       <div style={{ display: "flex", gap: 12, marginTop: 32, flexWrap: "wrap" }}>
-        <button type="button" className="btn-solid md" onClick={() => router.push("/quote")}>Get my exact estimate</button>
+        <a href={exactEstimateLink} target="_blank" rel="noreferrer" className="btn-solid md">Get my exact estimate</a>
         <a href="https://wa.me/254720668668" target="_blank" rel="noreferrer" className="btn-outline md">Ask about my model</a>
       </div>
 

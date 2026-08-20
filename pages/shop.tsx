@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { PRODUCTS, money, chipStyle } from "../lib/data";
+import { PRODUCTS, money, chipStyle, whatsappLink } from "../lib/data";
 import { useCart } from "../context/CartContext";
 import { autoFit } from "../lib/style";
 import type { NextPageWithTitle } from "../lib/types";
@@ -59,7 +59,21 @@ const Shop: NextPageWithTitle = () => {
                   Lipa Mdogo Mdogo available
                 </div>
               )}
-              <button type="button" className="add-btn" onClick={() => addTo(p.id)}>Add to order</button>
+              <div style={{ display: "flex", gap: 8 }}>
+                <button type="button" className="add-btn" style={{ flex: 1 }} onClick={() => addTo(p.id)}>Add to order</button>
+                <a
+                  href={whatsappLink(`Hi BEAPS, I'd like to ask about this product:\n\n${p.name}\nKSh ${money(p.price)} — ${p.note}`)}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="whatsapp-inquire-btn"
+                  aria-label={`Ask about ${p.name} on WhatsApp`}
+                  title="Ask on WhatsApp"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                  </svg>
+                </a>
+              </div>
             </div>
           </div>
         ))}

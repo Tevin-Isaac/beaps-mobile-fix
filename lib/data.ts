@@ -28,17 +28,17 @@ export const PRODUCTS: Product[] = [
 export const FEATURED_IDS = ["p6", "p4", "p8", "p13"];
 
 export const REPAIRS: Repair[] = [
-  { name: "Screen replacement", covers: "Cracked glass, dead touch, lines or black display", price: 2500, eta: "45–90 min", image: "/repairs/screen-replacement.jpg" },
-  { name: "Battery replacement", covers: "Fast drain, sudden shutdowns, swollen battery", price: 1500, eta: "30–60 min", image: "/repairs/battery-charging.jpg" },
-  { name: "Charging port", covers: "Loose cable, slow or no charging, port cleaning", price: 1200, eta: "45 min", image: "/repairs/charging-port.jpg" },
-  { name: "Water damage treatment", covers: "Ultrasonic board clean, drying, corrosion removal", price: 2000, eta: "24–48 hrs", image: "/repairs/water-damage.jpg" },
-  { name: "Back glass & housing", covers: "Shattered rear glass, bent frame, button repair", price: 1800, eta: "2–4 hrs", image: "/repairs/back-glass.jpg" },
-  { name: "Camera repair", covers: "Blurry or shaking lens, front camera, flash", price: 2200, eta: "1–2 hrs", image: "/repairs/camera-repair.jpg" },
-  { name: "Software & unlocking", covers: "Flashing, boot loops, network and carrier unlock", price: 1000, eta: "1–3 hrs", image: "/repairs/software-unlock.jpg" },
-  { name: "Data recovery", covers: "Photos and contacts off dead or damaged phones", price: 2500, eta: "24–72 hrs", image: "/repairs/data-recovery.jpg" },
-  { name: "Motherboard / micro-soldering", covers: "No power, no network, IC and track-level faults", price: 3500, eta: "2–5 days", image: "/repairs/motherboard.jpg" },
-  { name: "Tablet repairs", covers: "iPad and Android tablet screens, batteries, ports", price: 2800, eta: "1–2 days", image: "/repairs/tablet-repair.jpg" },
-  { name: "Laptop repairs", covers: "Screens, keyboards, hinges, fans and upgrades", price: 3000, eta: "1–3 days", image: "/repairs/laptop-repair.jpg" },
+  { name: "Screen replacement", covers: "Cracked glass, dead touch, lines or black display", price: 2800, eta: "45–90 min", image: "/repairs/screen-replacement.jpg" },
+  { name: "Battery replacement", covers: "Fast drain, sudden shutdowns, swollen battery", price: 1800, eta: "30–60 min", image: "/repairs/battery-charging.jpg" },
+  { name: "Charging port", covers: "Loose cable, slow or no charging, port cleaning", price: 1500, eta: "45 min", image: "/repairs/charging-port.jpg" },
+  { name: "Water damage treatment", covers: "Ultrasonic board clean, drying, corrosion removal", price: 4500, eta: "24–48 hrs", image: "/repairs/water-damage.jpg" },
+  { name: "Back glass & housing", covers: "Shattered rear glass, bent frame, button repair", price: 2200, eta: "2–4 hrs", image: "/repairs/back-glass.jpg" },
+  { name: "Camera repair", covers: "Blurry or shaking lens, front camera, flash", price: 2500, eta: "1–2 hrs", image: "/repairs/camera-repair.jpg" },
+  { name: "Software & unlocking", covers: "Flashing, boot loops, network and carrier unlock", price: 1200, eta: "1–3 hrs", image: "/repairs/software-unlock.jpg" },
+  { name: "Data recovery", covers: "Photos and contacts off dead or damaged phones", price: 3500, eta: "24–72 hrs", image: "/repairs/data-recovery.jpg" },
+  { name: "Motherboard / micro-soldering", covers: "No power, no network, IC and track-level faults", price: 5000, eta: "2–5 days", image: "/repairs/motherboard.jpg" },
+  { name: "Tablet repairs", covers: "iPad and Android tablet screens, batteries, ports", price: 3500, eta: "1–2 days", image: "/repairs/tablet-repair.jpg" },
+  { name: "Laptop repairs", covers: "Screens, keyboards, hinges, fans and upgrades", price: 4000, eta: "1–3 days", image: "/repairs/laptop-repair.jpg" },
 ];
 
 export const DEVICES: DeviceOption[] = [
@@ -51,15 +51,15 @@ export const DEVICES: DeviceOption[] = [
 ];
 
 export const ISSUES: IssueOption[] = [
-  { id: "screen", label: "Cracked screen", base: 2500 },
-  { id: "battery", label: "Battery", base: 1500 },
-  { id: "port", label: "Charging port", base: 1200 },
-  { id: "water", label: "Water damage", base: 2000 },
-  { id: "back", label: "Back glass / housing", base: 1800 },
-  { id: "camera", label: "Camera", base: 2200 },
-  { id: "software", label: "Software / unlocking", base: 1000 },
-  { id: "data", label: "Data recovery", base: 2500 },
-  { id: "board", label: "Not powering on", base: 3500 },
+  { id: "screen", label: "Cracked screen", base: 2800 },
+  { id: "battery", label: "Battery", base: 1800 },
+  { id: "port", label: "Charging port", base: 1500 },
+  { id: "water", label: "Water damage", base: 4500 },
+  { id: "back", label: "Back glass / housing", base: 2200 },
+  { id: "camera", label: "Camera", base: 2500 },
+  { id: "software", label: "Software / unlocking", base: 1200 },
+  { id: "data", label: "Data recovery", base: 3500 },
+  { id: "board", label: "Not powering on", base: 5000 },
 ];
 
 
