@@ -79,7 +79,7 @@ const HOW_IT_WORKS = [
 const TESTIMONIALS = [
   { quote: "Dropped my S21 on Kimathi and had the screen done the same afternoon. They showed me the old panel and tested everything in front of me.", who: "Wanjiru M. · Samsung S21 screen" },
   { quote: "My iPhone went in the rain. Two other shops said buy a new one — BEAPS cleaned the board and it has been fine for months.", who: "Kevin O. · iPhone 12 water damage" },
-  { quote: "Traded in my old Redmi against a refurbished iPhone 11 and picked up a power bank. Fair price, no games.", who: "Faith N. · Trade-in + purchase" },
+  { quote: "Called from the office about a dead charging port — they picked the phone up, fixed it and dropped it back before 5pm. Never had to leave my desk.", who: "Faith N. · Pickup & delivery, charging port" },
 ];
 
 function Star() {
@@ -122,7 +122,7 @@ const Home: NextPageWithTitle = () => {
                 </svg>
               </span>
             </div>
-            <span className="trust-pill">Trusted by 12,000+ customers</span>
+            <span className="trust-pill">11+ years fixing phones in Nairobi</span>
           </div>
 
           <h1 className="hero-fullbleed-headline">
@@ -132,7 +132,7 @@ const Home: NextPageWithTitle = () => {
           </h1>
 
           <p className="animate-fade-up delay-900 hero-fullbleed-sub">
-            Certified technicians, genuine parts and a 90-day warranty on every repair — plus phones, power banks and accessories at the same counter. No appointment necessary, just walk in.
+            Our certified technicians repair every device with genuine parts and a 90-day warranty, and if you need a phone, power bank or accessory too, it's all at the same counter — no appointment necessary, just walk in.
           </p>
 
           <div className="animate-fade-up delay-900" style={{ display: "flex", gap: 12, marginTop: 28, flexWrap: "wrap", justifyContent: "center" }}>
@@ -170,11 +170,11 @@ const Home: NextPageWithTitle = () => {
             <div className="hero-stat-label">Warranty on parts</div>
           </div>
           <div className="hero-stat animate-fade-up delay-700">
-            <svg className="hero-stat-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="none">
-              <path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"></path>
+            <svg className="hero-stat-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94z"></path>
             </svg>
-            <div className="hero-stat-value">8 yrs</div>
-            <div className="hero-stat-label">On Kimathi Street</div>
+            <div className="hero-stat-value">12k+</div>
+            <div className="hero-stat-label">Devices repaired</div>
           </div>
         </div>
       </section>

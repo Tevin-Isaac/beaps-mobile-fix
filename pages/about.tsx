@@ -3,7 +3,7 @@ import type { NextPageWithTitle } from "../lib/types";
 import Reveal from "../components/Reveal";
 
 const STATS = [
-  { n: "8", label: "Years on Kimathi St" },
+  { n: "11+", label: "Years in the industry" },
   { n: "12k+", label: "Devices repaired" },
   { n: "90", label: "Day parts warranty" },
 ];
@@ -12,6 +12,7 @@ const VALUES = [
   { title: "Genuine parts", desc: "Original or original-grade panels and batteries, sourced through suppliers we have used for years." },
   { title: "Your data stays yours", desc: "We do not need your passcode for most repairs, and nothing is copied off your device." },
   { title: "Written warranty", desc: "Every repair leaves with a slip: what was done, which part, and how long it is covered." },
+  { title: "We come to you", desc: "Can't get to Kimathi Street? We collect your device from your home or office, repair it at the bench, and deliver it back to you." },
 ];
 
 const About: NextPageWithTitle = () => {
@@ -21,7 +22,7 @@ const About: NextPageWithTitle = () => {
         <div>
           <h1 className="animate-fade-up" style={{ margin: 0, fontSize: "clamp(30px, 4.6vw, 48px)", fontWeight: 700, letterSpacing: "-0.032em" }}>A bench, not a counter</h1>
           <p className="animate-fade-up delay-200" style={{ margin: "18px 0 0", fontSize: 17, lineHeight: 1.6, color: "var(--text-secondary)" }}>
-            BEAPS Mobile Fix has worked out of the Old Mutual Building on Kimathi Street for eight years. Most of what walks through the door is a cracked screen, a tired battery or a phone that met the rain — and most of it leaves the same day.
+            Bernard has been fixing phones for over 11 years, and BEAPS Mobile Fix now works out of the Old Mutual Building on Kimathi Street. Most of what walks through the door is a cracked screen, a tired battery or a phone that met the rain — and most of it leaves the same day.
           </p>
           <p className="animate-fade-up delay-300" style={{ margin: "14px 0 0", fontSize: 17, lineHeight: 1.6, color: "var(--text-secondary)" }}>
             We are certified technicians who fit genuine parts, show you the part that came out, and put a 90-day warranty in writing. When a board is beyond economical repair we say so instead of billing you for hope. The same bench sells phones, power banks and accessories, so you can walk out working rather than waiting.

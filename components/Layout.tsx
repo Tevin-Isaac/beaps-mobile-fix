@@ -4,6 +4,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import CartDrawer from "./CartDrawer";
 import BottomNav from "./BottomNav";
+import WhatsAppButton from "./WhatsAppButton";
 
 interface LayoutProps {
   children: ReactNode;
@@ -41,6 +42,7 @@ export default function Layout({ children, title = "BEAPS Mobile Fix — Phone r
         <main style={{ position: "relative", zIndex: 1 }}>{children}</main>
         <Footer />
         <BottomNav />
+        <WhatsAppButton />
       </div>
     </>
   );

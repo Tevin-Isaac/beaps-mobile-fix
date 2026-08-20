@@ -33,16 +33,9 @@ const PRIMARY_ITEMS = [
     ),
   },
   {
-    href: "/tradein",
-    label: "Trade-in",
-    icon: (
-      <>
-        <path d="M8 3 4 7l4 4"></path>
-        <path d="M4 7h16"></path>
-        <path d="m16 21 4-4-4-4"></path>
-        <path d="M20 17H4"></path>
-      </>
-    ),
+    href: "/quote",
+    label: "Quote",
+    icon: <path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"></path>,
   },
 ];
 

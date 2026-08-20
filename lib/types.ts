@@ -9,6 +9,7 @@ export interface Product {
   tag: string;
   note: string;
   image: string;
+  installments?: boolean;
 }
 
 export interface Repair {
@@ -32,18 +33,6 @@ export interface IssueOption {
   base: number;
 }
 
-export interface TiDeviceOption {
-  id: string;
-  label: string;
-  ex: string;
-  base: number;
-}
-
-export interface TiCondOption {
-  id: string;
-  label: string;
-  mult: number;
-}
 
 export interface CartItem {
   id: string;

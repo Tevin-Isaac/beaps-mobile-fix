@@ -19,7 +19,17 @@ const Shop: NextPageWithTitle = () => {
         Phones, power banks, chargers and everyday accessories. Add what you want, send the order on WhatsApp, and pay on collection or by M-Pesa.
       </p>
 
-      <div style={{ display: "flex", gap: 9, flexWrap: "wrap", marginTop: 28 }}>
+      <div className="animate-fade-up delay-300" style={{ display: "flex", gap: 14, alignItems: "flex-start", marginTop: 24, padding: "16px 18px", border: "1px solid var(--orange-a20)", borderRadius: 16, background: "var(--brand-tint)" }}>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--orange-400)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, marginTop: 2 }}>
+          <rect x="2" y="5" width="20" height="14" rx="2"></rect>
+          <path d="M2 10h20"></path>
+        </svg>
+        <p style={{ margin: 0, fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.55 }}>
+          <strong style={{ color: "var(--text-primary)" }}>Lipa Mdogo Mdogo available on phones</strong> — new and refurbished handsets marked below can be paid for in small installments instead of one lump sum. Ask at the counter or on WhatsApp for terms.
+        </p>
+      </div>
+
+      <div style={{ display: "flex", gap: 9, flexWrap: "wrap", marginTop: 24 }}>
         {cats.map((c) => (
           <button key={c} type="button" className="chip" style={chipStyle(cat === c)} onClick={() => setCat(c)}>
             {c}
@@ -40,6 +50,15 @@ const Shop: NextPageWithTitle = () => {
               <div style={{ fontSize: 14, fontWeight: 500, lineHeight: 1.35 }}>{p.name}</div>
               <div style={{ fontSize: 12, color: "var(--text-secondary)", lineHeight: 1.45 }}>{p.note}</div>
               <div style={{ fontFamily: "'Geist Mono', monospace", fontSize: 16, letterSpacing: "-0.02em", marginTop: "auto" }}>KSh {money(p.price)}</div>
+              {p.installments && (
+                <div style={{ display: "inline-flex", alignItems: "center", gap: 5, alignSelf: "flex-start", fontSize: 10.5, fontWeight: 500, color: "var(--orange-400)" }}>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="2" y="5" width="20" height="14" rx="2"></rect>
+                    <path d="M2 10h20"></path>
+                  </svg>
+                  Lipa Mdogo Mdogo available
+                </div>
+              )}
               <button type="button" className="add-btn" onClick={() => addTo(p.id)}>Add to order</button>
             </div>
           </div>

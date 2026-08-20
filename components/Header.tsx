@@ -8,7 +8,7 @@ const NAV_LINKS = [
   { href: "/", label: "Home" },
   { href: "/repairs", label: "Repairs & prices" },
   { href: "/shop", label: "Shop" },
-  { href: "/tradein", label: "Trade-in" },
+  { href: "/quote", label: "Instant quote" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
@@ -32,7 +32,7 @@ export default function Header() {
     >
       <div style={{ maxWidth: 1180, margin: "0 auto", padding: "12px 20px", display: "flex", alignItems: "center", gap: 14 }}>
         <Link href="/" className="logo-badge animate-slide-left delay-200" style={{ flexShrink: 0 }} aria-label="BEAPS Mobile Fix home">
-          <img src="/logo.png" alt="" width={52} height={52} />
+          <img src="/logo-icon.png" alt="" width={52} height={52} />
         </Link>
 
         <nav className="nav-desktop nav-pill animate-fade-in delay-400" style={{ marginLeft: "auto" }}>

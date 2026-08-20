@@ -1,15 +1,15 @@
-import type { Product, Repair, DeviceOption, IssueOption, TiDeviceOption, TiCondOption } from "./types";
+import type { Product, Repair, DeviceOption, IssueOption } from "./types";
 
 export const PHONE_DISPLAY = "0720 668 668";
 export const PHONE_TEL = "+254720668668";
 export const WHATSAPP_NUMBER = "254720668668";
 
 export const PRODUCTS: Product[] = [
-  { id: "p1", name: "Samsung Galaxy A05", cat: "New phones", price: 14500, tag: "New", note: '6.7" display, 5000mAh, sealed box', image: "/products/new-phones.jpg" },
-  { id: "p2", name: "Redmi 13C", cat: "New phones", price: 13900, tag: "New", note: "Dual SIM, 128GB storage", image: "/products/new-phones.jpg" },
-  { id: "p3", name: "Tecno Spark 20", cat: "New phones", price: 15200, tag: "New", note: "Popular pick for students", image: "/products/new-phones.jpg" },
-  { id: "p4", name: "iPhone 11 · 64GB", cat: "Refurbished", price: 32000, tag: "Refurb", note: "Battery health 88%+, tested", image: "/products/refurbished.jpg" },
-  { id: "p5", name: "Samsung S21 · 128GB", cat: "Refurbished", price: 38000, tag: "Refurb", note: "Grade A, 30-day cover", image: "/products/refurbished.jpg" },
+  { id: "p1", name: "Samsung Galaxy A05", cat: "New phones", price: 14500, tag: "New", note: '6.7" display, 5000mAh, sealed box', image: "/products/new-phones.jpg", installments: true },
+  { id: "p2", name: "Redmi 13C", cat: "New phones", price: 13900, tag: "New", note: "Dual SIM, 128GB storage", image: "/products/new-phones.jpg", installments: true },
+  { id: "p3", name: "Tecno Spark 20", cat: "New phones", price: 15200, tag: "New", note: "Popular pick for students", image: "/products/new-phones.jpg", installments: true },
+  { id: "p4", name: "iPhone 11 · 64GB", cat: "Refurbished", price: 32000, tag: "Refurb", note: "Battery health 88%+, tested", image: "/products/refurbished.jpg", installments: true },
+  { id: "p5", name: "Samsung S21 · 128GB", cat: "Refurbished", price: 38000, tag: "Refurb", note: "Grade A, 30-day cover", image: "/products/refurbished.jpg", installments: true },
   { id: "p6", name: "Oraimo 20,000mAh power bank", cat: "Power banks", price: 3200, tag: "Best seller", note: "22.5W fast charge, dual output", image: "/products/power-banks.jpg" },
   { id: "p7", name: "Anker 10,000mAh power bank", cat: "Power banks", price: 2900, tag: "In stock", note: "Slim, USB-C in/out", image: "/products/power-banks.jpg" },
   { id: "p8", name: "Oraimo 33W GaN charger", cat: "Chargers & cables", price: 1800, tag: "In stock", note: "Fast charge for Android and iPhone", image: "/products/chargers-cables.jpg" },
@@ -62,18 +62,6 @@ export const ISSUES: IssueOption[] = [
   { id: "board", label: "Not powering on", base: 3500 },
 ];
 
-export const TI_DEVICES: TiDeviceOption[] = [
-  { id: "android", label: "Android — everyday", ex: "Tecno, Infinix, Redmi", base: 4000 },
-  { id: "flagship", label: "Android — flagship", ex: "Samsung S series, Pixel", base: 14000 },
-  { id: "iphone", label: "iPhone", ex: "iPhone 8 and newer", base: 18000 },
-];
-
-export const TI_CONDS: TiCondOption[] = [
-  { id: "mint", label: "Like new", mult: 1 },
-  { id: "good", label: "Good, minor marks", mult: 0.78 },
-  { id: "cracked", label: "Cracked screen", mult: 0.5 },
-  { id: "dead", label: "Not switching on", mult: 0.28 },
-];
 
 export const money = (n: number): string => n.toLocaleString("en-KE");
 export const round100 = (n: number): number => Math.round(n / 100) * 100;

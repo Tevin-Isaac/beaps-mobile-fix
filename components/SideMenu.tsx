@@ -32,18 +32,6 @@ const NAV_ITEMS = [
     ),
   },
   {
-    href: "/tradein",
-    label: "Trade-in",
-    icon: (
-      <>
-        <path d="M8 3 4 7l4 4"></path>
-        <path d="M4 7h16"></path>
-        <path d="m16 21 4-4-4-4"></path>
-        <path d="M20 17H4"></path>
-      </>
-    ),
-  },
-  {
     href: "/about",
     label: "About",
     icon: (
@@ -87,11 +75,15 @@ export default function SideMenu({ open, onClose }: SideMenuProps) {
     <>
       <div className={`side-menu-backdrop${open ? " is-open" : ""}`} onClick={onClose} />
       <aside className={`side-menu${open ? " is-open" : ""}`} aria-hidden={!open}>
+        <div className="side-menu-glow" />
+
         <div className="side-menu-head">
-          <img src="/logo.png" alt="" className="side-menu-logo" />
-          <div style={{ flex: 1, lineHeight: 1.2 }}>
-            <div style={{ fontSize: 16, fontWeight: 700, letterSpacing: "-0.03em" }}>BEAPS</div>
-            <div style={{ fontSize: 10, letterSpacing: "0.16em", color: "var(--text-tertiary)", textTransform: "uppercase", marginTop: 2 }}>Mobile Fix</div>
+          <span className="side-menu-logo">
+            <img src="/logo-icon.png" alt="" />
+          </span>
+          <div style={{ flex: 1, lineHeight: 1.25 }}>
+            <div style={{ fontSize: 17, fontWeight: 700, letterSpacing: "-0.03em" }}>BEAPS Mobile Fix</div>
+            <div style={{ fontSize: 11.5, color: "var(--text-tertiary)", marginTop: 2 }}>11+ years fixing phones in Nairobi CBD</div>
           </div>
           <button type="button" className="side-menu-close" onClick={onClose} aria-label="Close menu">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -99,6 +91,21 @@ export default function SideMenu({ open, onClose }: SideMenuProps) {
             </svg>
           </button>
         </div>
+
+        <Link href="/quote" className="side-menu-promo" onClick={onClose}>
+          <div className="side-menu-promo-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"></path>
+            </svg>
+          </div>
+          <div style={{ flex: 1 }}>
+            <div style={{ fontSize: 14.5, fontWeight: 600 }}>Get an instant quote</div>
+            <div style={{ fontSize: 12, color: "var(--text-secondary)", marginTop: 1 }}>Two taps for a price range</div>
+          </div>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M9 18l6-6-6-6"></path>
+          </svg>
+        </Link>
 
         <nav className="side-menu-nav">
           {NAV_ITEMS.map((item, i) => (
@@ -122,33 +129,52 @@ export default function SideMenu({ open, onClose }: SideMenuProps) {
           ))}
         </nav>
 
-        <button type="button" className="side-menu-theme" onClick={toggleTheme}>
-          {theme === "dark" ? (
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="12" cy="12" r="4"></circle>
-              <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+        <div className="side-menu-quick-actions">
+          <a href={`tel:${PHONE_TEL}`} className="side-menu-tile">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"></path>
             </svg>
-          ) : (
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            <span>Call</span>
+            <span className="side-menu-tile-sub">{PHONE_DISPLAY}</span>
+          </a>
+          <a href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noreferrer" className="side-menu-tile">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
             </svg>
-          )}
-          Switch to {theme === "dark" ? "light" : "dark"} mode
-        </button>
-
-        <div className="side-menu-actions">
-          <a href={`tel:${PHONE_TEL}`} className="btn-solid sm" style={{ width: "100%" }}>
-            Call {PHONE_DISPLAY}
+            <span>WhatsApp</span>
+            <span className="side-menu-tile-sub">Chat now</span>
           </a>
-          <a href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noreferrer" className="btn-outline sm" style={{ width: "100%" }}>
-            WhatsApp us
-          </a>
+          <button type="button" className="side-menu-tile" onClick={toggleTheme}>
+            {theme === "dark" ? (
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="4"></circle>
+                <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+              </svg>
+            ) : (
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+              </svg>
+            )}
+            <span>{theme === "dark" ? "Light" : "Dark"} mode</span>
+            <span className="side-menu-tile-sub">Tap to switch</span>
+          </button>
         </div>
 
-        <div className="side-menu-info">
-          <div>Old Mutual Building, Kimathi Street — 4th floor, room 420</div>
-          <div style={{ marginTop: 4 }}>Mon–Fri 8:30am–6:30pm · Sat 9:00am–5:00pm</div>
-        </div>
+        <a
+          href="https://www.google.com/maps/search/?api=1&query=Old+Mutual+Building+Kimathi+Street+Nairobi"
+          target="_blank"
+          rel="noreferrer"
+          className="side-menu-location"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"></path>
+            <circle cx="12" cy="10" r="3"></circle>
+          </svg>
+          <div style={{ flex: 1 }}>
+            <div style={{ fontSize: 13, fontWeight: 600, color: "var(--text-primary)" }}>Old Mutual Building, Kimathi Street</div>
+            <div style={{ fontSize: 11.5, color: "var(--text-tertiary)", marginTop: 2 }}>Room 420, 4th floor · Mon–Fri 8:30am–6:30pm · Sat 9am–5pm</div>
+          </div>
+        </a>
       </aside>
     </>
   );
