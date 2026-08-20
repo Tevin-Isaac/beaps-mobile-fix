@@ -31,23 +31,11 @@ export default function Header() {
       }}
     >
       <div style={{ maxWidth: 1180, margin: "0 auto", padding: "12px 20px", display: "flex", alignItems: "center", gap: 14 }}>
-        <Link href="/" className="animate-slide-left delay-200" style={{ display: "flex", alignItems: "center", gap: 10, cursor: "pointer", flexShrink: 0 }}>
-          <img
-            src="/logo.png"
-            alt="BEAPS Mobile Fix"
-            style={{
-              height: 46,
-              width: 46,
-              objectFit: "contain",
-            }}
-          />
-          <div style={{ display: "flex", flexDirection: "column", lineHeight: 1 }}>
-            <span style={{ fontSize: 17, fontWeight: 700, letterSpacing: "-0.03em", color: "var(--text-primary)" }}>BEAPS</span>
-            <span style={{ fontSize: 10, letterSpacing: "0.18em", color: "var(--text-secondary)", textTransform: "uppercase", marginTop: 3 }}>Mobile Fix</span>
-          </div>
+        <Link href="/" className="logo-badge animate-slide-left delay-200" style={{ flexShrink: 0 }} aria-label="BEAPS Mobile Fix home">
+          <img src="/logo.png" alt="" width={52} height={52} />
         </Link>
 
-        <nav className="nav-desktop animate-fade-in delay-400" style={{ alignItems: "center", gap: 4, marginLeft: "auto", flexWrap: "nowrap", minWidth: 0 }}>
+        <nav className="nav-desktop nav-pill animate-fade-in delay-400" style={{ marginLeft: "auto" }}>
           {NAV_LINKS.map((l) => (
             <Link key={l.href} href={l.href} className={`nav-link${router.pathname === l.href ? " is-active" : ""}`}>
               {l.label}

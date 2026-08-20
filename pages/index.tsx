@@ -97,24 +97,52 @@ const Home: NextPageWithTitle = () => {
 
   return (
     <div data-screen-label="Home">
-      <section style={{ maxWidth: 1180, margin: "0 auto", padding: "64px 20px 40px", display: "grid", gridTemplateColumns: autoFit(400), gap: 48, alignItems: "center" }}>
-        <div>
-          <h1 style={{ margin: 0, fontSize: "clamp(34px, 5.4vw, 60px)", lineHeight: 1.04, fontWeight: 700, letterSpacing: "-0.032em" }}>
+      <section className="hero-fullbleed">
+        <div className="hero-fullbleed-bg">
+          <img src="/hero-repair.jpg" alt="" />
+          <div className="hero-fullbleed-scrim" />
+        </div>
+
+        <div className="hero-fullbleed-content">
+          <div className="animate-fade-up trust-row">
+            <div className="trust-avatars">
+              <span className="trust-avatar">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94z"></path>
+                </svg>
+              </span>
+              <span className="trust-avatar">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path>
+                </svg>
+              </span>
+              <span className="trust-avatar">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"></path>
+                </svg>
+              </span>
+            </div>
+            <span className="trust-pill">Trusted by 12,000+ customers</span>
+          </div>
+
+          <h1 className="hero-fullbleed-headline">
             <WordReveal text="Cracked screen?" startDelay={0.3} />
             <br />
             <WordReveal text="Walk out fixed today." startDelay={0.5} accentWords={["fixed"]} />
           </h1>
-          <p className="animate-fade-up delay-900" style={{ margin: "20px 0 0", fontSize: 18, lineHeight: 1.55, color: "var(--text-secondary)", maxWidth: 520 }}>
-            Our certified technicians repair every device with genuine parts and back it with a 90-day warranty — and if you need a phone, power bank or accessory too, it's all at the same counter. No appointment necessary, just walk in.
+
+          <p className="animate-fade-up delay-900 hero-fullbleed-sub">
+            Certified technicians, genuine parts and a 90-day warranty on every repair — plus phones, power banks and accessories at the same counter. No appointment necessary, just walk in.
           </p>
-          <div className="animate-fade-up delay-900" style={{ display: "flex", gap: 12, marginTop: 30, flexWrap: "wrap" }}>
-            <button type="button" className="btn-solid" onClick={() => router.push("/quote")}>
+
+          <div className="animate-fade-up delay-900" style={{ display: "flex", gap: 12, marginTop: 28, flexWrap: "wrap", justifyContent: "center" }}>
+            <button type="button" className="btn-glow" onClick={() => router.push("/quote")}>
               Get an instant quote
               <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M5 12h14M13 6l6 6-6 6"></path>
               </svg>
             </button>
-            <button type="button" className="btn-outline" onClick={() => router.push("/quote")}>
+            <button type="button" className="btn-outline-invert" onClick={() => router.push("/quote")}>
               <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="3" y="4" width="18" height="18" rx="2"></rect>
                 <path d="M16 2v4M8 2v4M3 10h18"></path>
@@ -122,31 +150,31 @@ const Home: NextPageWithTitle = () => {
               Book a time
             </button>
           </div>
-          <div className="animate-fade-up delay-900" style={{ display: "flex", gap: 26, marginTop: 34, flexWrap: "wrap" }}>
-            <div>
-              <div style={{ fontFamily: "'Geist Mono', monospace", fontSize: 24, fontWeight: 600, letterSpacing: "-0.02em", color: "var(--orange-400)" }}>45 min</div>
-              <div style={{ fontSize: 12, color: "var(--text-tertiary)", marginTop: 3 }}>Average screen swap</div>
-            </div>
-            <div style={{ width: 1, background: "var(--border-subtle)" }} />
-            <div>
-              <div style={{ fontFamily: "'Geist Mono', monospace", fontSize: 24, fontWeight: 600, letterSpacing: "-0.02em", color: "var(--orange-400)" }}>90 days</div>
-              <div style={{ fontSize: 12, color: "var(--text-tertiary)", marginTop: 3 }}>Warranty on parts</div>
-            </div>
-            <div style={{ width: 1, background: "var(--border-subtle)" }} />
-            <div>
-              <div style={{ fontFamily: "'Geist Mono', monospace", fontSize: 24, fontWeight: 600, letterSpacing: "-0.02em", color: "var(--orange-400)" }}>8 yrs</div>
-              <div style={{ fontSize: 12, color: "var(--text-tertiary)", marginTop: 3 }}>On Kimathi Street</div>
-            </div>
-          </div>
         </div>
-        <div className="animate-scale-in delay-700" style={{ position: "relative" }}>
-          <div style={{ position: "absolute", inset: -40, background: "radial-gradient(circle at 60% 40%, rgba(31,161,58,0.28), transparent 65%)", pointerEvents: "none" }} />
-          <div className="visual-box" style={{ position: "relative", width: "100%", border: "1px solid var(--border-default)", borderRadius: 18, overflow: "hidden", background: "var(--surface-card)" }}>
-            <img
-              src="/hero-repair.jpg"
-              alt="Technician repairing a phone at the BEAPS Mobile Fix bench"
-              style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }}
-            />
+
+        <div className="hero-fullbleed-stats">
+          <div className="hero-stat animate-fade-up delay-500">
+            <svg className="hero-stat-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M12 6v6l4 2"></path>
+            </svg>
+            <div className="hero-stat-value">45 min</div>
+            <div className="hero-stat-label">Average screen swap</div>
+          </div>
+          <div className="hero-stat animate-fade-up delay-600">
+            <svg className="hero-stat-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path>
+              <path d="m9 12 2 2 4-4"></path>
+            </svg>
+            <div className="hero-stat-value">90 days</div>
+            <div className="hero-stat-label">Warranty on parts</div>
+          </div>
+          <div className="hero-stat animate-fade-up delay-700">
+            <svg className="hero-stat-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+              <path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"></path>
+            </svg>
+            <div className="hero-stat-value">8 yrs</div>
+            <div className="hero-stat-label">On Kimathi Street</div>
           </div>
         </div>
       </section>
