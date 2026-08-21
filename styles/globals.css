@@ -1085,6 +1085,25 @@ button {
   white-space: nowrap;
 }
 
+.flash-countdown-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 34px;
+}
+.flash-countdown-value {
+  font-family: "Geist Mono", monospace;
+  font-size: 17px;
+  font-weight: 700;
+}
+.flash-countdown-label {
+  font-size: 9.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.65;
+  margin-top: 1px;
+}
+
 .text-field {
   height: 48px;
   padding: 0 14px;

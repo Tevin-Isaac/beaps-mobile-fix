@@ -55,6 +55,7 @@ export interface FlashSale {
   active: boolean;
   title: string;
   message: string;
+  startsAt: string | null;
   endsAt: string | null;
 }
 

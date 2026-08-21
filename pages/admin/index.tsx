@@ -28,23 +28,34 @@ function FlashSalePanel({ initial }: { initial: FlashSale }) {
   const [sale, setSale] = useState(initial);
   const [title, setTitle] = useState(initial.title);
   const [message, setMessage] = useState(initial.message);
+  const [startsAt, setStartsAt] = useState(toDatetimeLocal(initial.startsAt));
   const [endsAt, setEndsAt] = useState(toDatetimeLocal(initial.endsAt));
-  const [saving, setSaving] = useState(false);
+  const [savingCountdown, setSavingCountdown] = useState(false);
+  const [savingLive, setSavingLive] = useState(false);
+  const [countdownSaved, setCountdownSaved] = useState(false);
 
-  const save = async (active: boolean) => {
-    setSaving(true);
+  const put = async (body: Record<string, unknown>) => {
     const res = await fetch("/api/flash-sale", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        active,
-        title,
-        message,
-        endsAt: endsAt ? new Date(endsAt).toISOString() : null,
-      }),
+      body: JSON.stringify(body),
     });
-    setSaving(false);
     if (res.ok) setSale(await res.json());
+    return res.ok;
+  };
+
+  const saveCountdown = async () => {
+    setSavingCountdown(true);
+    setCountdownSaved(false);
+    const ok = await put({ title, startsAt: startsAt ? new Date(startsAt).toISOString() : null });
+    setSavingCountdown(false);
+    if (ok) setCountdownSaved(true);
+  };
+
+  const saveLive = async (active: boolean) => {
+    setSavingLive(true);
+    await put({ active, title, message, endsAt: endsAt ? new Date(endsAt).toISOString() : null });
+    setSavingLive(false);
   };
 
   return (
@@ -55,37 +66,57 @@ function FlashSalePanel({ initial }: { initial: FlashSale }) {
           {sale.active ? "Live" : "Not running"}
         </span>
       </div>
-      <p style={{ margin: "6px 0 0", fontSize: 13, color: "var(--text-secondary)" }}>
-        When live, this replaces the "coming soon" banner on the Shop page with your sale details.
-      </p>
-      <div style={{ display: "grid", gap: 12, marginTop: 16 }}>
-        <input className="text-field" placeholder="Title (e.g. Weekend Flash Sale)" value={title} onChange={(e) => setTitle(e.target.value)} />
-        <textarea
-          className="text-field"
-          placeholder="Message (e.g. 15% off all power banks and earbuds)"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          rows={2}
-          style={{ height: "auto", minHeight: 60, padding: "10px 14px", fontFamily: "inherit", resize: "vertical" }}
-        />
-        <label style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 12.5, color: "var(--text-secondary)" }}>
-          Ends at (optional)
-          <input className="text-field" type="datetime-local" value={endsAt} onChange={(e) => setEndsAt(e.target.value)} style={{ maxWidth: 260 }} />
-        </label>
+
+      <div style={{ marginTop: 18, paddingTop: 4 }}>
+        <h3 style={{ margin: 0, fontSize: 14.5, fontWeight: 600 }}>Countdown</h3>
+        <p style={{ margin: "4px 0 0", fontSize: 12.5, color: "var(--text-secondary)" }}>
+          Set when the sale starts. The Shop page shows a live "starts in" countdown to this date until you launch the sale below.
+        </p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(240px, 100%), 1fr))", gap: 12, marginTop: 12 }}>
+          <input className="text-field" placeholder="Title (e.g. Weekend Flash Sale)" value={title} onChange={(e) => { setTitle(e.target.value); setCountdownSaved(false); }} />
+          <label style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 12.5, color: "var(--text-secondary)" }}>
+            Starts at
+            <input className="text-field" type="datetime-local" value={startsAt} onChange={(e) => { setStartsAt(e.target.value); setCountdownSaved(false); }} />
+          </label>
+        </div>
+        <div style={{ display: "flex", alignItems: "center", gap: 12, marginTop: 12 }}>
+          <button type="button" className="btn-outline sm" onClick={saveCountdown} disabled={savingCountdown}>
+            {savingCountdown ? "Saving…" : "Save countdown"}
+          </button>
+          {countdownSaved && <span style={{ fontSize: 13, color: "var(--orange-400)" }}>Saved, live on the Shop page</span>}
+        </div>
       </div>
-      <div style={{ display: "flex", gap: 10, marginTop: 16, flexWrap: "wrap" }}>
-        {!sale.active ? (
-          <button type="button" className="btn-solid md" onClick={() => save(true)} disabled={saving || !title}>
-            {saving ? "Launching…" : "Launch flash sale"}
-          </button>
-        ) : (
-          <button type="button" className="btn-outline md" onClick={() => save(false)} disabled={saving}>
-            {saving ? "Ending…" : "End flash sale"}
-          </button>
-        )}
-        <button type="button" className="btn-outline sm" onClick={() => save(sale.active)} disabled={saving}>
-          Save details
-        </button>
+
+      <div style={{ marginTop: 22, paddingTop: 18, borderTop: "1px solid var(--border-subtle)" }}>
+        <h3 style={{ margin: 0, fontSize: 14.5, fontWeight: 600 }}>Launch the sale</h3>
+        <p style={{ margin: "4px 0 0", fontSize: 12.5, color: "var(--text-secondary)" }}>
+          When the countdown ends, come back here to write the sale message and launch it. This replaces the countdown with the live banner.
+        </p>
+        <div style={{ display: "grid", gap: 12, marginTop: 12 }}>
+          <textarea
+            className="text-field"
+            placeholder="Message (e.g. 15% off all power banks and earbuds)"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            rows={2}
+            style={{ height: "auto", minHeight: 60, padding: "10px 14px", fontFamily: "inherit", resize: "vertical" }}
+          />
+          <label style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 12.5, color: "var(--text-secondary)" }}>
+            Ends at (optional)
+            <input className="text-field" type="datetime-local" value={endsAt} onChange={(e) => setEndsAt(e.target.value)} style={{ maxWidth: 260 }} />
+          </label>
+        </div>
+        <div style={{ display: "flex", gap: 10, marginTop: 12, flexWrap: "wrap" }}>
+          {!sale.active ? (
+            <button type="button" className="btn-solid md" onClick={() => saveLive(true)} disabled={savingLive || !title}>
+              {savingLive ? "Launching…" : "Launch flash sale"}
+            </button>
+          ) : (
+            <button type="button" className="btn-outline md" onClick={() => saveLive(false)} disabled={savingLive}>
+              {savingLive ? "Ending…" : "End flash sale"}
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );
@@ -444,7 +475,7 @@ export const getServerSideProps: GetServerSideProps<AdminProps> = async (ctx) =>
         repairs: [],
         testimonials: [],
         settings: DEFAULT_SETTINGS,
-        flashSale: { active: false, title: "Flash Sale", message: "", endsAt: null },
+        flashSale: { active: false, title: "Flash Sale", message: "", startsAt: null, endsAt: null },
       },
     };
   }
@@ -493,7 +524,13 @@ export const getServerSideProps: GetServerSideProps<AdminProps> = async (ctx) =>
       }
     : DEFAULT_SETTINGS;
   const flashSale: FlashSale = saleRow
-    ? { active: saleRow.active, title: saleRow.title, message: saleRow.message, endsAt: saleRow.endsAt ? saleRow.endsAt.toISOString() : null }
-    : { active: false, title: "Flash Sale", message: "", endsAt: null };
+    ? {
+        active: saleRow.active,
+        title: saleRow.title,
+        message: saleRow.message,
+        startsAt: saleRow.startsAt ? saleRow.startsAt.toISOString() : null,
+        endsAt: saleRow.endsAt ? saleRow.endsAt.toISOString() : null,
+      }
+    : { active: false, title: "Flash Sale", message: "", startsAt: null, endsAt: null };
   return { props: { products, repairs, testimonials, settings, flashSale } };
 };

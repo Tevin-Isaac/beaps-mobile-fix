@@ -47,6 +47,7 @@ model FlashSale {
   active    Boolean   @default(false)
   title     String    @default("Flash Sale")
   message   String    @default("")
+  startsAt  DateTime?
   endsAt    DateTime?
   updatedAt DateTime  @updatedAt
 }

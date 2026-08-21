@@ -16,11 +16,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       res.status(403).json({ error: "Forbidden" });
       return;
     }
-    const { active, title, message, endsAt } = req.body || {};
+    const { active, title, message, startsAt, endsAt } = req.body || {};
     const data: Record<string, unknown> = {};
     if (typeof active === "boolean") data.active = active;
     if (typeof title === "string") data.title = title;
     if (typeof message === "string") data.message = message;
+    if (startsAt === null || typeof startsAt === "string") data.startsAt = startsAt ? new Date(startsAt) : null;
     if (endsAt === null || typeof endsAt === "string") data.endsAt = endsAt ? new Date(endsAt) : null;
     const sale = await prisma.flashSale.update({ where: { id: "main" }, data });
     res.status(200).json(sale);

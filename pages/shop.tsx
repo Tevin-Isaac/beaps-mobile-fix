@@ -7,6 +7,7 @@ import { autoFit } from "../lib/style";
 import type { NextPageWithTitle, Product, FlashSale } from "../lib/types";
 import Reveal from "../components/Reveal";
 import ShareButton from "../components/ShareButton";
+import FlashCountdown from "../components/FlashCountdown";
 import { prisma } from "../lib/prisma";
 
 interface ShopProps {
@@ -35,6 +36,23 @@ function FlashSaleBanner({ sale }: { sale: FlashSale }) {
             Ends {endsText}
           </div>
         )}
+      </div>
+    );
+  }
+
+  if (sale.startsAt) {
+    return (
+      <div className="flash-banner is-live">
+        <div className="flash-banner-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"></path>
+          </svg>
+        </div>
+        <div style={{ flex: "1 1 160px", minWidth: 0 }}>
+          <div style={{ fontSize: 16, fontWeight: 700, letterSpacing: "-0.01em" }}>{sale.title || "Flash Sale"} starts in</div>
+          {sale.message && <div style={{ fontSize: 13.5, marginTop: 3, color: "rgba(255,255,255,0.85)" }}>{sale.message}</div>}
+        </div>
+        <FlashCountdown target={sale.startsAt} />
       </div>
     );
   }
@@ -168,7 +186,13 @@ export const getServerSideProps: GetServerSideProps<ShopProps> = async () => {
     installments: r.installments,
   }));
   const flashSale: FlashSale = saleRow
-    ? { active: saleRow.active, title: saleRow.title, message: saleRow.message, endsAt: saleRow.endsAt ? saleRow.endsAt.toISOString() : null }
-    : { active: false, title: "Flash Sale", message: "", endsAt: null };
+    ? {
+        active: saleRow.active,
+        title: saleRow.title,
+        message: saleRow.message,
+        startsAt: saleRow.startsAt ? saleRow.startsAt.toISOString() : null,
+        endsAt: saleRow.endsAt ? saleRow.endsAt.toISOString() : null,
+      }
+    : { active: false, title: "Flash Sale", message: "", startsAt: null, endsAt: null };
   return { props: { products, flashSale } };
 };
