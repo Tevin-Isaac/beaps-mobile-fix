@@ -29,24 +29,30 @@ function ProductRow({ p, onSaved }: { p: Product; onSaved: (p: Product) => void 
   };
 
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: 12, padding: "12px 16px", border: "1px solid var(--border-subtle)", borderRadius: 14, background: "var(--surface-card)" }}>
-      <img src={p.image} alt={p.name} style={{ width: 44, height: 44, objectFit: "cover", borderRadius: 10, flexShrink: 0 }} />
-      <div style={{ flex: 1, minWidth: 0 }}>
-        <div style={{ fontSize: 14, fontWeight: 500 }}>{p.name}</div>
-        <div style={{ fontSize: 12, color: "var(--text-tertiary)" }}>{p.cat}</div>
+    <div style={{ display: "flex", flexDirection: "column", gap: 10, padding: 14, border: "1px solid var(--border-subtle)", borderRadius: 14, background: "var(--surface-card)" }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+        <img src={p.image} alt={p.name} style={{ width: 40, height: 40, objectFit: "cover", borderRadius: 10, flexShrink: 0 }} />
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={{ fontSize: 13.5, fontWeight: 500, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{p.name}</div>
+          <div style={{ fontSize: 11.5, color: "var(--text-tertiary)" }}>{p.cat}</div>
+        </div>
       </div>
-      <span style={{ fontSize: 13, color: "var(--text-tertiary)" }}>KSh</span>
-      <input
-        type="number"
-        value={price}
-        onChange={(e) => setPrice(e.target.value)}
-        className="text-field"
-        style={{ width: 100, height: 38, fontFamily: "'Geist Mono', monospace" }}
-      />
-      <button type="button" className="btn-outline sm" onClick={save} disabled={saving || Number(price) === p.price}>
-        {saving ? "Saving…" : "Save"}
-      </button>
-      <a href={`/product/${p.slug}`} target="_blank" rel="noreferrer" className="btn-outline sm" title="Shareable link">Link</a>
+      <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+        <span style={{ fontSize: 12, color: "var(--text-tertiary)" }}>KSh</span>
+        <input
+          type="number"
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+          className="text-field"
+          style={{ flex: 1, height: 36, fontFamily: "'Geist Mono', monospace", fontSize: 13 }}
+        />
+      </div>
+      <div style={{ display: "flex", gap: 8 }}>
+        <button type="button" className="btn-outline sm" style={{ flex: 1 }} onClick={save} disabled={saving || Number(price) === p.price}>
+          {saving ? "Saving…" : "Save"}
+        </button>
+        <a href={`/product/${p.slug}`} target="_blank" rel="noreferrer" className="btn-outline sm" style={{ flex: 1, textAlign: "center" }} title="Shareable link">Link</a>
+      </div>
     </div>
   );
 }
@@ -94,13 +100,13 @@ const Admin: NextPageWithTitle<AdminProps> = ({ products: initial }) => {
   }
 
   return (
-    <div style={{ maxWidth: 900, margin: "0 auto", padding: "56px 20px 72px" }}>
+    <div style={{ maxWidth: 1280, margin: "0 auto", padding: "56px 20px 72px" }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
         <h1 style={{ margin: 0, fontSize: 32, fontWeight: 700, letterSpacing: "-0.03em" }}>Admin — Products</h1>
         <button type="button" className="btn-outline sm" onClick={() => signOut()}>Sign out ({session.user?.email})</button>
       </div>
 
-      <div style={{ display: "flex", flexDirection: "column", gap: 10, marginTop: 28 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(230px, 100%), 1fr))", gap: 12, marginTop: 28 }}>
         {products.map((p) => (
           <ProductRow key={p.id} p={p} onSaved={(updated) => setProducts((prev) => prev.map((x) => (x.id === updated.id ? updated : x)))} />
         ))}
