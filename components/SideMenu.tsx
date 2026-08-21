@@ -51,17 +51,6 @@ const NAV_ITEMS = [
       </>
     ),
   },
-  {
-    href: "/dashboard",
-    label: "Your repairs",
-    icon: (
-      <>
-        <path d="M5 18v-6a7 7 0 0 1 14 0v6"></path>
-        <rect x="2" y="17" width="6" height="5" rx="2"></rect>
-        <rect x="16" y="17" width="6" height="5" rx="2"></rect>
-      </>
-    ),
-  },
 ];
 
 interface SideMenuProps {

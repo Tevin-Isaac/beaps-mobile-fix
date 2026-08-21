@@ -1,5 +1,4 @@
 import { useRef, useState } from "react";
-import { useSession } from "next-auth/react";
 import { DEVICES, ISSUES, chipStyle, money, round100 } from "../lib/data";
 import { autoFit } from "../lib/style";
 import { useSettings } from "../context/SettingsContext";
@@ -7,7 +6,6 @@ import type { NextPageWithTitle, Booking } from "../lib/types";
 import Reveal from "../components/Reveal";
 
 const Quote: NextPageWithTitle = () => {
-  const { data: session } = useSession();
   const { whatsappLink, addressLine, addressDetail } = useSettings();
   const [dev, setDev] = useState<string | null>(null);
   const [issue, setIssue] = useState<string | null>(null);
@@ -19,7 +17,6 @@ const Quote: NextPageWithTitle = () => {
 
   const nameRef = useRef<HTMLInputElement>(null);
   const phoneRef = useRef<HTMLInputElement>(null);
-  const emailRef = useRef<HTMLInputElement>(null);
   const modelRef = useRef<HTMLInputElement>(null);
   const dateRef = useRef<HTMLInputElement>(null);
   const timeRef = useRef<HTMLSelectElement>(null);
@@ -44,8 +41,6 @@ const Quote: NextPageWithTitle = () => {
       time: timeRef.current?.value || "",
       details,
     };
-    const email = emailRef.current?.value || session?.user?.email || "";
-
     setSaving(true);
     setSaveError(false);
     try {
@@ -54,7 +49,6 @@ const Quote: NextPageWithTitle = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: b.name,
-          email,
           phone: b.phone,
           model: b.model,
           issue: selectedIssue ? selectedIssue.label : null,
@@ -150,16 +144,6 @@ const Quote: NextPageWithTitle = () => {
               <label style={{ display: "flex", flexDirection: "column", gap: 7, fontSize: 13, color: "var(--text-secondary)" }}>
                 Phone / WhatsApp
                 <input ref={phoneRef} type="tel" placeholder="07xx xxx xxx" className="text-field" style={{ fontFamily: "'Geist Mono', monospace" }} />
-              </label>
-              <label style={{ display: "flex", flexDirection: "column", gap: 7, fontSize: 13, color: "var(--text-secondary)" }}>
-                Email {session?.user?.email ? "(from your sign-in)" : "(so you can track this booking)"}
-                <input
-                  ref={emailRef}
-                  type="email"
-                  placeholder="you@example.com"
-                  defaultValue={session?.user?.email || ""}
-                  className="text-field"
-                />
               </label>
               <label style={{ display: "flex", flexDirection: "column", gap: 7, fontSize: 13, color: "var(--text-secondary)" }}>
                 Model
