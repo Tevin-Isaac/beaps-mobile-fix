@@ -48,6 +48,7 @@ export interface Testimonial {
   quote: string;
   author: string;
   context: string;
+  avatar: string | null;
 }
 
 export interface Booking {

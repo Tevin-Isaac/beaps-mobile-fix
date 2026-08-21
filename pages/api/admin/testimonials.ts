@@ -11,12 +11,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   if (req.method === "POST") {
-    const { quote, author, context } = req.body || {};
+    const { quote, author, context, avatar } = req.body || {};
     if (!quote || !author || !context) {
       res.status(400).json({ error: "Missing required fields" });
       return;
     }
-    const testimonial = await prisma.testimonial.create({ data: { quote, author, context } });
+    const testimonial = await prisma.testimonial.create({
+      data: { quote, author, context, avatar: avatar || null },
+    });
     res.status(201).json(testimonial);
     return;
   }

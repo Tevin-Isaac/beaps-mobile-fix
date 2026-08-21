@@ -38,6 +38,7 @@ model Testimonial {
   quote     String
   author    String
   context   String
+  avatar    String?
   createdAt DateTime @default(now())
 }
 

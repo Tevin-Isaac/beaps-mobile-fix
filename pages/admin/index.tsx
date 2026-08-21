@@ -6,6 +6,7 @@ import { authOptions } from "../../lib/auth";
 import { prisma } from "../../lib/prisma";
 import { money } from "../../lib/data";
 import { DEFAULT_SETTINGS, SiteSettings } from "../../context/SettingsContext";
+import Avatar from "../../components/Avatar";
 import type { NextPageWithTitle, Product, Repair, Testimonial } from "../../lib/types";
 
 interface AdminProps {
@@ -159,7 +160,7 @@ function RepairRow({ r, onSaved }: { r: Repair; onSaved: (r: Repair) => void }) 
   );
 }
 
-const emptyTestimonialForm = { quote: "", author: "", context: "" };
+const emptyTestimonialForm = { quote: "", author: "", context: "", avatar: "" };
 
 function TestimonialsPanel({ initial }: { initial: Testimonial[] }) {
   const [testimonials, setTestimonials] = useState(initial);
@@ -173,7 +174,7 @@ function TestimonialsPanel({ initial }: { initial: Testimonial[] }) {
     const res = await fetch("/api/admin/testimonials", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
+      body: JSON.stringify({ ...form, avatar: form.avatar || null }),
     });
     setAdding(false);
     if (res.ok) {
@@ -202,7 +203,10 @@ function TestimonialsPanel({ initial }: { initial: Testimonial[] }) {
           {testimonials.map((t) => (
             <div key={t.id} style={{ padding: 16, border: "1px solid var(--border-subtle)", borderRadius: 14, background: "var(--surface-card)" }}>
               <p style={{ margin: 0, fontSize: 13.5, lineHeight: 1.5 }}>{t.quote}</p>
-              <div style={{ marginTop: 10, fontSize: 12, color: "var(--text-tertiary)" }}>{t.author} · {t.context}</div>
+              <div style={{ display: "flex", alignItems: "center", gap: 8, marginTop: 10 }}>
+                <Avatar name={t.author} src={t.avatar} size={28} />
+                <div style={{ fontSize: 12, color: "var(--text-tertiary)" }}>{t.author} · {t.context}</div>
+              </div>
               <button
                 type="button"
                 className="btn-outline sm"
@@ -232,6 +236,19 @@ function TestimonialsPanel({ initial }: { initial: Testimonial[] }) {
             <input className="text-field" placeholder="Customer name (e.g. Wanjiru M.)" value={form.author} onChange={(e) => setForm({ ...form, author: e.target.value })} />
             <input className="text-field" placeholder="What was fixed (e.g. Samsung S21 screen)" value={form.context} onChange={(e) => setForm({ ...form, context: e.target.value })} />
           </div>
+          <label style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 12.5, color: "var(--text-secondary)" }}>
+            Customer photo URL (optional — only use a real photo of this real customer, with their okay)
+            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+              <Avatar name={form.author || "?"} src={form.avatar} size={34} />
+              <input
+                className="text-field"
+                placeholder="https://... (leave blank for an initials avatar)"
+                value={form.avatar}
+                onChange={(e) => setForm({ ...form, avatar: e.target.value })}
+                style={{ flex: 1 }}
+              />
+            </div>
+          </label>
         </div>
         <button type="button" className="btn-solid md" style={{ marginTop: 14 }} onClick={addTestimonial} disabled={adding}>
           {adding ? "Adding…" : "Add review"}
@@ -374,6 +391,7 @@ export const getServerSideProps: GetServerSideProps<AdminProps> = async (ctx) =>
     quote: t.quote,
     author: t.author,
     context: t.context,
+    avatar: t.avatar,
   }));
   const settings: SiteSettings = settingRow
     ? {

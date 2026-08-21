@@ -8,6 +8,7 @@ import { autoFit } from "../lib/style";
 import type { NextPageWithTitle, Product, Testimonial } from "../lib/types";
 import WordReveal from "../components/WordReveal";
 import Reveal from "../components/Reveal";
+import Avatar from "../components/Avatar";
 import { prisma } from "../lib/prisma";
 
 interface FeatureItem {
@@ -308,7 +309,10 @@ const Home: NextPageWithTitle<HomeProps> = ({ featured, testimonials }) => {
                     ))}
                   </div>
                   <p style={{ margin: "14px 0 0", fontSize: 15, lineHeight: 1.55, color: "var(--text-primary)" }}>{t.quote}</p>
-                  <div style={{ marginTop: 14, fontSize: 13, color: "var(--text-secondary)" }}>{t.author} · {t.context}</div>
+                  <div style={{ display: "flex", alignItems: "center", gap: 10, marginTop: 16 }}>
+                    <Avatar name={t.author} src={t.avatar} size={36} />
+                    <div style={{ fontSize: 13, color: "var(--text-secondary)" }}>{t.author} · {t.context}</div>
+                  </div>
                 </div>
               ))}
             </div>
@@ -389,6 +393,7 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
     quote: t.quote,
     author: t.author,
     context: t.context,
+    avatar: t.avatar,
   }));
   return { props: { featured, testimonials } };
 };
