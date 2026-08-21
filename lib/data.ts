@@ -3,8 +3,8 @@ import type { DeviceOption, IssueOption } from "./types";
 export const FEATURED_SLUGS = ["oraimo-20-000mah-power-bank", "iphone-11-64gb", "oraimo-33w-gan-charger", "oraimo-freepods-3"];
 
 export const DEVICES: DeviceOption[] = [
-  { id: "budget", label: "Android — everyday", ex: "Tecno, Infinix, Redmi, itel", mult: 1 },
-  { id: "flagship", label: "Android — flagship", ex: "Samsung S/Note, Pixel, Huawei P", mult: 1.8 },
+  { id: "budget", label: "Android, everyday", ex: "Tecno, Infinix, Redmi, itel", mult: 1 },
+  { id: "flagship", label: "Android, flagship", ex: "Samsung S/Note, Pixel, Huawei P", mult: 1.8 },
   { id: "iphone", label: "iPhone", ex: "iPhone 8 through 15 Pro Max", mult: 2.4 },
   { id: "tablet", label: "Tablet / iPad", ex: "iPad, Galaxy Tab, Lenovo", mult: 2 },
   { id: "laptop", label: "Laptop", ex: "HP, Dell, Lenovo, MacBook", mult: 2.2 },
