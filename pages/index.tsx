@@ -195,25 +195,8 @@ const Home: NextPageWithTitle<HomeProps> = ({ featured }) => {
 
         <div className="fix-marquee-viewport" style={{ marginTop: 26 }}>
           <div className="fix-marquee-track fix-marquee-left">
-            {[...REPAIR_CARDS.slice(0, 3), ...REPAIR_CARDS.slice(0, 3), ...REPAIR_CARDS.slice(0, 3)].map((c, i) => (
-              <div key={`row1-${i}`} className="fix-card fix-marquee-card">
-                <div className="fix-card-photo">
-                  <img src={c.image} alt={c.title} />
-                  <div className="fix-card-icon">
-                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      {c.icon}
-                    </svg>
-                  </div>
-                </div>
-                <h3 className="fix-card-title">{c.title}</h3>
-                <p className="fix-card-desc">{c.desc}</p>
-                <div className="fix-card-price">{c.price}</div>
-              </div>
-            ))}
-          </div>
-          <div className="fix-marquee-track fix-marquee-right" style={{ marginTop: 14 }}>
-            {[...REPAIR_CARDS.slice(3, 6), ...REPAIR_CARDS.slice(3, 6), ...REPAIR_CARDS.slice(3, 6)].map((c, i) => (
-              <div key={`row2-${i}`} className="fix-card fix-marquee-card">
+            {[...REPAIR_CARDS, ...REPAIR_CARDS].map((c, i) => (
+              <div key={`fix-${i}`} className="fix-card fix-marquee-card">
                 <div className="fix-card-photo">
                   <img src={c.image} alt={c.title} />
                   <div className="fix-card-icon">

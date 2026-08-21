@@ -820,24 +820,17 @@ button {
   flex-shrink: 0;
 }
 .fix-marquee-left {
-  animation: fixMarqueeLeft 32s linear infinite;
-}
-.fix-marquee-right {
-  animation: fixMarqueeRight 36s linear infinite;
+  animation: fixMarqueeLeft 38s linear infinite;
 }
 .fix-marquee-viewport:hover .fix-marquee-track {
   animation-play-state: paused;
 }
 @keyframes fixMarqueeLeft {
   from { transform: translateX(0); }
-  to { transform: translateX(-33.3333%); }
-}
-@keyframes fixMarqueeRight {
-  from { transform: translateX(-33.3333%); }
-  to { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .fix-marquee-left, .fix-marquee-right {
+  .fix-marquee-left {
     animation: none;
   }
 }
