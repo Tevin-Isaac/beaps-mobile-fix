@@ -21,11 +21,17 @@ const Shop: NextPageWithTitle<ShopProps> = ({ products }) => {
   const shown = cat === "All" ? products : products.filter((p) => p.cat === cat);
 
   return (
-    <div data-screen-label="Shop" style={{ maxWidth: 1180, margin: "0 auto", padding: "56px 20px 72px" }}>
-      <h1 className="animate-fade-up" style={{ margin: 0, fontSize: "clamp(30px, 4.6vw, 48px)", fontWeight: 700, letterSpacing: "-0.032em" }}>Shop</h1>
-      <p className="animate-fade-up delay-200" style={{ margin: "14px 0 0", fontSize: 17, color: "var(--text-secondary)", maxWidth: 620 }}>
-        Phones, power banks, chargers and everyday accessories. Add what you want, send the order on WhatsApp, and pay on collection or by M-Pesa.
-      </p>
+    <div data-screen-label="Shop" style={{ maxWidth: 1180, margin: "0 auto", padding: "40px 20px 72px" }}>
+      <div className="animate-fade-up page-hero">
+        <img src="/shop-hero.jpg" alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", zIndex: 0 }} />
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(6,6,6,0.35), rgba(6,6,6,0.9))", zIndex: 0 }} />
+        <div style={{ position: "relative", zIndex: 1 }}>
+          <h1 style={{ margin: 0, fontSize: "clamp(30px, 4.6vw, 48px)", fontWeight: 700, letterSpacing: "-0.032em", color: "#ffffff" }}>Shop</h1>
+          <p style={{ margin: "14px 0 0", fontSize: 17, color: "rgba(255,255,255,0.8)", maxWidth: 560 }}>
+            Phones, power banks, chargers and everyday accessories. Add what you want, send the order on WhatsApp, and pay on collection or by M-Pesa.
+          </p>
+        </div>
+      </div>
 
       <div className="animate-fade-up delay-300" style={{ display: "flex", gap: 14, alignItems: "flex-start", marginTop: 24, padding: "16px 18px", border: "1px solid var(--orange-a20)", borderRadius: 16, background: "var(--brand-tint)" }}>
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--orange-400)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, marginTop: 2 }}>

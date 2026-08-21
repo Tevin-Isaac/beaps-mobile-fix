@@ -17,11 +17,17 @@ const Repairs: NextPageWithTitle<RepairsProps> = ({ repairs }) => {
   );
 
   return (
-    <div data-screen-label="Repairs" style={{ maxWidth: 1180, margin: "0 auto", padding: "56px 20px 72px" }}>
-      <h1 className="animate-fade-up" style={{ margin: 0, fontSize: "clamp(30px, 4.6vw, 48px)", fontWeight: 700, letterSpacing: "-0.032em" }}>Repairs</h1>
-      <p className="animate-fade-up delay-200" style={{ margin: "14px 0 0", fontSize: 17, color: "var(--text-secondary)", maxWidth: 640 }}>
-        Every price below is a from-price in Kenya Shillings — the real figure depends on your model and the part grade. Diagnostics are free and we confirm the price before we start.
-      </p>
+    <div data-screen-label="Repairs" style={{ maxWidth: 1180, margin: "0 auto", padding: "40px 20px 72px" }}>
+      <div className="animate-fade-up page-hero">
+        <img src="/repairs-hero.jpg" alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", zIndex: 0 }} />
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(6,6,6,0.35), rgba(6,6,6,0.9))", zIndex: 0 }} />
+        <div style={{ position: "relative", zIndex: 1 }}>
+          <h1 style={{ margin: 0, fontSize: "clamp(30px, 4.6vw, 48px)", fontWeight: 700, letterSpacing: "-0.032em", color: "#ffffff" }}>Repairs</h1>
+          <p style={{ margin: "14px 0 0", fontSize: 17, color: "rgba(255,255,255,0.8)", maxWidth: 560 }}>
+            Every price below is a from-price in Kenya Shillings — the real figure depends on your model and the part grade. Diagnostics are free and we confirm the price before we start.
+          </p>
+        </div>
+      </div>
 
       <div style={{ display: "grid", gridTemplateColumns: autoFit(280), gap: 16, marginTop: 32 }}>
         {repairs.map((r, i) => (

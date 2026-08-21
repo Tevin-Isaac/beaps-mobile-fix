@@ -106,7 +106,7 @@ const Quote: NextPageWithTitle = () => {
 
   return (
     <div data-screen-label="Instant quote" style={{ maxWidth: 900, margin: "0 auto", padding: "40px 20px 72px" }}>
-      <div className="animate-fade-up quote-hero">
+      <div className="animate-fade-up page-hero">
         <img src="/quote-hero.jpg" alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", zIndex: 0 }} />
         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(6,6,6,0.35), rgba(6,6,6,0.9))", zIndex: 0 }} />
         <div style={{ position: "relative", zIndex: 1 }}>

@@ -962,7 +962,7 @@ button {
   border-color: var(--border-focus);
 }
 
-.quote-hero {
+.page-hero {
   position: relative;
   overflow: hidden;
   border-radius: 24px;
