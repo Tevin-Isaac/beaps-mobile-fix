@@ -1033,7 +1033,8 @@ button {
 .flash-banner {
   display: flex;
   align-items: center;
-  gap: 14px;
+  flex-wrap: wrap;
+  gap: 12px 14px;
   padding: 16px 18px;
   border-radius: 16px;
 }

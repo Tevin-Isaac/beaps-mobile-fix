@@ -26,7 +26,7 @@ function FlashSaleBanner({ sale }: { sale: FlashSale }) {
             <path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"></path>
           </svg>
         </div>
-        <div style={{ flex: 1, minWidth: 200 }}>
+        <div style={{ flex: "1 1 160px", minWidth: 0 }}>
           <div style={{ fontSize: 16, fontWeight: 700, letterSpacing: "-0.01em" }}>{sale.title}</div>
           {sale.message && <div style={{ fontSize: 13.5, marginTop: 3, color: "rgba(255,255,255,0.85)" }}>{sale.message}</div>}
         </div>

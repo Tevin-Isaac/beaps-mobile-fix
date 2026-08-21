@@ -24,9 +24,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       res.status(400).json({ error: "Missing required fields" });
       return;
     }
-    let slug = slugify(name);
-    const existing = await prisma.product.findUnique({ where: { slug } });
-    if (existing) slug = `${slug}-${Date.now().toString(36)}`;
+    const base = slugify(name) || "product";
+    let slug = base;
+    let n = 2;
+    while (await prisma.product.findUnique({ where: { slug } })) {
+      slug = `${base}-${n}`;
+      n++;
+    }
     const product = await prisma.product.create({
       data: { slug, name, cat, price, tag: tag || "New", note: note || "", image, installments: !!installments },
     });
