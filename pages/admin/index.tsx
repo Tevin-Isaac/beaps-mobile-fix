@@ -96,8 +96,8 @@ const SETTINGS_FIELDS: { key: keyof SiteSettings; label: string }[] = [
   { key: "phoneTel", label: "Phone (tel link, e.g. +254720668668)" },
   { key: "whatsapp", label: "WhatsApp number (digits only, e.g. 254720668668)" },
   { key: "email", label: "Contact email" },
-  { key: "addressLine", label: "Address — building & street" },
-  { key: "addressDetail", label: "Address — room / floor" },
+  { key: "addressLine", label: "Address (building & street)" },
+  { key: "addressDetail", label: "Address (room / floor)" },
   { key: "hours", label: "Opening hours" },
 ];
 
@@ -270,7 +270,7 @@ function TestimonialsPanel({ initial }: { initial: Testimonial[] }) {
     <div>
       <h2 style={{ margin: "36px 0 0", fontSize: 22, fontWeight: 700, letterSpacing: "-0.02em" }}>Reviews</h2>
       <p style={{ margin: "6px 0 0", fontSize: 13, color: "var(--text-secondary)" }}>
-        Only add real customer feedback here — these show on the home page as genuine reviews. When empty, the site shows a trust-facts strip instead.
+        Only add real customer feedback here. These show on the home page as genuine reviews, and when empty, the site shows a trust-facts strip instead.
       </p>
 
       {testimonials.length > 0 && (
@@ -312,7 +312,7 @@ function TestimonialsPanel({ initial }: { initial: Testimonial[] }) {
             <input className="text-field" placeholder="What was fixed (e.g. Samsung S21 screen)" value={form.context} onChange={(e) => setForm({ ...form, context: e.target.value })} />
           </div>
           <label style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 12.5, color: "var(--text-secondary)" }}>
-            Customer photo URL (optional — only use a real photo of this real customer, with their okay)
+            Customer photo URL (optional, only use a real photo of this real customer, with their okay)
             <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
               <Avatar name={form.author || "?"} src={form.avatar} size={34} />
               <input
@@ -431,7 +431,7 @@ const Admin: NextPageWithTitle<AdminProps> = ({ products: initial, repairs: init
   );
 };
 
-Admin.pageTitle = "Admin — BEAPS Mobile Fix";
+Admin.pageTitle = "Admin - BEAPS Mobile Fix";
 
 export default Admin;
 

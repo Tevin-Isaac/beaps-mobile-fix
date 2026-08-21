@@ -111,7 +111,7 @@ const Quote: NextPageWithTitle = () => {
         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(6,6,6,0.35), rgba(6,6,6,0.9))", zIndex: 0 }} />
         <div style={{ position: "relative", zIndex: 1 }}>
           <h1 style={{ margin: 0, fontSize: "clamp(30px, 4.6vw, 48px)", fontWeight: 700, letterSpacing: "-0.032em", color: "#ffffff" }}>Instant quote</h1>
-          <p style={{ margin: "14px 0 0", fontSize: 17, color: "rgba(255,255,255,0.8)", maxWidth: 520 }}>Pick your device and fault for a price range, then send it straight to our WhatsApp — no forms, no waiting.</p>
+          <p style={{ margin: "14px 0 0", fontSize: 17, color: "rgba(255,255,255,0.8)", maxWidth: 520 }}>Pick your device and fault for a price range, then send it straight to our WhatsApp. No forms, no waiting.</p>
         </div>
       </div>
 
@@ -158,7 +158,7 @@ const Quote: NextPageWithTitle = () => {
         <textarea
           value={details}
           onChange={(e) => setDetails(e.target.value)}
-          placeholder="Add detail if you like — e.g. screen has a black line since I dropped it yesterday (optional)"
+          placeholder="Add detail if you like, e.g. screen has a black line since I dropped it yesterday (optional)"
           className="text-field"
           rows={3}
           style={{ height: "auto", minHeight: 76, marginTop: 16, resize: "vertical", fontFamily: "inherit", lineHeight: 1.5, padding: "12px 14px" }}
@@ -231,11 +231,11 @@ const Quote: NextPageWithTitle = () => {
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: 14, marginTop: 20, flexWrap: "wrap" }}>
               <button type="button" className="btn-solid md" onClick={book} disabled={saving}>{saving ? "Booking…" : "Book this slot"}</button>
-              <span style={{ fontSize: 13, color: "var(--text-tertiary)" }}>Or just walk in — no appointment needed.</span>
+              <span style={{ fontSize: 13, color: "var(--text-tertiary)" }}>Or just walk in, no appointment needed.</span>
             </div>
             {saveError && (
               <p style={{ margin: "10px 0 0", fontSize: 13, color: "var(--red-400, #e05d5d)" }}>
-                We couldn't save this to our system, but your slot request below still works — confirm it on WhatsApp.
+                We couldn't save this to our system, but your slot request below still works. Confirm it on WhatsApp.
               </p>
             )}
           </>
@@ -263,6 +263,6 @@ const Quote: NextPageWithTitle = () => {
   );
 };
 
-Quote.pageTitle = "Instant quote — BEAPS Mobile Fix";
+Quote.pageTitle = "Instant quote - BEAPS Mobile Fix";
 
 export default Quote;

@@ -153,7 +153,7 @@ const Home: NextPageWithTitle<HomeProps> = ({ featured, testimonials }) => {
           </h1>
 
           <p className="animate-fade-up delay-900 hero-fullbleed-sub">
-            Certified technicians, genuine parts, 90-day warranty — plus phones, power banks and accessories at the same counter. No appointment needed, just walk in.
+            Certified technicians, genuine parts, 90-day warranty. We also sell phones, power banks and accessories at the same counter, no appointment needed, just walk in.
           </p>
 
           <div className="animate-fade-up delay-900" style={{ display: "flex", gap: 12, marginTop: 28, flexWrap: "wrap", justifyContent: "center" }}>
@@ -352,7 +352,7 @@ const Home: NextPageWithTitle<HomeProps> = ({ featured, testimonials }) => {
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(120deg, rgba(10,26,13,0.55), rgba(6,6,6,0.88))", zIndex: 0 }} />
           <div style={{ position: "relative", zIndex: 1 }}>
             <h2 style={{ margin: 0, fontSize: "clamp(26px, 3.4vw, 34px)", fontWeight: 600, letterSpacing: "-0.03em", color: "#ffffff" }}>Phone acting up? Find out today.</h2>
-            <p style={{ margin: "10px 0 0", fontSize: 16, color: "rgba(255,255,255,0.75)" }}>{addressLine} — {addressDetail}. {hours}.</p>
+            <p style={{ margin: "10px 0 0", fontSize: 16, color: "rgba(255,255,255,0.75)" }}>{addressLine}, {addressDetail}. {hours}.</p>
           </div>
           <div style={{ position: "relative", zIndex: 1, display: "flex", gap: 12, flexWrap: "wrap" }}>
             <a href={whatsappLink("Hi BEAPS, I'd like to ask about a repair.")} target="_blank" rel="noreferrer" className="btn-solid">WhatsApp the shop</a>
@@ -365,7 +365,7 @@ const Home: NextPageWithTitle<HomeProps> = ({ featured, testimonials }) => {
   );
 };
 
-Home.pageTitle = "BEAPS Mobile Fix — Phone repairs, Nairobi CBD";
+Home.pageTitle = "BEAPS Mobile Fix - Phone repairs, Nairobi CBD";
 
 export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
   const [rows, testimonialRows] = await Promise.all([

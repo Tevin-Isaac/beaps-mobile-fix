@@ -12,7 +12,7 @@ interface LayoutProps {
   title?: string;
 }
 
-export default function Layout({ children, title = "BEAPS Mobile Fix — Phone repairs, Nairobi CBD" }: LayoutProps) {
+export default function Layout({ children, title = "BEAPS Mobile Fix - Phone repairs, Nairobi CBD" }: LayoutProps) {
   const { phoneTel, addressLine, addressDetail } = useSettings();
 
   const localBusinessJsonLd = {

@@ -59,6 +59,6 @@ const About: NextPageWithTitle = () => {
   );
 };
 
-About.pageTitle = "About — BEAPS Mobile Fix";
+About.pageTitle = "About - BEAPS Mobile Fix";
 
 export default About;

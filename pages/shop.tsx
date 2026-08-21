@@ -47,7 +47,7 @@ function FlashSaleBanner({ sale }: { sale: FlashSale }) {
         </svg>
       </div>
       <div>
-        <span style={{ fontWeight: 600 }}>Flash Sale</span> — coming soon. Keep an eye on this space.
+        <span style={{ fontWeight: 600 }}>Flash Sale</span> is coming soon. Keep an eye on this space.
       </div>
     </div>
   );
@@ -87,7 +87,7 @@ const Shop: NextPageWithTitle<ShopProps> = ({ products, flashSale }) => {
           <path d="M2 10h20"></path>
         </svg>
         <p style={{ margin: 0, fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.55 }}>
-          <strong style={{ color: "var(--text-primary)" }}>Lipa Mdogo Mdogo available on phones</strong> — new and refurbished handsets marked below can be paid for in small installments instead of one lump sum. Ask at the counter or on WhatsApp for terms.
+          <strong style={{ color: "var(--text-primary)" }}>Lipa Mdogo Mdogo available on phones.</strong> New and refurbished handsets marked below can be paid for in small installments instead of one lump sum. Ask at the counter or on WhatsApp for terms.
         </p>
       </div>
       </Reveal>
@@ -125,7 +125,7 @@ const Shop: NextPageWithTitle<ShopProps> = ({ products, flashSale }) => {
                 <div style={{ display: "flex", gap: 8, marginTop: 12 }}>
                   <button type="button" className="add-btn" style={{ flex: 1 }} onClick={() => addTo({ id: p.id, name: p.name, price: p.price })}>Add to order</button>
                   <a
-                    href={whatsappLink(`Hi BEAPS, I'd like to ask about this product:\n\n${p.name}\nKSh ${money(p.price)} — ${p.note}`)}
+                    href={whatsappLink(`Hi BEAPS, I'd like to ask about this product:\n\n${p.name}\nKSh ${money(p.price)}, ${p.note}`)}
                     target="_blank"
                     rel="noreferrer"
                     className="whatsapp-inquire-btn"
@@ -147,7 +147,7 @@ const Shop: NextPageWithTitle<ShopProps> = ({ products, flashSale }) => {
   );
 };
 
-Shop.pageTitle = "Shop — BEAPS Mobile Fix";
+Shop.pageTitle = "Shop - BEAPS Mobile Fix";
 
 export default Shop;
 

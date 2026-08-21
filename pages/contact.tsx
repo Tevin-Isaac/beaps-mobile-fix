@@ -28,7 +28,7 @@ const Contact: NextPageWithTitle = () => {
             </svg>
             <div>
               <div style={{ fontFamily: "'Geist Mono', monospace", fontSize: 15, fontWeight: 600, letterSpacing: "-0.02em" }}>{phoneDisplay}</div>
-              <div style={{ fontSize: 14, color: "var(--text-secondary)", marginTop: 4 }}>Call or WhatsApp — photos of the damage help.</div>
+              <div style={{ fontSize: 14, color: "var(--text-secondary)", marginTop: 4 }}>Call or WhatsApp. Photos of the damage help.</div>
             </div>
           </div>
           <div style={{ display: "flex", gap: 14 }}>
@@ -60,7 +60,7 @@ const Contact: NextPageWithTitle = () => {
         <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
           <div style={{ height: 300, border: "1px solid var(--border-default)", borderRadius: 24, overflow: "hidden", background: "var(--surface-card)" }}>
             <iframe
-              title={`BEAPS Mobile Fix on Google Maps — ${addressLine}`}
+              title={`BEAPS Mobile Fix on Google Maps, ${addressLine}`}
               src={`https://www.google.com/maps?q=${encodeURIComponent(addressLine + " Nairobi")}&output=embed`}
               width="100%"
               height="100%"
@@ -72,7 +72,7 @@ const Contact: NextPageWithTitle = () => {
           <div style={{ padding: 22, border: "1px solid var(--border-subtle)", borderRadius: 18, background: "var(--surface-card)" }}>
             <h3 style={{ margin: 0, fontSize: 16, fontWeight: 600, letterSpacing: "-0.02em" }}>Getting to {addressDetail}</h3>
             <p style={{ margin: "8px 0 0", fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.6 }}>
-              Enter from the street, take the lift up and follow signage to {addressDetail}. If you cannot make it in, ask about pickup and delivery — any location.
+              Enter from the street, take the lift up and follow signage to {addressDetail}. If you cannot make it in, ask about pickup and delivery, any location.
             </p>
           </div>
         </div>
@@ -82,6 +82,6 @@ const Contact: NextPageWithTitle = () => {
   );
 };
 
-Contact.pageTitle = "Contact — BEAPS Mobile Fix";
+Contact.pageTitle = "Contact - BEAPS Mobile Fix";
 
 export default Contact;

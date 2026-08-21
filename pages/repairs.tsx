@@ -24,7 +24,7 @@ const Repairs: NextPageWithTitle<RepairsProps> = ({ repairs }) => {
         <div style={{ position: "relative", zIndex: 1 }}>
           <h1 style={{ margin: 0, fontSize: "clamp(30px, 4.6vw, 48px)", fontWeight: 700, letterSpacing: "-0.032em", color: "#ffffff" }}>Repairs</h1>
           <p style={{ margin: "14px 0 0", fontSize: 17, color: "rgba(255,255,255,0.8)", maxWidth: 560 }}>
-            Every price below is a from-price in Kenya Shillings — the real figure depends on your model and the part grade. Diagnostics are free and we confirm the price before we start.
+            Every price below is a from-price in Kenya Shillings. The real figure depends on your model and the part grade. Diagnostics are free and we confirm the price before we start.
           </p>
         </div>
       </div>
@@ -66,14 +66,14 @@ const Repairs: NextPageWithTitle<RepairsProps> = ({ repairs }) => {
           <path d="M12 16v-4M12 8h.01"></path>
         </svg>
         <p style={{ margin: 0, fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.6 }}>
-          Water damage and motherboard jobs are quoted after inspection — some boards are beyond economical repair, and we will tell you that plainly rather than charge you to find out. Data recovery is attempted before any board work where possible.
+          Water damage and motherboard jobs are quoted after inspection. Some boards are beyond economical repair, and we will tell you that plainly rather than charge you to find out. Data recovery is attempted before any board work where possible.
         </p>
       </div>
     </div>
   );
 };
 
-Repairs.pageTitle = "Repairs — BEAPS Mobile Fix";
+Repairs.pageTitle = "Repairs - BEAPS Mobile Fix";
 
 export default Repairs;
 

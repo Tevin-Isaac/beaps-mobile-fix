@@ -17,14 +17,14 @@ const Terms: NextPageWithTitle = () => {
 
       <p style={P_STYLE}>
         These are the general terms for using this website and booking a repair, quote or shop order through it. They're written in
-        plain language for clarity, not as a substitute for formal legal advice — for anything binding or disputed, we'd rely on a
+        plain language for clarity, not as a substitute for formal legal advice. For anything binding or disputed, we'd rely on a
         proper legal review rather than this page alone.
       </p>
 
       <section style={SECTION_STYLE}>
         <h2 style={H2_STYLE}>Prices and quotes</h2>
         <p style={P_STYLE}>
-          Prices shown on this site — for repairs, products and the instant quote calculator — are from-prices and estimates. The
+          Prices shown on this site (for repairs, products and the instant quote calculator) are from-prices and estimates. The
           final price depends on your exact device, model and the part grade required, and is always confirmed with you after a free
           diagnostic, before any work begins.
         </p>
@@ -49,7 +49,7 @@ const Terms: NextPageWithTitle = () => {
       <section style={SECTION_STYLE}>
         <h2 style={H2_STYLE}>Your device and your data</h2>
         <ul style={{ ...P_STYLE, paddingLeft: 20 }}>
-          <li style={LI_STYLE}>Please back up anything important before handing over your device — we take care during repairs, but we can't guarantee against data loss, especially on devices that arrive already faulty (e.g. water damage, no power).</li>
+          <li style={LI_STYLE}>Please back up anything important before handing over your device. We take care during repairs, but we can't guarantee against data loss, especially on devices that arrive already faulty (e.g. water damage, no power).</li>
           <li style={LI_STYLE}>For most repairs we don't need your passcode. If a repair does require it, it's used only for that job and never recorded.</li>
           <li style={LI_STYLE}>If a device is assessed as beyond economical repair, we'll tell you plainly rather than charge for further work.</li>
         </ul>
@@ -58,8 +58,8 @@ const Terms: NextPageWithTitle = () => {
       <section style={SECTION_STYLE}>
         <h2 style={H2_STYLE}>Shop orders</h2>
         <p style={P_STYLE}>
-          Adding items to your order on the Shop page and sending it via WhatsApp is a request to reserve stock, not a completed sale
-          — payment and collection are arranged directly with us, on collection or by M-Pesa.
+          Adding items to your order on the Shop page and sending it via WhatsApp is a request to reserve stock, not a completed sale.
+          Payment and collection are arranged directly with us, on collection or by M-Pesa.
         </p>
       </section>
 
@@ -67,13 +67,13 @@ const Terms: NextPageWithTitle = () => {
         <h2 style={H2_STYLE}>Contact</h2>
         <p style={P_STYLE}>
           Questions about these terms: <a href={`mailto:${email}`} style={{ color: "var(--orange-400)" }}>{email}</a>, or visit us at{" "}
-          {addressLine} — {addressDetail}.
+          {addressLine}, {addressDetail}.
         </p>
       </section>
     </div>
   );
 };
 
-Terms.pageTitle = "Terms of service — BEAPS Mobile Fix";
+Terms.pageTitle = "Terms of service - BEAPS Mobile Fix";
 
 export default Terms;

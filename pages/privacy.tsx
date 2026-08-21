@@ -17,7 +17,7 @@ const Privacy: NextPageWithTitle = () => {
 
       <p style={P_STYLE}>
         This page explains what information BEAPS Mobile Fix collects through this website, why, and how it is used. It covers this
-        website only — not what happens to your device once it's physically at the shop, which is covered by the repair terms we agree
+        website only. What happens to your device once it's physically at the shop is covered by the repair terms we agree
         with you in person.
       </p>
 
@@ -25,9 +25,9 @@ const Privacy: NextPageWithTitle = () => {
         <h2 style={H2_STYLE}>What we collect</h2>
         <p style={P_STYLE}>Depending on how you use the site, we may collect:</p>
         <ul style={{ ...P_STYLE, paddingLeft: 20 }}>
-          <li style={LI_STYLE}>Your name, phone number, and optionally your email, device model and a description of the fault — submitted through the Instant Quote booking form.</li>
-          <li style={LI_STYLE}>Your name, email address and profile photo — if you sign in with Google to view your bookings or, for admin accounts, to manage the site.</li>
-          <li style={LI_STYLE}>A theme preference (light or dark) saved in your browser's local storage — this never leaves your device.</li>
+          <li style={LI_STYLE}>Your name, phone number, device model and a description of the fault, submitted through the Instant Quote booking form.</li>
+          <li style={LI_STYLE}>Your name, email address and profile photo, only if you sign in with Google as an admin to manage the site.</li>
+          <li style={LI_STYLE}>A theme preference (light or dark) saved in your browser's local storage. This never leaves your device.</li>
         </ul>
         <p style={P_STYLE}>
           We do not use tracking cookies, ad pixels, or any third-party analytics on this site at this time.
@@ -37,18 +37,17 @@ const Privacy: NextPageWithTitle = () => {
       <section style={SECTION_STYLE}>
         <h2 style={H2_STYLE}>Why we collect it</h2>
         <p style={P_STYLE}>
-          Booking details are used to schedule and follow up on your repair or quote request, and to let you look up your own booking
-          history if you sign in. Sign-in details are used only to identify you (or to check whether your account has admin access) —
-          we don't use them for marketing.
+          Booking details are used to schedule and follow up on your repair or quote request. Admin sign-in details are used only to
+          check whether your account has admin access. We don't use anything for marketing.
         </p>
       </section>
 
       <section style={SECTION_STYLE}>
         <h2 style={H2_STYLE}>Where it's stored</h2>
         <p style={P_STYLE}>
-          Booking and account data is stored in a Postgres database hosted by Neon, with the website itself hosted on Vercel. Sign-in
-          is handled by Google — we never see or store your Google password. We don't sell, rent, or share your information with any
-          other third party.
+          Booking and admin account data is stored in a Postgres database hosted by Neon, with the website itself hosted on Vercel.
+          Admin sign-in is handled by Google, so we never see or store any Google password. We don't sell, rent, or share your
+          information with any other third party.
         </p>
       </section>
 
@@ -71,6 +70,6 @@ const Privacy: NextPageWithTitle = () => {
   );
 };
 
-Privacy.pageTitle = "Privacy policy — BEAPS Mobile Fix";
+Privacy.pageTitle = "Privacy policy - BEAPS Mobile Fix";
 
 export default Privacy;
