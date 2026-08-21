@@ -58,18 +58,19 @@ const FEATURES: FeatureItem[] = [
 
 interface RepairCard {
   icon: ReactNode;
+  image: string;
   title: string;
   desc: string;
   price: string;
 }
 
 const REPAIR_CARDS: RepairCard[] = [
-  { icon: <><rect x="5" y="2" width="14" height="20" rx="2"></rect><path d="m9 7 3 4-2 2 3 4"></path></>, title: "Screen replacement", desc: "Cracked glass, dead touch, lines on the display. Original-grade panels.", price: "from KSh 2,500" },
-  { icon: <><rect x="2" y="7" width="16" height="10" rx="2"></rect><path d="M22 11v2M10 10v4"></path></>, title: "Battery & charging", desc: "Dies by noon, won't hold charge, loose charging port.", price: "from KSh 1,200" },
-  { icon: <path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5S12.5 4 12 2c-.5 2-2 4-4 5.5S5 13 5 15a7 7 0 0 0 7 7z"></path>, title: "Water damage", desc: "Ultrasonic board cleaning and component-level drying. Bring it in fast.", price: "from KSh 2,000" },
-  { icon: <><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z"></path><circle cx="12" cy="13" r="3"></circle></>, title: "Camera & back glass", desc: "Blurry lens, shattered rear glass, bent housing or frame.", price: "from KSh 1,800" },
-  { icon: <><rect x="4" y="4" width="16" height="16" rx="2"></rect><rect x="9" y="9" width="6" height="6"></rect><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"></path></>, title: "Motherboard work", desc: "Micro-soldering, no-power, no-network and IC-level faults.", price: "from KSh 3,500" },
-  { icon: <><path d="M3 5h18v11H3z"></path><path d="M2 20h20"></path></>, title: "Tablets & laptops", desc: "iPads, Android tablets, laptop screens, keyboards and hinges.", price: "from KSh 2,800" },
+  { icon: <><rect x="5" y="2" width="14" height="20" rx="2"></rect><path d="m9 7 3 4-2 2 3 4"></path></>, image: "/repairs/screen-replacement.jpg", title: "Screen replacement", desc: "Cracked glass, dead touch, lines on the display. Original-grade panels.", price: "from KSh 2,800" },
+  { icon: <><rect x="2" y="7" width="16" height="10" rx="2"></rect><path d="M22 11v2M10 10v4"></path></>, image: "/repairs/battery-charging.jpg", title: "Battery & charging", desc: "Dies by noon, won't hold charge, loose charging port.", price: "from KSh 1,500" },
+  { icon: <path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5S12.5 4 12 2c-.5 2-2 4-4 5.5S5 13 5 15a7 7 0 0 0 7 7z"></path>, image: "/repairs/water-damage.jpg", title: "Water damage", desc: "Ultrasonic board cleaning and component-level drying. Bring it in fast.", price: "from KSh 4,500" },
+  { icon: <><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z"></path><circle cx="12" cy="13" r="3"></circle></>, image: "/repairs/camera-repair.jpg", title: "Camera & back glass", desc: "Blurry lens, shattered rear glass, bent housing or frame.", price: "from KSh 2,200" },
+  { icon: <><rect x="4" y="4" width="16" height="16" rx="2"></rect><rect x="9" y="9" width="6" height="6"></rect><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"></path></>, image: "/repairs/motherboard.jpg", title: "Motherboard work", desc: "Micro-soldering, no-power, no-network and IC-level faults.", price: "from KSh 5,000" },
+  { icon: <><path d="M3 5h18v11H3z"></path><path d="M2 20h20"></path></>, image: "/repairs/tablet-repair.jpg", title: "Tablets & laptops", desc: "iPads, Android tablets, laptop screens, keyboards and hinges.", price: "from KSh 3,500" },
 ];
 
 const HOW_IT_WORKS = [
@@ -188,7 +189,7 @@ const Home: NextPageWithTitle<HomeProps> = ({ featured }) => {
             <p style={{ margin: "8px 0 0", fontSize: 15, color: "var(--text-secondary)" }}>From-prices in KSh. Final quote after a free diagnostic.</p>
           </div>
           <button type="button" onClick={() => router.push("/repairs")} style={{ fontSize: 14, color: "var(--orange-400)", cursor: "pointer", background: "none", border: "none" }}>
-            All repairs &amp; prices →
+            All repairs →
           </button>
         </div>
 
@@ -196,10 +197,13 @@ const Home: NextPageWithTitle<HomeProps> = ({ featured }) => {
           <div className="fix-marquee-track fix-marquee-left">
             {[...REPAIR_CARDS.slice(0, 3), ...REPAIR_CARDS.slice(0, 3), ...REPAIR_CARDS.slice(0, 3)].map((c, i) => (
               <div key={`row1-${i}`} className="fix-card fix-marquee-card">
-                <div className="fix-card-icon">
-                  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    {c.icon}
-                  </svg>
+                <div className="fix-card-photo">
+                  <img src={c.image} alt={c.title} />
+                  <div className="fix-card-icon">
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      {c.icon}
+                    </svg>
+                  </div>
                 </div>
                 <h3 className="fix-card-title">{c.title}</h3>
                 <p className="fix-card-desc">{c.desc}</p>
@@ -210,10 +214,13 @@ const Home: NextPageWithTitle<HomeProps> = ({ featured }) => {
           <div className="fix-marquee-track fix-marquee-right" style={{ marginTop: 14 }}>
             {[...REPAIR_CARDS.slice(3, 6), ...REPAIR_CARDS.slice(3, 6), ...REPAIR_CARDS.slice(3, 6)].map((c, i) => (
               <div key={`row2-${i}`} className="fix-card fix-marquee-card">
-                <div className="fix-card-icon">
-                  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    {c.icon}
-                  </svg>
+                <div className="fix-card-photo">
+                  <img src={c.image} alt={c.title} />
+                  <div className="fix-card-icon">
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      {c.icon}
+                    </svg>
+                  </div>
                 </div>
                 <h3 className="fix-card-title">{c.title}</h3>
                 <p className="fix-card-desc">{c.desc}</p>

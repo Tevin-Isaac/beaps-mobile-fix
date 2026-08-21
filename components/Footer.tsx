@@ -25,7 +25,7 @@ export default function Footer() {
 
         <div style={{ display: "flex", flexDirection: "column", gap: 9 }}>
           <div style={{ fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--text-tertiary)" }}>Services</div>
-          <button type="button" className="footer-link" onClick={go("/repairs")}>Repairs &amp; prices</button>
+          <button type="button" className="footer-link" onClick={go("/repairs")}>Repairs</button>
           <button type="button" className="footer-link" onClick={go("/quote")}>Instant quote</button>
         </div>
 

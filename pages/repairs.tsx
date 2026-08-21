@@ -17,8 +17,8 @@ const Repairs: NextPageWithTitle<RepairsProps> = ({ repairs }) => {
   );
 
   return (
-    <div data-screen-label="Repairs and prices" style={{ maxWidth: 1180, margin: "0 auto", padding: "56px 20px 72px" }}>
-      <h1 className="animate-fade-up" style={{ margin: 0, fontSize: "clamp(30px, 4.6vw, 48px)", fontWeight: 700, letterSpacing: "-0.032em" }}>Repairs &amp; prices</h1>
+    <div data-screen-label="Repairs" style={{ maxWidth: 1180, margin: "0 auto", padding: "56px 20px 72px" }}>
+      <h1 className="animate-fade-up" style={{ margin: 0, fontSize: "clamp(30px, 4.6vw, 48px)", fontWeight: 700, letterSpacing: "-0.032em" }}>Repairs</h1>
       <p className="animate-fade-up delay-200" style={{ margin: "14px 0 0", fontSize: 17, color: "var(--text-secondary)", maxWidth: 640 }}>
         Every price below is a from-price in Kenya Shillings — the real figure depends on your model and the part grade. Diagnostics are free and we confirm the price before we start.
       </p>
@@ -67,7 +67,7 @@ const Repairs: NextPageWithTitle<RepairsProps> = ({ repairs }) => {
   );
 };
 
-Repairs.pageTitle = "Repairs & prices — BEAPS Mobile Fix";
+Repairs.pageTitle = "Repairs — BEAPS Mobile Fix";
 
 export default Repairs;
 

@@ -6,7 +6,7 @@ import { useSettings } from "../context/SettingsContext";
 
 const NAV_LINKS = [
   { href: "/", label: "Home" },
-  { href: "/repairs", label: "Repairs & prices" },
+  { href: "/repairs", label: "Repairs" },
   { href: "/shop", label: "Shop" },
   { href: "/quote", label: "Instant quote" },
   { href: "/about", label: "About" },
