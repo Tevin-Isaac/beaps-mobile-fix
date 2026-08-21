@@ -1,8 +1,11 @@
 import { autoFit } from "../lib/style";
+import { useSettings } from "../context/SettingsContext";
 import type { NextPageWithTitle } from "../lib/types";
 import Reveal from "../components/Reveal";
 
 const Contact: NextPageWithTitle = () => {
+  const { phoneDisplay, phoneTel, email, addressLine, addressDetail, hours, whatsappLink } = useSettings();
+
   return (
     <div data-screen-label="Contact" style={{ maxWidth: 1180, margin: "0 auto", padding: "56px 20px 72px" }}>
       <h1 className="animate-fade-up" style={{ margin: 0, fontSize: "clamp(30px, 4.6vw, 48px)", fontWeight: 700, letterSpacing: "-0.032em" }}>Find us</h1>
@@ -15,8 +18,8 @@ const Contact: NextPageWithTitle = () => {
               <circle cx="12" cy="10" r="3"></circle>
             </svg>
             <div>
-              <div style={{ fontSize: 15, fontWeight: 600 }}>Old Mutual Building, Kimathi Street</div>
-              <div style={{ fontSize: 14, color: "var(--text-secondary)", marginTop: 4 }}>4th floor, room 420 · Nairobi CBD</div>
+              <div style={{ fontSize: 15, fontWeight: 600 }}>{addressLine}</div>
+              <div style={{ fontSize: 14, color: "var(--text-secondary)", marginTop: 4 }}>{addressDetail} · Nairobi CBD</div>
             </div>
           </div>
           <div style={{ display: "flex", gap: 14 }}>
@@ -24,7 +27,7 @@ const Contact: NextPageWithTitle = () => {
               <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"></path>
             </svg>
             <div>
-              <div style={{ fontFamily: "'Geist Mono', monospace", fontSize: 15, fontWeight: 600, letterSpacing: "-0.02em" }}>0720 668 668</div>
+              <div style={{ fontFamily: "'Geist Mono', monospace", fontSize: 15, fontWeight: 600, letterSpacing: "-0.02em" }}>{phoneDisplay}</div>
               <div style={{ fontSize: 14, color: "var(--text-secondary)", marginTop: 4 }}>Call or WhatsApp — photos of the damage help.</div>
             </div>
           </div>
@@ -34,7 +37,7 @@ const Contact: NextPageWithTitle = () => {
               <path d="m2 7 10 6 10-6"></path>
             </svg>
             <div>
-              <div style={{ fontSize: 15, fontWeight: 600 }}>bernardmacharia2013@gmail.com</div>
+              <div style={{ fontSize: 15, fontWeight: 600 }}>{email}</div>
               <div style={{ fontSize: 14, color: "var(--text-secondary)", marginTop: 4 }}>For quotes on bulk or corporate repairs.</div>
             </div>
           </div>
@@ -44,21 +47,21 @@ const Contact: NextPageWithTitle = () => {
               <path d="M12 6v6l4 2"></path>
             </svg>
             <div>
-              <div style={{ fontSize: 15, fontWeight: 600 }}>Mon–Fri 8:30am–6:30pm · Sat 9:00am–5:00pm</div>
+              <div style={{ fontSize: 15, fontWeight: 600 }}>{hours}</div>
               <div style={{ fontSize: 14, color: "var(--text-secondary)", marginTop: 4 }}>Sunday closed. Walk in any time we are open.</div>
             </div>
           </div>
           <div style={{ display: "flex", gap: 12, flexWrap: "wrap", paddingTop: 6 }}>
-            <a href="tel:+254720668668" className="btn-solid sm">Call now</a>
-            <a href="https://wa.me/254720668668" target="_blank" rel="noreferrer" className="btn-outline sm">WhatsApp</a>
+            <a href={`tel:${phoneTel}`} className="btn-solid sm">Call now</a>
+            <a href={whatsappLink("Hi BEAPS, I'd like to ask about a repair.")} target="_blank" rel="noreferrer" className="btn-outline sm">WhatsApp</a>
           </div>
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
           <div style={{ height: 300, border: "1px solid var(--border-default)", borderRadius: 24, overflow: "hidden", background: "var(--surface-card)" }}>
             <iframe
-              title="BEAPS Mobile Fix on Google Maps — Old Mutual Building, Kimathi Street"
-              src="https://www.google.com/maps?q=Old+Mutual+Building+Kimathi+Street+Nairobi&output=embed"
+              title={`BEAPS Mobile Fix on Google Maps — ${addressLine}`}
+              src={`https://www.google.com/maps?q=${encodeURIComponent(addressLine + " Nairobi")}&output=embed`}
               width="100%"
               height="100%"
               style={{ border: 0, display: "block", filter: "var(--map-filter, none)" }}
@@ -67,9 +70,9 @@ const Contact: NextPageWithTitle = () => {
             />
           </div>
           <div style={{ padding: 22, border: "1px solid var(--border-subtle)", borderRadius: 18, background: "var(--surface-card)" }}>
-            <h3 style={{ margin: 0, fontSize: 16, fontWeight: 600, letterSpacing: "-0.02em" }}>Getting to room 420</h3>
+            <h3 style={{ margin: 0, fontSize: 16, fontWeight: 600, letterSpacing: "-0.02em" }}>Getting to {addressDetail}</h3>
             <p style={{ margin: "8px 0 0", fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.6 }}>
-              Enter from Kimathi Street, take the lift to the 4th floor and turn right — room 420 is at the end of the corridor. If you cannot make it in, ask about CBD pickup and delivery.
+              Enter from the street, take the lift up and follow signage to {addressDetail}. If you cannot make it in, ask about CBD pickup and delivery.
             </p>
           </div>
         </div>

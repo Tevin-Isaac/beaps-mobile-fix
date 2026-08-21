@@ -1,9 +1,5 @@
 import type { Repair, DeviceOption, IssueOption } from "./types";
 
-export const PHONE_DISPLAY = "0720 668 668";
-export const PHONE_TEL = "+254720668668";
-export const WHATSAPP_NUMBER = "254720668668";
-
 export const FEATURED_SLUGS = ["oraimo-20-000mah-power-bank", "iphone-11-64gb", "oraimo-33w-gan-charger", "oraimo-freepods-3"];
 
 export const REPAIRS: Repair[] = [
@@ -44,10 +40,6 @@ export const ISSUES: IssueOption[] = [
 
 export const money = (n: number): string => n.toLocaleString("en-KE");
 export const round100 = (n: number): number => Math.round(n / 100) * 100;
-
-export function whatsappLink(text: string): string {
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
-}
 
 export function chipStyle(active: boolean): { borderColor: string; background: string } {
   return active

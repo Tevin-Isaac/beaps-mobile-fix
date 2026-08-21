@@ -1,10 +1,11 @@
 import { useRouter } from "next/router";
-import { PHONE_DISPLAY, PHONE_TEL } from "../lib/data";
+import { useSettings } from "../context/SettingsContext";
 import { autoFit } from "../lib/style";
 
 export default function Footer() {
   const router = useRouter();
   const go = (href: string) => () => router.push(href);
+  const { phoneDisplay, phoneTel, email, addressLine, addressDetail } = useSettings();
 
   return (
     <footer style={{ borderTop: "1px solid var(--border-subtle)", background: "var(--surface-sunken)", position: "relative", zIndex: 1 }}>
@@ -19,7 +20,7 @@ export default function Footer() {
               <div style={{ fontSize: 11, color: "var(--text-tertiary)" }}>All phone repair services</div>
             </div>
           </div>
-          <p style={{ margin: "16px 0 0", fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.6, maxWidth: 280 }}>Repairs, phones and accessories from the Old Mutual Building, Kimathi Street, Nairobi.</p>
+          <p style={{ margin: "16px 0 0", fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.6, maxWidth: 280 }}>Repairs, phones and accessories from {addressLine}, Nairobi.</p>
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", gap: 9 }}>
@@ -38,21 +39,21 @@ export default function Footer() {
 
         <div style={{ display: "flex", flexDirection: "column", gap: 11 }}>
           <div style={{ fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--text-tertiary)" }}>Contact</div>
-          <a href={`tel:${PHONE_TEL}`} className="footer-contact-row">
+          <a href={`tel:${phoneTel}`} className="footer-contact-row">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"></path>
             </svg>
-            <span style={{ fontFamily: "'Geist Mono', monospace", letterSpacing: "-0.02em" }}>{PHONE_DISPLAY}</span>
+            <span style={{ fontFamily: "'Geist Mono', monospace", letterSpacing: "-0.02em" }}>{phoneDisplay}</span>
           </a>
-          <a href="mailto:bernardmacharia2013@gmail.com" className="footer-contact-row">
+          <a href={`mailto:${email}`} className="footer-contact-row">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <rect x="2" y="4" width="20" height="16" rx="2"></rect>
               <path d="m2 7 10 6 10-6"></path>
             </svg>
-            <span style={{ wordBreak: "break-all" }}>bernardmacharia2013@gmail.com</span>
+            <span style={{ wordBreak: "break-all" }}>{email}</span>
           </a>
           <a
-            href="https://www.google.com/maps/search/?api=1&query=Old+Mutual+Building+Kimathi+Street+Nairobi"
+            href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(addressLine)}`}
             target="_blank"
             rel="noreferrer"
             className="footer-contact-row"
@@ -62,7 +63,7 @@ export default function Footer() {
               <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"></path>
               <circle cx="12" cy="10" r="3"></circle>
             </svg>
-            <span>Old Mutual Building, Kimathi Street — Room 420, 4th floor</span>
+            <span>{addressLine} — {addressDetail}</span>
           </a>
         </div>
       </div>

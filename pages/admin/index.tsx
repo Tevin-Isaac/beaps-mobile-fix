@@ -5,10 +5,67 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import { authOptions } from "../../lib/auth";
 import { prisma } from "../../lib/prisma";
 import { money } from "../../lib/data";
+import { DEFAULT_SETTINGS, SiteSettings } from "../../context/SettingsContext";
 import type { NextPageWithTitle, Product } from "../../lib/types";
 
 interface AdminProps {
   products: Product[];
+  settings: SiteSettings;
+}
+
+const SETTINGS_FIELDS: { key: keyof SiteSettings; label: string }[] = [
+  { key: "phoneDisplay", label: "Phone (display, e.g. 0720 668 668)" },
+  { key: "phoneTel", label: "Phone (tel link, e.g. +254720668668)" },
+  { key: "whatsapp", label: "WhatsApp number (digits only, e.g. 254720668668)" },
+  { key: "email", label: "Contact email" },
+  { key: "addressLine", label: "Address — building & street" },
+  { key: "addressDetail", label: "Address — room / floor" },
+  { key: "hours", label: "Opening hours" },
+];
+
+function SettingsPanel({ initial }: { initial: SiteSettings }) {
+  const [form, setForm] = useState(initial);
+  const [saving, setSaving] = useState(false);
+  const [saved, setSaved] = useState(false);
+
+  const save = async () => {
+    setSaving(true);
+    setSaved(false);
+    const res = await fetch("/api/settings", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(form),
+    });
+    setSaving(false);
+    if (res.ok) setSaved(true);
+  };
+
+  return (
+    <div style={{ padding: 22, border: "1px solid var(--border-subtle)", borderRadius: 20, background: "var(--surface-card)" }}>
+      <h2 style={{ margin: 0, fontSize: 18, fontWeight: 600 }}>Site details</h2>
+      <p style={{ margin: "6px 0 0", fontSize: 13, color: "var(--text-secondary)" }}>
+        Changes here update the phone number, WhatsApp links and location shown everywhere on the site.
+      </p>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(260px, 100%), 1fr))", gap: 14, marginTop: 18 }}>
+        {SETTINGS_FIELDS.map((f) => (
+          <label key={f.key} style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 12.5, color: "var(--text-secondary)" }}>
+            {f.label}
+            <input
+              className="text-field"
+              value={form[f.key]}
+              onChange={(e) => { setForm({ ...form, [f.key]: e.target.value }); setSaved(false); }}
+            />
+          </label>
+        ))}
+      </div>
+      <div style={{ display: "flex", alignItems: "center", gap: 14, marginTop: 18 }}>
+        <button type="button" className="btn-solid md" onClick={save} disabled={saving}>
+          {saving ? "Saving…" : "Save site details"}
+        </button>
+        {saved && <span style={{ fontSize: 13, color: "var(--orange-400)" }}>Saved</span>}
+      </div>
+    </div>
+  );
 }
 
 function ProductRow({ p, onSaved }: { p: Product; onSaved: (p: Product) => void }) {
@@ -59,7 +116,7 @@ function ProductRow({ p, onSaved }: { p: Product; onSaved: (p: Product) => void 
 
 const emptyForm = { name: "", cat: "", price: "", tag: "New", note: "", image: "", installments: false };
 
-const Admin: NextPageWithTitle<AdminProps> = ({ products: initial }) => {
+const Admin: NextPageWithTitle<AdminProps> = ({ products: initial, settings }) => {
   const { data: session, status } = useSession();
   const [products, setProducts] = useState(initial);
   const [form, setForm] = useState(emptyForm);
@@ -106,6 +163,10 @@ const Admin: NextPageWithTitle<AdminProps> = ({ products: initial }) => {
         <button type="button" className="btn-outline sm" onClick={() => signOut()}>Sign out ({session.user?.email})</button>
       </div>
 
+      <div style={{ marginTop: 28 }}>
+        <SettingsPanel initial={settings} />
+      </div>
+
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(230px, 100%), 1fr))", gap: 12, marginTop: 28 }}>
         {products.map((p) => (
           <ProductRow key={p.id} p={p} onSaved={(updated) => setProducts((prev) => prev.map((x) => (x.id === updated.id ? updated : x)))} />
@@ -141,9 +202,12 @@ export default Admin;
 export const getServerSideProps: GetServerSideProps<AdminProps> = async (ctx) => {
   const session = await getServerSession(ctx.req, ctx.res, authOptions);
   if (!session?.user?.isAdmin) {
-    return { props: { products: [] } };
+    return { props: { products: [], settings: DEFAULT_SETTINGS } };
   }
-  const rows = await prisma.product.findMany({ orderBy: { createdAt: "asc" } });
+  const [rows, settingRow] = await Promise.all([
+    prisma.product.findMany({ orderBy: { createdAt: "asc" } }),
+    prisma.setting.findUnique({ where: { id: "main" } }),
+  ]);
   const products: Product[] = rows.map((r) => ({
     id: r.id,
     slug: r.slug,
@@ -155,5 +219,16 @@ export const getServerSideProps: GetServerSideProps<AdminProps> = async (ctx) =>
     image: r.image,
     installments: r.installments,
   }));
-  return { props: { products } };
+  const settings: SiteSettings = settingRow
+    ? {
+        phoneDisplay: settingRow.phoneDisplay,
+        phoneTel: settingRow.phoneTel,
+        whatsapp: settingRow.whatsapp,
+        email: settingRow.email,
+        addressLine: settingRow.addressLine,
+        addressDetail: settingRow.addressDetail,
+        hours: settingRow.hours,
+      }
+    : DEFAULT_SETTINGS;
+  return { props: { products, settings } };
 };

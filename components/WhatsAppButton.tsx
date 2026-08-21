@@ -1,9 +1,11 @@
-import { WHATSAPP_NUMBER } from "../lib/data";
+import { useSettings } from "../context/SettingsContext";
 
 export default function WhatsAppButton() {
+  const { whatsappLink } = useSettings();
+
   return (
     <a
-      href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Hi BEAPS, I'd like to ask about a repair.")}`}
+      href={whatsappLink("Hi BEAPS, I'd like to ask about a repair.")}
       target="_blank"
       rel="noreferrer"
       className="whatsapp-fab"

@@ -32,6 +32,22 @@ async function main() {
     });
   }
   console.log(`Seeded ${SEED_PRODUCTS.length} products.`);
+
+  await prisma.setting.upsert({
+    where: { id: "main" },
+    update: {},
+    create: {
+      id: "main",
+      phoneDisplay: "0720 668 668",
+      phoneTel: "+254720668668",
+      whatsapp: "254720668668",
+      email: "bernardmacharia2013@gmail.com",
+      addressLine: "Old Mutual Building, Kimathi Street",
+      addressDetail: "Room 420, 4th floor",
+      hours: "Mon–Fri 8:30am–6:30pm · Sat 9:00am–5:00pm",
+    },
+  });
+  console.log("Seeded settings.");
 }
 
 main()

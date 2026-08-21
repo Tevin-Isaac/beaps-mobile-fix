@@ -1,5 +1,6 @@
 import { createContext, useContext, useMemo, useState, ReactNode } from "react";
-import { money, whatsappLink } from "../lib/data";
+import { money } from "../lib/data";
+import { useSettings } from "./SettingsContext";
 import type { CartItem } from "../lib/types";
 
 interface CartLine {
@@ -27,6 +28,7 @@ interface CartContextValue {
 const CartContext = createContext<CartContextValue | null>(null);
 
 export function CartProvider({ children }: { children: ReactNode }) {
+  const { whatsappLink } = useSettings();
   const [cart, setCart] = useState<CartMap>({});
   const [cartOpen, setCartOpen] = useState(false);
 
@@ -70,7 +72,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       cartItems.map((c) => `• ${c.qty} × ${c.name}`).join("\n") +
       `\nTotal: KSh ${money(cartTotal)}`;
     return whatsappLink(orderText);
-  }, [cartItems, cartTotal]);
+  }, [cartItems, cartTotal, whatsappLink]);
 
   const value: CartContextValue = {
     cartItems,

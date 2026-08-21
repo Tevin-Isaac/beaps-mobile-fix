@@ -1,6 +1,7 @@
 import type { GetServerSideProps } from "next";
-import { money, whatsappLink } from "../../lib/data";
+import { money } from "../../lib/data";
 import { useCart } from "../../context/CartContext";
+import { useSettings } from "../../context/SettingsContext";
 import type { NextPageWithTitle, Product } from "../../lib/types";
 import { prisma } from "../../lib/prisma";
 
@@ -10,6 +11,7 @@ interface ProductPageProps {
 
 const ProductPage: NextPageWithTitle<ProductPageProps> = ({ product: p }) => {
   const { addTo } = useCart();
+  const { whatsappLink } = useSettings();
 
   return (
     <div data-screen-label="Product" style={{ maxWidth: 720, margin: "0 auto", padding: "56px 20px 72px" }}>

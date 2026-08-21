@@ -22,6 +22,18 @@ model Product {
   updatedAt    DateTime @updatedAt
 }
 
+model Setting {
+  id            String   @id @default("main")
+  phoneDisplay  String
+  phoneTel      String
+  whatsapp      String
+  email         String
+  addressLine   String
+  addressDetail String
+  hours         String
+  updatedAt     DateTime @updatedAt
+}
+
 model Booking {
   id        String   @id @default(cuid())
   name      String

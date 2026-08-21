@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import type { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { useCart } from "../context/CartContext";
+import { useSettings } from "../context/SettingsContext";
 import { FEATURED_SLUGS, money } from "../lib/data";
 import { autoFit } from "../lib/style";
 import type { NextPageWithTitle, Product } from "../lib/types";
@@ -99,6 +100,7 @@ interface HomeProps {
 const Home: NextPageWithTitle<HomeProps> = ({ featured }) => {
   const router = useRouter();
   const { addTo } = useCart();
+  const { whatsappLink, addressLine, addressDetail, hours } = useSettings();
 
   return (
     <div data-screen-label="Home">
@@ -292,10 +294,10 @@ const Home: NextPageWithTitle<HomeProps> = ({ featured }) => {
         >
           <div>
             <h2 style={{ margin: 0, fontSize: "clamp(26px, 3.4vw, 34px)", fontWeight: 600, letterSpacing: "-0.03em" }}>Phone acting up? Find out today.</h2>
-            <p style={{ margin: "10px 0 0", fontSize: 16, color: "var(--text-secondary)" }}>Old Mutual Building, Kimathi Street — 4th floor, room 420. Mon–Sat, 8:30am–6:30pm.</p>
+            <p style={{ margin: "10px 0 0", fontSize: 16, color: "var(--text-secondary)" }}>{addressLine} — {addressDetail}. {hours}.</p>
           </div>
           <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-            <a href="https://wa.me/254720668668" target="_blank" rel="noreferrer" className="btn-solid">WhatsApp the shop</a>
+            <a href={whatsappLink("Hi BEAPS, I'd like to ask about a repair.")} target="_blank" rel="noreferrer" className="btn-solid">WhatsApp the shop</a>
             <button type="button" className="btn-outline" onClick={() => router.push("/contact")}>Directions</button>
           </div>
         </div>

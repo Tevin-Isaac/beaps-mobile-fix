@@ -1,7 +1,8 @@
 import { useMemo, useState } from "react";
 import type { GetServerSideProps } from "next";
-import { money, chipStyle, whatsappLink } from "../lib/data";
+import { money, chipStyle } from "../lib/data";
 import { useCart } from "../context/CartContext";
+import { useSettings } from "../context/SettingsContext";
 import { autoFit } from "../lib/style";
 import type { NextPageWithTitle, Product } from "../lib/types";
 import Reveal from "../components/Reveal";
@@ -13,6 +14,7 @@ interface ShopProps {
 
 const Shop: NextPageWithTitle<ShopProps> = ({ products }) => {
   const { addTo } = useCart();
+  const { whatsappLink } = useSettings();
   const [cat, setCat] = useState("All");
 
   const cats = useMemo(() => ["All", ...Array.from(new Set(products.map((p) => p.cat)))], [products]);

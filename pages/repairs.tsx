@@ -1,9 +1,11 @@
-import { REPAIRS, money, whatsappLink } from "../lib/data";
+import { REPAIRS, money } from "../lib/data";
 import { autoFit } from "../lib/style";
+import { useSettings } from "../context/SettingsContext";
 import type { NextPageWithTitle } from "../lib/types";
 import Reveal from "../components/Reveal";
 
 const Repairs: NextPageWithTitle = () => {
+  const { whatsappLink } = useSettings();
   const exactEstimateLink = whatsappLink(
     "Hi BEAPS, I'd like an exact estimate for a repair. My device is: "
   );
@@ -43,7 +45,7 @@ const Repairs: NextPageWithTitle = () => {
 
       <div style={{ display: "flex", gap: 12, marginTop: 32, flexWrap: "wrap" }}>
         <a href={exactEstimateLink} target="_blank" rel="noreferrer" className="btn-solid md">Get my exact estimate</a>
-        <a href="https://wa.me/254720668668" target="_blank" rel="noreferrer" className="btn-outline md">Ask about my model</a>
+        <a href={whatsappLink("Hi BEAPS, I'd like to ask about my model.")} target="_blank" rel="noreferrer" className="btn-outline md">Ask about my model</a>
       </div>
 
       <div style={{ marginTop: 34, padding: 22, border: "1px solid var(--border-subtle)", borderRadius: 18, background: "var(--surface-card)", display: "flex", gap: 14, alignItems: "flex-start" }}>

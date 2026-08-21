@@ -1,12 +1,14 @@
 import { useRef, useState } from "react";
 import { useSession } from "next-auth/react";
-import { DEVICES, ISSUES, chipStyle, money, round100, whatsappLink } from "../lib/data";
+import { DEVICES, ISSUES, chipStyle, money, round100 } from "../lib/data";
 import { autoFit } from "../lib/style";
+import { useSettings } from "../context/SettingsContext";
 import type { NextPageWithTitle, Booking } from "../lib/types";
 import Reveal from "../components/Reveal";
 
 const Quote: NextPageWithTitle = () => {
   const { data: session } = useSession();
+  const { whatsappLink, addressLine, addressDetail } = useSettings();
   const [dev, setDev] = useState<string | null>(null);
   const [issue, setIssue] = useState<string | null>(null);
   const [details, setDetails] = useState("");
@@ -73,7 +75,7 @@ const Quote: NextPageWithTitle = () => {
   };
 
   const bookingSummary = booking
-    ? `${booking.name}, we have your ${booking.model} down for ${booking.date} at ${booking.time}. Room 420, 4th floor, Old Mutual Building. Confirm on WhatsApp and we will hold the slot.`
+    ? `${booking.name}, we have your ${booking.model} down for ${booking.date} at ${booking.time}. ${addressDetail}, ${addressLine}. Confirm on WhatsApp and we will hold the slot.`
     : "";
   const bookingWaLink = booking
     ? whatsappLink(
