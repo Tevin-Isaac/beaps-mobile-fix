@@ -7,6 +7,7 @@ import { prisma } from "../../lib/prisma";
 import { money } from "../../lib/data";
 import { DEFAULT_SETTINGS, SiteSettings } from "../../context/SettingsContext";
 import Avatar from "../../components/Avatar";
+import ImageUpload from "../../components/ImageUpload";
 import type { NextPageWithTitle, Product, Repair, Testimonial, FlashSale } from "../../lib/types";
 
 interface AdminProps {
@@ -177,9 +178,13 @@ function SettingsPanel({ initial }: { initial: SiteSettings }) {
   );
 }
 
-function ProductRow({ p, onSaved }: { p: Product; onSaved: (p: Product) => void }) {
+function ProductRow({ p, onSaved, onDeleted }: { p: Product; onSaved: (p: Product) => void; onDeleted: (id: string) => void }) {
   const [price, setPrice] = useState(String(p.price));
+  const [image, setImage] = useState(p.image);
   const [saving, setSaving] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+
+  const dirty = Number(price) !== p.price || image !== p.image;
 
   const save = async () => {
     const n = Number(price);
@@ -188,21 +193,29 @@ function ProductRow({ p, onSaved }: { p: Product; onSaved: (p: Product) => void 
     const res = await fetch(`/api/admin/products/${p.id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ price: n }),
+      body: JSON.stringify({ price: n, image }),
     });
     setSaving(false);
-    if (res.ok) onSaved({ ...p, price: n });
+    if (res.ok) onSaved({ ...p, price: n, image });
+  };
+
+  const remove = async () => {
+    if (!window.confirm(`Delete "${p.name}"? This can't be undone.`)) return;
+    setDeleting(true);
+    const res = await fetch(`/api/admin/products/${p.id}`, { method: "DELETE" });
+    setDeleting(false);
+    if (res.ok) onDeleted(p.id);
   };
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 10, padding: 14, border: "1px solid var(--border-subtle)", borderRadius: 14, background: "var(--surface-card)" }}>
       <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-        <img src={p.image} alt={p.name} style={{ width: 40, height: 40, objectFit: "cover", borderRadius: 10, flexShrink: 0 }} />
         <div style={{ flex: 1, minWidth: 0 }}>
           <div style={{ fontSize: 13.5, fontWeight: 500, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{p.name}</div>
           <div style={{ fontSize: 11.5, color: "var(--text-tertiary)" }}>{p.cat}</div>
         </div>
       </div>
+      <ImageUpload value={image} onChange={setImage} />
       <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
         <span style={{ fontSize: 12, color: "var(--text-tertiary)" }}>KSh</span>
         <input
@@ -214,11 +227,14 @@ function ProductRow({ p, onSaved }: { p: Product; onSaved: (p: Product) => void 
         />
       </div>
       <div style={{ display: "flex", gap: 8 }}>
-        <button type="button" className="btn-outline sm" style={{ flex: 1 }} onClick={save} disabled={saving || Number(price) === p.price}>
+        <button type="button" className="btn-outline sm" style={{ flex: 1 }} onClick={save} disabled={saving || !dirty}>
           {saving ? "Saving…" : "Save"}
         </button>
         <a href={`/product/${p.slug}`} target="_blank" rel="noreferrer" className="btn-outline sm" style={{ flex: 1, textAlign: "center" }} title="Shareable link">Link</a>
       </div>
+      <button type="button" className="btn-outline sm" onClick={remove} disabled={deleting} style={{ color: "var(--red-400, #e05d5d)", borderColor: "var(--red-400, #e05d5d)" }}>
+        {deleting ? "Deleting…" : "Delete product"}
+      </button>
     </div>
   );
 }
@@ -425,7 +441,12 @@ const Admin: NextPageWithTitle<AdminProps> = ({ products: initial, repairs: init
       <h2 style={{ margin: "36px 0 0", fontSize: 22, fontWeight: 700, letterSpacing: "-0.02em" }}>Products</h2>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(230px, 100%), 1fr))", gap: 12, marginTop: 16 }}>
         {products.map((p) => (
-          <ProductRow key={p.id} p={p} onSaved={(updated) => setProducts((prev) => prev.map((x) => (x.id === updated.id ? updated : x)))} />
+          <ProductRow
+            key={p.id}
+            p={p}
+            onSaved={(updated) => setProducts((prev) => prev.map((x) => (x.id === updated.id ? updated : x)))}
+            onDeleted={(id) => setProducts((prev) => prev.filter((x) => x.id !== id))}
+          />
         ))}
       </div>
 
@@ -447,8 +468,10 @@ const Admin: NextPageWithTitle<AdminProps> = ({ products: initial, repairs: init
           <input className="text-field" placeholder="Category" value={form.cat} onChange={(e) => setForm({ ...form, cat: e.target.value })} />
           <input className="text-field" placeholder="Price (KSh)" type="number" value={form.price} onChange={(e) => setForm({ ...form, price: e.target.value })} />
           <input className="text-field" placeholder="Tag (e.g. New)" value={form.tag} onChange={(e) => setForm({ ...form, tag: e.target.value })} />
-          <input className="text-field" placeholder="Image path (e.g. /products/new-phones.jpg)" value={form.image} onChange={(e) => setForm({ ...form, image: e.target.value })} />
           <input className="text-field" placeholder="Note" value={form.note} onChange={(e) => setForm({ ...form, note: e.target.value })} />
+        </div>
+        <div style={{ marginTop: 14 }}>
+          <ImageUpload value={form.image} onChange={(url) => setForm({ ...form, image: url })} />
         </div>
         <label style={{ display: "flex", alignItems: "center", gap: 8, marginTop: 14, fontSize: 13, color: "var(--text-secondary)" }}>
           <input type="checkbox" checked={form.installments} onChange={(e) => setForm({ ...form, installments: e.target.checked })} />
