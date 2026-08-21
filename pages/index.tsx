@@ -163,13 +163,6 @@ const Home: NextPageWithTitle<HomeProps> = ({ featured, testimonials }) => {
                 <path d="M5 12h14M13 6l6 6-6 6"></path>
               </svg>
             </button>
-            <button type="button" className="btn-outline-invert" onClick={() => router.push("/quote")}>
-              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="3" y="4" width="18" height="18" rx="2"></rect>
-                <path d="M16 2v4M8 2v4M3 10h18"></path>
-              </svg>
-              Book a time
-            </button>
           </div>
         </div>
 
