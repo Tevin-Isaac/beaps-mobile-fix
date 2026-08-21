@@ -153,7 +153,7 @@ const Home: NextPageWithTitle<HomeProps> = ({ featured, testimonials }) => {
           </h1>
 
           <p className="animate-fade-up delay-900 hero-fullbleed-sub">
-            Our certified technicians repair every device with genuine parts and a 90-day warranty, and if you need a phone, power bank or accessory too, it's all at the same counter — no appointment necessary, just walk in.
+            Certified technicians, genuine parts, 90-day warranty — plus phones, power banks and accessories at the same counter. No appointment needed, just walk in.
           </p>
 
           <div className="animate-fade-up delay-900" style={{ display: "flex", gap: 12, marginTop: 28, flexWrap: "wrap", justifyContent: "center" }}>

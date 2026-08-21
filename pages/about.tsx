@@ -25,7 +25,7 @@ const About: NextPageWithTitle = () => {
             Bernard has been fixing phones for over 11 years, and BEAPS Mobile Fix now works out of the Old Mutual Building on Kimathi Street. Most of what walks through the door is a cracked screen, a tired battery or a phone that met the rain — and most of it leaves the same day.
           </p>
           <p className="animate-fade-up delay-300" style={{ margin: "14px 0 0", fontSize: 17, lineHeight: 1.6, color: "var(--text-secondary)" }}>
-            We are certified technicians who fit genuine parts, show you the part that came out, and put a 90-day warranty in writing. When a board is beyond economical repair we say so instead of billing you for hope. The same bench sells phones, power banks and accessories, so you can walk out working rather than waiting.
+            Every job starts with a free diagnostic so you know the real cost before we touch anything, and once we're in, you see the faulty part come out with your own eyes. If a board is beyond economical repair, we'll tell you plainly instead of billing you for hope — that's the whole idea behind working at a bench instead of a counter.
           </p>
           <div style={{ display: "grid", gridTemplateColumns: autoFit(120), gap: 18, marginTop: 30 }}>
             {STATS.map((s) => (
