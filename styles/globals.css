@@ -790,6 +790,44 @@ button {
   letter-spacing: -0.02em;
 }
 
+.fix-marquee-viewport {
+  overflow: hidden;
+  width: 100%;
+  -webkit-mask-image: linear-gradient(90deg, transparent, black 6%, black 94%, transparent);
+  mask-image: linear-gradient(90deg, transparent, black 6%, black 94%, transparent);
+}
+.fix-marquee-track {
+  display: flex;
+  gap: 12px;
+  width: max-content;
+}
+.fix-marquee-card {
+  width: 230px;
+  flex-shrink: 0;
+}
+.fix-marquee-left {
+  animation: fixMarqueeLeft 32s linear infinite;
+}
+.fix-marquee-right {
+  animation: fixMarqueeRight 36s linear infinite;
+}
+.fix-marquee-viewport:hover .fix-marquee-track {
+  animation-play-state: paused;
+}
+@keyframes fixMarqueeLeft {
+  from { transform: translateX(0); }
+  to { transform: translateX(-33.3333%); }
+}
+@keyframes fixMarqueeRight {
+  from { transform: translateX(-33.3333%); }
+  to { transform: translateX(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fix-marquee-left, .fix-marquee-right {
+    animation: none;
+  }
+}
+
 .how-steps {
   display: grid;
   grid-template-columns: repeat(4, 1fr);

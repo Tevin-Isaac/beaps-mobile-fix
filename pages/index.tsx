@@ -181,8 +181,8 @@ const Home: NextPageWithTitle<HomeProps> = ({ featured }) => {
       </Reveal>
 
       <Reveal>
-      <section style={{ maxWidth: 1180, margin: "0 auto", padding: "48px 20px 24px" }}>
-        <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 20, flexWrap: "wrap" }}>
+      <section style={{ padding: "48px 0 24px" }}>
+        <div style={{ maxWidth: 1180, margin: "0 auto", padding: "0 20px", display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 20, flexWrap: "wrap" }}>
           <div>
             <h2 style={{ margin: 0, fontSize: "clamp(26px, 3.4vw, 34px)", fontWeight: 600, letterSpacing: "-0.03em" }}>What we fix</h2>
             <p style={{ margin: "8px 0 0", fontSize: 15, color: "var(--text-secondary)" }}>From-prices in KSh. Final quote after a free diagnostic.</p>
@@ -191,10 +191,11 @@ const Home: NextPageWithTitle<HomeProps> = ({ featured }) => {
             All repairs &amp; prices →
           </button>
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: autoFit(210), gap: 12, marginTop: 22 }}>
-          {REPAIR_CARDS.map((c, i) => (
-            <Reveal key={c.title} delay={(i % 6) * 0.06}>
-              <div className="fix-card">
+
+        <div className="fix-marquee-viewport" style={{ marginTop: 26 }}>
+          <div className="fix-marquee-track fix-marquee-left">
+            {[...REPAIR_CARDS.slice(0, 3), ...REPAIR_CARDS.slice(0, 3), ...REPAIR_CARDS.slice(0, 3)].map((c, i) => (
+              <div key={`row1-${i}`} className="fix-card fix-marquee-card">
                 <div className="fix-card-icon">
                   <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     {c.icon}
@@ -204,8 +205,22 @@ const Home: NextPageWithTitle<HomeProps> = ({ featured }) => {
                 <p className="fix-card-desc">{c.desc}</p>
                 <div className="fix-card-price">{c.price}</div>
               </div>
-            </Reveal>
-          ))}
+            ))}
+          </div>
+          <div className="fix-marquee-track fix-marquee-right" style={{ marginTop: 14 }}>
+            {[...REPAIR_CARDS.slice(3, 6), ...REPAIR_CARDS.slice(3, 6), ...REPAIR_CARDS.slice(3, 6)].map((c, i) => (
+              <div key={`row2-${i}`} className="fix-card fix-marquee-card">
+                <div className="fix-card-icon">
+                  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    {c.icon}
+                  </svg>
+                </div>
+                <h3 className="fix-card-title">{c.title}</h3>
+                <p className="fix-card-desc">{c.desc}</p>
+                <div className="fix-card-price">{c.price}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
       </Reveal>
