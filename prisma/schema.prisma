@@ -33,6 +33,14 @@ model RepairService {
   updatedAt DateTime @updatedAt
 }
 
+model Testimonial {
+  id        String   @id @default(cuid())
+  quote     String
+  author    String
+  context   String
+  createdAt DateTime @default(now())
+}
+
 model Setting {
   id            String   @id @default("main")
   phoneDisplay  String

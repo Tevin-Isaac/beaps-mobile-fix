@@ -5,6 +5,7 @@ import Footer from "./Footer";
 import CartDrawer from "./CartDrawer";
 import BottomNav from "./BottomNav";
 import WhatsAppButton from "./WhatsAppButton";
+import { useSettings } from "../context/SettingsContext";
 
 interface LayoutProps {
   children: ReactNode;
@@ -12,6 +13,25 @@ interface LayoutProps {
 }
 
 export default function Layout({ children, title = "BEAPS Mobile Fix — Phone repairs, Nairobi CBD" }: LayoutProps) {
+  const { phoneTel, addressLine, addressDetail } = useSettings();
+
+  const localBusinessJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ElectronicsStore",
+    name: "BEAPS Mobile Fix",
+    image: "https://www.beapsmobilefix.com/logo-icon.png",
+    url: "https://www.beapsmobilefix.com",
+    telephone: phoneTel,
+    priceRange: "KSh",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: `${addressLine}, ${addressDetail}`,
+      addressLocality: "Nairobi",
+      addressCountry: "KE",
+    },
+    areaServed: "Nairobi",
+  };
+
   return (
     <>
       <Head>
@@ -22,6 +42,10 @@ export default function Layout({ children, title = "BEAPS Mobile Fix — Phone r
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
+        />
       </Head>
       <div style={{ minHeight: "100vh", background: "var(--surface-base)", position: "relative", overflowX: "hidden" }}>
         <div

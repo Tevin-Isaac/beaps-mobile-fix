@@ -6,11 +6,12 @@ import { authOptions } from "../../lib/auth";
 import { prisma } from "../../lib/prisma";
 import { money } from "../../lib/data";
 import { DEFAULT_SETTINGS, SiteSettings } from "../../context/SettingsContext";
-import type { NextPageWithTitle, Product, Repair } from "../../lib/types";
+import type { NextPageWithTitle, Product, Repair, Testimonial } from "../../lib/types";
 
 interface AdminProps {
   products: Product[];
   repairs: Repair[];
+  testimonials: Testimonial[];
   settings: SiteSettings;
 }
 
@@ -158,9 +159,91 @@ function RepairRow({ r, onSaved }: { r: Repair; onSaved: (r: Repair) => void }) 
   );
 }
 
+const emptyTestimonialForm = { quote: "", author: "", context: "" };
+
+function TestimonialsPanel({ initial }: { initial: Testimonial[] }) {
+  const [testimonials, setTestimonials] = useState(initial);
+  const [form, setForm] = useState(emptyTestimonialForm);
+  const [adding, setAdding] = useState(false);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
+
+  const addTestimonial = async () => {
+    if (!form.quote || !form.author || !form.context) return;
+    setAdding(true);
+    const res = await fetch("/api/admin/testimonials", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(form),
+    });
+    setAdding(false);
+    if (res.ok) {
+      const t = await res.json();
+      setTestimonials((prev) => [t, ...prev]);
+      setForm(emptyTestimonialForm);
+    }
+  };
+
+  const remove = async (id: string) => {
+    setDeletingId(id);
+    const res = await fetch(`/api/admin/testimonials/${id}`, { method: "DELETE" });
+    setDeletingId(null);
+    if (res.ok) setTestimonials((prev) => prev.filter((t) => t.id !== id));
+  };
+
+  return (
+    <div>
+      <h2 style={{ margin: "36px 0 0", fontSize: 22, fontWeight: 700, letterSpacing: "-0.02em" }}>Reviews</h2>
+      <p style={{ margin: "6px 0 0", fontSize: 13, color: "var(--text-secondary)" }}>
+        Only add real customer feedback here — these show on the home page as genuine reviews. When empty, the site shows a trust-facts strip instead.
+      </p>
+
+      {testimonials.length > 0 && (
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(260px, 100%), 1fr))", gap: 12, marginTop: 16 }}>
+          {testimonials.map((t) => (
+            <div key={t.id} style={{ padding: 16, border: "1px solid var(--border-subtle)", borderRadius: 14, background: "var(--surface-card)" }}>
+              <p style={{ margin: 0, fontSize: 13.5, lineHeight: 1.5 }}>{t.quote}</p>
+              <div style={{ marginTop: 10, fontSize: 12, color: "var(--text-tertiary)" }}>{t.author} · {t.context}</div>
+              <button
+                type="button"
+                className="btn-outline sm"
+                style={{ marginTop: 10 }}
+                onClick={() => remove(t.id)}
+                disabled={deletingId === t.id}
+              >
+                {deletingId === t.id ? "Removing…" : "Remove"}
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
+
+      <div style={{ marginTop: 16, padding: 22, border: "1px solid var(--border-subtle)", borderRadius: 20, background: "var(--surface-card)" }}>
+        <h3 style={{ margin: 0, fontSize: 16, fontWeight: 600 }}>Add a review</h3>
+        <div style={{ display: "grid", gap: 12, marginTop: 14 }}>
+          <textarea
+            className="text-field"
+            placeholder="What the customer said"
+            value={form.quote}
+            onChange={(e) => setForm({ ...form, quote: e.target.value })}
+            rows={3}
+            style={{ height: "auto", minHeight: 76, padding: "10px 14px", fontFamily: "inherit", resize: "vertical" }}
+          />
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(220px, 100%), 1fr))", gap: 12 }}>
+            <input className="text-field" placeholder="Customer name (e.g. Wanjiru M.)" value={form.author} onChange={(e) => setForm({ ...form, author: e.target.value })} />
+            <input className="text-field" placeholder="What was fixed (e.g. Samsung S21 screen)" value={form.context} onChange={(e) => setForm({ ...form, context: e.target.value })} />
+          </div>
+        </div>
+        <button type="button" className="btn-solid md" style={{ marginTop: 14 }} onClick={addTestimonial} disabled={adding}>
+          {adding ? "Adding…" : "Add review"}
+        </button>
+      </div>
+    </div>
+  );
+}
+
 const emptyForm = { name: "", cat: "", price: "", tag: "New", note: "", image: "", installments: false };
 
-const Admin: NextPageWithTitle<AdminProps> = ({ products: initial, repairs: initialRepairs, settings }) => {
+const Admin: NextPageWithTitle<AdminProps> = ({ products: initial, repairs: initialRepairs, testimonials, settings }) => {
   const { data: session, status } = useSession();
   const [products, setProducts] = useState(initial);
   const [repairs, setRepairs] = useState(initialRepairs);
@@ -204,7 +287,7 @@ const Admin: NextPageWithTitle<AdminProps> = ({ products: initial, repairs: init
   return (
     <div style={{ maxWidth: 1280, margin: "0 auto", padding: "56px 20px 72px" }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
-        <h1 style={{ margin: 0, fontSize: 32, fontWeight: 700, letterSpacing: "-0.03em" }}>Admin — Products</h1>
+        <h1 style={{ margin: 0, fontSize: 32, fontWeight: 700, letterSpacing: "-0.03em" }}>Admin</h1>
         <button type="button" className="btn-outline sm" onClick={() => signOut()}>Sign out ({session.user?.email})</button>
       </div>
 
@@ -224,6 +307,10 @@ const Admin: NextPageWithTitle<AdminProps> = ({ products: initial, repairs: init
         {repairs.map((r) => (
           <RepairRow key={r.id} r={r} onSaved={(updated) => setRepairs((prev) => prev.map((x) => (x.id === updated.id ? updated : x)))} />
         ))}
+      </div>
+
+      <div style={{ marginTop: 20 }}>
+        <TestimonialsPanel initial={testimonials} />
       </div>
 
       <div style={{ marginTop: 36, padding: 22, border: "1px solid var(--border-subtle)", borderRadius: 20, background: "var(--surface-card)" }}>
@@ -255,11 +342,12 @@ export default Admin;
 export const getServerSideProps: GetServerSideProps<AdminProps> = async (ctx) => {
   const session = await getServerSession(ctx.req, ctx.res, authOptions);
   if (!session?.user?.isAdmin) {
-    return { props: { products: [], repairs: [], settings: DEFAULT_SETTINGS } };
+    return { props: { products: [], repairs: [], testimonials: [], settings: DEFAULT_SETTINGS } };
   }
-  const [rows, repairRows, settingRow] = await Promise.all([
+  const [rows, repairRows, testimonialRows, settingRow] = await Promise.all([
     prisma.product.findMany({ orderBy: { createdAt: "asc" } }),
     prisma.repairService.findMany({ orderBy: { createdAt: "asc" } }),
+    prisma.testimonial.findMany({ orderBy: { createdAt: "desc" } }),
     prisma.setting.findUnique({ where: { id: "main" } }),
   ]);
   const products: Product[] = rows.map((r) => ({
@@ -281,6 +369,12 @@ export const getServerSideProps: GetServerSideProps<AdminProps> = async (ctx) =>
     eta: r.eta,
     image: r.image,
   }));
+  const testimonials: Testimonial[] = testimonialRows.map((t) => ({
+    id: t.id,
+    quote: t.quote,
+    author: t.author,
+    context: t.context,
+  }));
   const settings: SiteSettings = settingRow
     ? {
         phoneDisplay: settingRow.phoneDisplay,
@@ -292,5 +386,5 @@ export const getServerSideProps: GetServerSideProps<AdminProps> = async (ctx) =>
         hours: settingRow.hours,
       }
     : DEFAULT_SETTINGS;
-  return { props: { products, repairs, settings } };
+  return { props: { products, repairs, testimonials, settings } };
 };

@@ -5,7 +5,7 @@ import { useCart } from "../context/CartContext";
 import { useSettings } from "../context/SettingsContext";
 import { FEATURED_SLUGS, money } from "../lib/data";
 import { autoFit } from "../lib/style";
-import type { NextPageWithTitle, Product } from "../lib/types";
+import type { NextPageWithTitle, Product, Testimonial } from "../lib/types";
 import WordReveal from "../components/WordReveal";
 import Reveal from "../components/Reveal";
 import { prisma } from "../lib/prisma";
@@ -80,10 +80,42 @@ const HOW_IT_WORKS = [
   { n: "04", title: "Collect with warranty", desc: "90-day warranty slip, or we deliver it back to you in the CBD." },
 ];
 
-const TESTIMONIALS = [
-  { quote: "Dropped my S21 on Kimathi and had the screen done the same afternoon. They showed me the old panel and tested everything in front of me.", who: "Wanjiru M. · Samsung S21 screen" },
-  { quote: "My iPhone went in the rain. Two other shops said buy a new one — BEAPS cleaned the board and it has been fine for months.", who: "Kevin O. · iPhone 12 water damage" },
-  { quote: "Called from the office about a dead charging port — they picked the phone up, fixed it and dropped it back before 5pm. Never had to leave my desk.", who: "Faith N. · Pickup & delivery, charging port" },
+const TRUST_FACTS = [
+  {
+    icon: (
+      <>
+        <path d="M9 12h6M12 9v6"></path>
+        <circle cx="12" cy="12" r="10"></circle>
+      </>
+    ),
+    label: "Free diagnostic before any work",
+  },
+  {
+    icon: (
+      <>
+        <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path>
+        <path d="m9 12 2 2 4-4"></path>
+      </>
+    ),
+    label: "90-day warranty on parts fitted",
+  },
+  {
+    icon: (
+      <>
+        <rect x="5" y="2" width="14" height="20" rx="2"></rect>
+        <path d="m9 7 3 4-2 2 3 4"></path>
+      </>
+    ),
+    label: "Original-grade genuine parts only",
+  },
+  {
+    icon: (
+      <>
+        <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94z"></path>
+      </>
+    ),
+    label: "Certified technicians, 11+ years",
+  },
 ];
 
 function Star() {
@@ -96,9 +128,10 @@ function Star() {
 
 interface HomeProps {
   featured: Product[];
+  testimonials: Testimonial[];
 }
 
-const Home: NextPageWithTitle<HomeProps> = ({ featured }) => {
+const Home: NextPageWithTitle<HomeProps> = ({ featured, testimonials }) => {
   const router = useRouter();
   const { addTo } = useCart();
   const { whatsappLink, addressLine, addressDetail, hours } = useSettings();
@@ -263,20 +296,38 @@ const Home: NextPageWithTitle<HomeProps> = ({ featured }) => {
 
       <Reveal>
       <section style={{ maxWidth: 1180, margin: "0 auto", padding: "48px 20px 24px" }}>
-        <h2 style={{ margin: 0, fontSize: "clamp(26px, 3.4vw, 34px)", fontWeight: 600, letterSpacing: "-0.03em" }}>What customers say</h2>
-        <div style={{ display: "grid", gridTemplateColumns: autoFit(280), gap: 14, marginTop: 22 }}>
-          {TESTIMONIALS.map((t) => (
-            <div key={t.who} style={{ padding: 22, border: "1px solid var(--border-subtle)", borderRadius: 18, background: "var(--surface-card)" }}>
-              <div style={{ display: "flex", gap: 3, color: "var(--gold-500)" }}>
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star key={i} />
-                ))}
-              </div>
-              <p style={{ margin: "14px 0 0", fontSize: 15, lineHeight: 1.55, color: "var(--text-primary)" }}>{t.quote}</p>
-              <div style={{ marginTop: 14, fontSize: 13, color: "var(--text-secondary)" }}>{t.who}</div>
+        {testimonials.length > 0 ? (
+          <>
+            <h2 style={{ margin: 0, fontSize: "clamp(26px, 3.4vw, 34px)", fontWeight: 600, letterSpacing: "-0.03em" }}>What customers say</h2>
+            <div style={{ display: "grid", gridTemplateColumns: autoFit(280), gap: 14, marginTop: 22 }}>
+              {testimonials.map((t) => (
+                <div key={t.id} style={{ padding: 22, border: "1px solid var(--border-subtle)", borderRadius: 18, background: "var(--surface-card)" }}>
+                  <div style={{ display: "flex", gap: 3, color: "var(--gold-500)" }}>
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <Star key={i} />
+                    ))}
+                  </div>
+                  <p style={{ margin: "14px 0 0", fontSize: 15, lineHeight: 1.55, color: "var(--text-primary)" }}>{t.quote}</p>
+                  <div style={{ marginTop: 14, fontSize: 13, color: "var(--text-secondary)" }}>{t.author} · {t.context}</div>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
+          </>
+        ) : (
+          <>
+            <h2 style={{ margin: 0, fontSize: "clamp(26px, 3.4vw, 34px)", fontWeight: 600, letterSpacing: "-0.03em" }}>Why customers choose us</h2>
+            <div style={{ display: "grid", gridTemplateColumns: autoFit(220), gap: 14, marginTop: 22 }}>
+              {TRUST_FACTS.map((f) => (
+                <div key={f.label} style={{ display: "flex", alignItems: "center", gap: 12, padding: "16px 18px", border: "1px solid var(--border-subtle)", borderRadius: 18, background: "var(--surface-card)" }}>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--orange-400)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    {f.icon}
+                  </svg>
+                  <span style={{ fontSize: 14, fontWeight: 500 }}>{f.label}</span>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
       </section>
       </Reveal>
 
@@ -315,7 +366,10 @@ const Home: NextPageWithTitle<HomeProps> = ({ featured }) => {
 Home.pageTitle = "BEAPS Mobile Fix — Phone repairs, Nairobi CBD";
 
 export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
-  const rows = await prisma.product.findMany({ where: { slug: { in: FEATURED_SLUGS } } });
+  const [rows, testimonialRows] = await Promise.all([
+    prisma.product.findMany({ where: { slug: { in: FEATURED_SLUGS } } }),
+    prisma.testimonial.findMany({ orderBy: { createdAt: "desc" }, take: 6 }),
+  ]);
   const bySlug = new Map(rows.map((r) => [r.slug, r]));
   const featured: Product[] = FEATURED_SLUGS.map((slug) => bySlug.get(slug))
     .filter((r): r is NonNullable<typeof r> => !!r)
@@ -330,7 +384,13 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
       image: r.image,
       installments: r.installments,
     }));
-  return { props: { featured } };
+  const testimonials: Testimonial[] = testimonialRows.map((t) => ({
+    id: t.id,
+    quote: t.quote,
+    author: t.author,
+    context: t.context,
+  }));
+  return { props: { featured, testimonials } };
 };
 
 export default Home;

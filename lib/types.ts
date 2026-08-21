@@ -43,6 +43,13 @@ export interface CartItem {
   qty: number;
 }
 
+export interface Testimonial {
+  id: string;
+  quote: string;
+  author: string;
+  context: string;
+}
+
 export interface Booking {
   name: string;
   phone: string;

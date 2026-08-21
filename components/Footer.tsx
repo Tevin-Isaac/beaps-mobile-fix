@@ -69,7 +69,11 @@ export default function Footer() {
       </div>
       <div style={{ maxWidth: 1180, margin: "0 auto", padding: "0 20px 34px", display: "flex", justifyContent: "space-between", gap: 16, flexWrap: "wrap", fontSize: 12, color: "var(--text-tertiary)" }}>
         <span>© 2026 BEAPS Mobile Fix. All phone repair services.</span>
-        <span>Prices are from-prices in KSh and confirmed after a free diagnostic.</span>
+        <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
+          <button type="button" onClick={go("/privacy")} style={{ background: "none", border: "none", padding: 0, cursor: "pointer", color: "var(--text-tertiary)", fontSize: 12 }}>Privacy policy</button>
+          <button type="button" onClick={go("/terms")} style={{ background: "none", border: "none", padding: 0, cursor: "pointer", color: "var(--text-tertiary)", fontSize: 12 }}>Terms of service</button>
+          <span>Prices are from-prices in KSh and confirmed after a free diagnostic.</span>
+        </div>
       </div>
     </footer>
   );
