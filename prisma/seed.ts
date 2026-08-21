@@ -23,6 +23,20 @@ const SEED_PRODUCTS = [
   { slug: "starter-bundle", name: "Starter bundle", cat: "Bundles", price: 1000, tag: "Save 15%", note: "Case + tempered glass + cable", image: "/products/chargers-cables.jpg", installments: false },
 ];
 
+const SEED_REPAIRS = [
+  { name: "Screen replacement", covers: "Cracked glass, dead touch, lines or black display", price: 2800, eta: "45–90 min", image: "/repairs/screen-replacement.jpg" },
+  { name: "Battery replacement", covers: "Fast drain, sudden shutdowns, swollen battery", price: 1800, eta: "30–60 min", image: "/repairs/battery-charging.jpg" },
+  { name: "Charging port", covers: "Loose cable, slow or no charging, port cleaning", price: 1500, eta: "45 min", image: "/repairs/charging-port.jpg" },
+  { name: "Water damage treatment", covers: "Ultrasonic board clean, drying, corrosion removal", price: 4500, eta: "24–48 hrs", image: "/repairs/water-damage.jpg" },
+  { name: "Back glass & housing", covers: "Shattered rear glass, bent frame, button repair", price: 2200, eta: "2–4 hrs", image: "/repairs/back-glass.jpg" },
+  { name: "Camera repair", covers: "Blurry or shaking lens, front camera, flash", price: 2500, eta: "1–2 hrs", image: "/repairs/camera-repair.jpg" },
+  { name: "Software & unlocking", covers: "Flashing, boot loops, network and carrier unlock", price: 1200, eta: "1–3 hrs", image: "/repairs/software-unlock.jpg" },
+  { name: "Data recovery", covers: "Photos and contacts off dead or damaged phones", price: 3500, eta: "24–72 hrs", image: "/repairs/data-recovery.jpg" },
+  { name: "Motherboard / micro-soldering", covers: "No power, no network, IC and track-level faults", price: 5000, eta: "2–5 days", image: "/repairs/motherboard.jpg" },
+  { name: "Tablet repairs", covers: "iPad and Android tablet screens, batteries, ports", price: 3500, eta: "1–2 days", image: "/repairs/tablet-repair.jpg" },
+  { name: "Laptop repairs", covers: "Screens, keyboards, hinges, fans and upgrades", price: 4000, eta: "1–3 days", image: "/repairs/laptop-repair.jpg" },
+];
+
 async function main() {
   for (const p of SEED_PRODUCTS) {
     await prisma.product.upsert({
@@ -32,6 +46,15 @@ async function main() {
     });
   }
   console.log(`Seeded ${SEED_PRODUCTS.length} products.`);
+
+  for (const r of SEED_REPAIRS) {
+    await prisma.repairService.upsert({
+      where: { name: r.name },
+      update: {},
+      create: r,
+    });
+  }
+  console.log(`Seeded ${SEED_REPAIRS.length} repair services.`);
 
   await prisma.setting.upsert({
     where: { id: "main" },

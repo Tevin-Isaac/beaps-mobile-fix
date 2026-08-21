@@ -6,10 +6,11 @@ import { authOptions } from "../../lib/auth";
 import { prisma } from "../../lib/prisma";
 import { money } from "../../lib/data";
 import { DEFAULT_SETTINGS, SiteSettings } from "../../context/SettingsContext";
-import type { NextPageWithTitle, Product } from "../../lib/types";
+import type { NextPageWithTitle, Product, Repair } from "../../lib/types";
 
 interface AdminProps {
   products: Product[];
+  repairs: Repair[];
   settings: SiteSettings;
 }
 
@@ -114,11 +115,55 @@ function ProductRow({ p, onSaved }: { p: Product; onSaved: (p: Product) => void 
   );
 }
 
+function RepairRow({ r, onSaved }: { r: Repair; onSaved: (r: Repair) => void }) {
+  const [price, setPrice] = useState(String(r.price));
+  const [saving, setSaving] = useState(false);
+
+  const save = async () => {
+    const n = Number(price);
+    if (!Number.isFinite(n) || n <= 0) return;
+    setSaving(true);
+    const res = await fetch(`/api/admin/repairs/${r.id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ price: n }),
+    });
+    setSaving(false);
+    if (res.ok) onSaved({ ...r, price: n });
+  };
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 10, padding: 14, border: "1px solid var(--border-subtle)", borderRadius: 14, background: "var(--surface-card)" }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+        <img src={r.image} alt={r.name} style={{ width: 40, height: 40, objectFit: "cover", borderRadius: 10, flexShrink: 0 }} />
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={{ fontSize: 13.5, fontWeight: 500, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{r.name}</div>
+          <div style={{ fontSize: 11.5, color: "var(--text-tertiary)" }}>{r.eta}</div>
+        </div>
+      </div>
+      <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+        <span style={{ fontSize: 12, color: "var(--text-tertiary)" }}>KSh</span>
+        <input
+          type="number"
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+          className="text-field"
+          style={{ flex: 1, height: 36, fontFamily: "'Geist Mono', monospace", fontSize: 13 }}
+        />
+      </div>
+      <button type="button" className="btn-outline sm" onClick={save} disabled={saving || Number(price) === r.price}>
+        {saving ? "Saving…" : "Save"}
+      </button>
+    </div>
+  );
+}
+
 const emptyForm = { name: "", cat: "", price: "", tag: "New", note: "", image: "", installments: false };
 
-const Admin: NextPageWithTitle<AdminProps> = ({ products: initial, settings }) => {
+const Admin: NextPageWithTitle<AdminProps> = ({ products: initial, repairs: initialRepairs, settings }) => {
   const { data: session, status } = useSession();
   const [products, setProducts] = useState(initial);
+  const [repairs, setRepairs] = useState(initialRepairs);
   const [form, setForm] = useState(emptyForm);
   const [adding, setAdding] = useState(false);
 
@@ -167,9 +212,17 @@ const Admin: NextPageWithTitle<AdminProps> = ({ products: initial, settings }) =
         <SettingsPanel initial={settings} />
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(230px, 100%), 1fr))", gap: 12, marginTop: 28 }}>
+      <h2 style={{ margin: "36px 0 0", fontSize: 22, fontWeight: 700, letterSpacing: "-0.02em" }}>Products</h2>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(230px, 100%), 1fr))", gap: 12, marginTop: 16 }}>
         {products.map((p) => (
           <ProductRow key={p.id} p={p} onSaved={(updated) => setProducts((prev) => prev.map((x) => (x.id === updated.id ? updated : x)))} />
+        ))}
+      </div>
+
+      <h2 style={{ margin: "36px 0 0", fontSize: 22, fontWeight: 700, letterSpacing: "-0.02em" }}>Repair prices</h2>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(230px, 100%), 1fr))", gap: 12, marginTop: 16 }}>
+        {repairs.map((r) => (
+          <RepairRow key={r.id} r={r} onSaved={(updated) => setRepairs((prev) => prev.map((x) => (x.id === updated.id ? updated : x)))} />
         ))}
       </div>
 
@@ -202,10 +255,11 @@ export default Admin;
 export const getServerSideProps: GetServerSideProps<AdminProps> = async (ctx) => {
   const session = await getServerSession(ctx.req, ctx.res, authOptions);
   if (!session?.user?.isAdmin) {
-    return { props: { products: [], settings: DEFAULT_SETTINGS } };
+    return { props: { products: [], repairs: [], settings: DEFAULT_SETTINGS } };
   }
-  const [rows, settingRow] = await Promise.all([
+  const [rows, repairRows, settingRow] = await Promise.all([
     prisma.product.findMany({ orderBy: { createdAt: "asc" } }),
+    prisma.repairService.findMany({ orderBy: { createdAt: "asc" } }),
     prisma.setting.findUnique({ where: { id: "main" } }),
   ]);
   const products: Product[] = rows.map((r) => ({
@@ -219,6 +273,14 @@ export const getServerSideProps: GetServerSideProps<AdminProps> = async (ctx) =>
     image: r.image,
     installments: r.installments,
   }));
+  const repairs: Repair[] = repairRows.map((r) => ({
+    id: r.id,
+    name: r.name,
+    covers: r.covers,
+    price: r.price,
+    eta: r.eta,
+    image: r.image,
+  }));
   const settings: SiteSettings = settingRow
     ? {
         phoneDisplay: settingRow.phoneDisplay,
@@ -230,5 +292,5 @@ export const getServerSideProps: GetServerSideProps<AdminProps> = async (ctx) =>
         hours: settingRow.hours,
       }
     : DEFAULT_SETTINGS;
-  return { props: { products, settings } };
+  return { props: { products, repairs, settings } };
 };

@@ -1,10 +1,16 @@
-import { REPAIRS, money } from "../lib/data";
+import type { GetServerSideProps } from "next";
+import { money } from "../lib/data";
 import { autoFit } from "../lib/style";
 import { useSettings } from "../context/SettingsContext";
-import type { NextPageWithTitle } from "../lib/types";
+import type { NextPageWithTitle, Repair } from "../lib/types";
 import Reveal from "../components/Reveal";
+import { prisma } from "../lib/prisma";
 
-const Repairs: NextPageWithTitle = () => {
+interface RepairsProps {
+  repairs: Repair[];
+}
+
+const Repairs: NextPageWithTitle<RepairsProps> = ({ repairs }) => {
   const { whatsappLink } = useSettings();
   const exactEstimateLink = whatsappLink(
     "Hi BEAPS, I'd like an exact estimate for a repair. My device is: "
@@ -18,8 +24,8 @@ const Repairs: NextPageWithTitle = () => {
       </p>
 
       <div style={{ display: "grid", gridTemplateColumns: autoFit(280), gap: 16, marginTop: 32 }}>
-        {REPAIRS.map((r, i) => (
-          <Reveal key={r.name} delay={(i % 3) * 0.08}>
+        {repairs.map((r, i) => (
+          <Reveal key={r.id} delay={(i % 3) * 0.08}>
             <div className="product-card" style={{ height: "100%" }}>
               <div style={{ height: 170, overflow: "hidden" }}>
                 <img
@@ -64,3 +70,16 @@ const Repairs: NextPageWithTitle = () => {
 Repairs.pageTitle = "Repairs & prices — BEAPS Mobile Fix";
 
 export default Repairs;
+
+export const getServerSideProps: GetServerSideProps<RepairsProps> = async () => {
+  const rows = await prisma.repairService.findMany({ orderBy: { createdAt: "asc" } });
+  const repairs: Repair[] = rows.map((r) => ({
+    id: r.id,
+    name: r.name,
+    covers: r.covers,
+    price: r.price,
+    eta: r.eta,
+    image: r.image,
+  }));
+  return { props: { repairs } };
+};
