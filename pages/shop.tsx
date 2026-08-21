@@ -1,16 +1,22 @@
 import { useMemo, useState } from "react";
-import { PRODUCTS, money, chipStyle, whatsappLink } from "../lib/data";
+import type { GetServerSideProps } from "next";
+import { money, chipStyle, whatsappLink } from "../lib/data";
 import { useCart } from "../context/CartContext";
 import { autoFit } from "../lib/style";
-import type { NextPageWithTitle } from "../lib/types";
+import type { NextPageWithTitle, Product } from "../lib/types";
 import Reveal from "../components/Reveal";
+import { prisma } from "../lib/prisma";
 
-const Shop: NextPageWithTitle = () => {
+interface ShopProps {
+  products: Product[];
+}
+
+const Shop: NextPageWithTitle<ShopProps> = ({ products }) => {
   const { addTo } = useCart();
   const [cat, setCat] = useState("All");
 
-  const cats = useMemo(() => ["All", ...Array.from(new Set(PRODUCTS.map((p) => p.cat)))], []);
-  const shown = cat === "All" ? PRODUCTS : PRODUCTS.filter((p) => p.cat === cat);
+  const cats = useMemo(() => ["All", ...Array.from(new Set(products.map((p) => p.cat)))], [products]);
+  const shown = cat === "All" ? products : products.filter((p) => p.cat === cat);
 
   return (
     <div data-screen-label="Shop" style={{ maxWidth: 1180, margin: "0 auto", padding: "56px 20px 72px" }}>
@@ -60,7 +66,7 @@ const Shop: NextPageWithTitle = () => {
                 </div>
               )}
               <div style={{ display: "flex", gap: 8 }}>
-                <button type="button" className="add-btn" style={{ flex: 1 }} onClick={() => addTo(p.id)}>Add to order</button>
+                <button type="button" className="add-btn" style={{ flex: 1 }} onClick={() => addTo({ id: p.id, name: p.name, price: p.price })}>Add to order</button>
                 <a
                   href={whatsappLink(`Hi BEAPS, I'd like to ask about this product:\n\n${p.name}\nKSh ${money(p.price)} — ${p.note}`)}
                   target="_blank"
@@ -86,3 +92,19 @@ const Shop: NextPageWithTitle = () => {
 Shop.pageTitle = "Shop — BEAPS Mobile Fix";
 
 export default Shop;
+
+export const getServerSideProps: GetServerSideProps<ShopProps> = async () => {
+  const rows = await prisma.product.findMany({ orderBy: { createdAt: "asc" } });
+  const products: Product[] = rows.map((r) => ({
+    id: r.id,
+    slug: r.slug,
+    name: r.name,
+    cat: r.cat,
+    price: r.price,
+    tag: r.tag,
+    note: r.note,
+    image: r.image,
+    installments: r.installments,
+  }));
+  return { props: { products } };
+};

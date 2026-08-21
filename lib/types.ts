@@ -3,6 +3,7 @@ import type { AppProps } from "next/app";
 
 export interface Product {
   id: string;
+  slug: string;
   name: string;
   cat: string;
   price: number;
@@ -47,6 +48,7 @@ export interface Booking {
   model: string;
   date: string;
   time: string;
+  details: string;
 }
 
 export type NextPageWithTitle<P = {}> = NextPage<P> & { pageTitle?: string };

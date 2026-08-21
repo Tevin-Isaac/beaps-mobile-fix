@@ -1,31 +1,10 @@
-import type { Product, Repair, DeviceOption, IssueOption } from "./types";
+import type { Repair, DeviceOption, IssueOption } from "./types";
 
 export const PHONE_DISPLAY = "0720 668 668";
 export const PHONE_TEL = "+254720668668";
 export const WHATSAPP_NUMBER = "254720668668";
 
-export const PRODUCTS: Product[] = [
-  { id: "p1", name: "Samsung Galaxy A05", cat: "New phones", price: 14500, tag: "New", note: '6.7" display, 5000mAh, sealed box', image: "/products/new-phones.jpg", installments: true },
-  { id: "p2", name: "Redmi 13C", cat: "New phones", price: 13900, tag: "New", note: "Dual SIM, 128GB storage", image: "/products/new-phones.jpg", installments: true },
-  { id: "p3", name: "Tecno Spark 20", cat: "New phones", price: 15200, tag: "New", note: "Popular pick for students", image: "/products/new-phones.jpg", installments: true },
-  { id: "p4", name: "iPhone 11 · 64GB", cat: "Refurbished", price: 32000, tag: "Refurb", note: "Battery health 88%+, tested", image: "/products/refurbished.jpg", installments: true },
-  { id: "p5", name: "Samsung S21 · 128GB", cat: "Refurbished", price: 38000, tag: "Refurb", note: "Grade A, 30-day cover", image: "/products/refurbished.jpg", installments: true },
-  { id: "p6", name: "Oraimo 20,000mAh power bank", cat: "Power banks", price: 3200, tag: "Best seller", note: "22.5W fast charge, dual output", image: "/products/power-banks.jpg" },
-  { id: "p7", name: "Anker 10,000mAh power bank", cat: "Power banks", price: 2900, tag: "In stock", note: "Slim, USB-C in/out", image: "/products/power-banks.jpg" },
-  { id: "p8", name: "Oraimo 33W GaN charger", cat: "Chargers & cables", price: 1800, tag: "In stock", note: "Fast charge for Android and iPhone", image: "/products/chargers-cables.jpg" },
-  { id: "p9", name: "Braided USB-C cable · 1m", cat: "Chargers & cables", price: 450, tag: "In stock", note: "60W rated, tangle-free", image: "/products/chargers-cables.jpg" },
-  { id: "p10", name: "Lightning cable · 1m", cat: "Chargers & cables", price: 550, tag: "In stock", note: "Certified chip, fast charge", image: "/products/chargers-cables.jpg" },
-  { id: "p11", name: "Clear silicone case", cat: "Cases & protectors", price: 400, tag: "Any model", note: "Raised camera lip, non-yellowing", image: "/products/cases-protectors.jpg" },
-  { id: "p12", name: "Tempered glass protector", cat: "Cases & protectors", price: 350, tag: "Fitted free", note: "9H, fitted while you wait", image: "/products/cases-protectors.jpg" },
-  { id: "p13", name: "Oraimo FreePods 3", cat: "Earbuds", price: 2600, tag: "Best seller", note: "ENC calls, 30hr with case", image: "/products/earbuds.jpg" },
-  { id: "p14", name: "Wired earphones · 3.5mm", cat: "Earbuds", price: 300, tag: "In stock", note: "In-line mic, tangle-free", image: "/products/earbuds.jpg" },
-  { id: "p15", name: "SanDisk 64GB memory card", cat: "Memory cards", price: 950, tag: "In stock", note: "Class 10, sealed", image: "/products/memory-cards.jpg" },
-  { id: "p16", name: "SanDisk 128GB memory card", cat: "Memory cards", price: 1650, tag: "In stock", note: "Class 10, sealed", image: "/products/memory-cards.jpg" },
-  { id: "p17", name: "Oraimo Watch 3", cat: "Smartwatches", price: 3400, tag: "New", note: "Calls, SpO2, 7-day battery", image: "/products/smartwatches.jpg" },
-  { id: "p18", name: "Starter bundle", cat: "Bundles", price: 1000, tag: "Save 15%", note: "Case + tempered glass + cable", image: "/products/chargers-cables.jpg" },
-];
-
-export const FEATURED_IDS = ["p6", "p4", "p8", "p13"];
+export const FEATURED_SLUGS = ["oraimo-20-000mah-power-bank", "iphone-11-64gb", "oraimo-33w-gan-charger", "oraimo-freepods-3"];
 
 export const REPAIRS: Repair[] = [
   { name: "Screen replacement", covers: "Cracked glass, dead touch, lines or black display", price: 2800, eta: "45–90 min", image: "/repairs/screen-replacement.jpg" },

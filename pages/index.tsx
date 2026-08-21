@@ -1,11 +1,13 @@
 import { ReactNode } from "react";
+import type { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { useCart } from "../context/CartContext";
-import { FEATURED_IDS, PRODUCTS, money } from "../lib/data";
+import { FEATURED_SLUGS, money } from "../lib/data";
 import { autoFit } from "../lib/style";
-import type { NextPageWithTitle } from "../lib/types";
+import type { NextPageWithTitle, Product } from "../lib/types";
 import WordReveal from "../components/WordReveal";
 import Reveal from "../components/Reveal";
+import { prisma } from "../lib/prisma";
 
 interface FeatureItem {
   icon: ReactNode;
@@ -90,10 +92,13 @@ function Star() {
   );
 }
 
-const Home: NextPageWithTitle = () => {
+interface HomeProps {
+  featured: Product[];
+}
+
+const Home: NextPageWithTitle<HomeProps> = ({ featured }) => {
   const router = useRouter();
   const { addTo } = useCart();
-  const featured = PRODUCTS.filter((p) => FEATURED_IDS.includes(p.id));
 
   return (
     <div data-screen-label="Home">
@@ -241,7 +246,7 @@ const Home: NextPageWithTitle = () => {
               <div style={{ padding: 16, display: "flex", flexDirection: "column", gap: 10, flex: 1 }}>
                 <div style={{ fontSize: 14, fontWeight: 500, lineHeight: 1.35 }}>{p.name}</div>
                 <div style={{ fontFamily: "'Geist Mono', monospace", fontSize: 16, letterSpacing: "-0.02em", marginTop: "auto" }}>KSh {money(p.price)}</div>
-                <button type="button" className="add-btn" onClick={() => addTo(p.id)}>Add to order</button>
+                <button type="button" className="add-btn" onClick={() => addTo({ id: p.id, name: p.name, price: p.price })}>Add to order</button>
               </div>
             </div>
           ))}
@@ -301,5 +306,24 @@ const Home: NextPageWithTitle = () => {
 };
 
 Home.pageTitle = "BEAPS Mobile Fix — Phone repairs, Nairobi CBD";
+
+export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
+  const rows = await prisma.product.findMany({ where: { slug: { in: FEATURED_SLUGS } } });
+  const bySlug = new Map(rows.map((r) => [r.slug, r]));
+  const featured: Product[] = FEATURED_SLUGS.map((slug) => bySlug.get(slug))
+    .filter((r): r is NonNullable<typeof r> => !!r)
+    .map((r) => ({
+      id: r.id,
+      slug: r.slug,
+      name: r.name,
+      cat: r.cat,
+      price: r.price,
+      tag: r.tag,
+      note: r.note,
+      image: r.image,
+      installments: r.installments,
+    }));
+  return { props: { featured } };
+};
 
 export default Home;

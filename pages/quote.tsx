@@ -1,17 +1,23 @@
 import { useRef, useState } from "react";
+import { useSession } from "next-auth/react";
 import { DEVICES, ISSUES, chipStyle, money, round100, whatsappLink } from "../lib/data";
 import { autoFit } from "../lib/style";
 import type { NextPageWithTitle, Booking } from "../lib/types";
 import Reveal from "../components/Reveal";
 
 const Quote: NextPageWithTitle = () => {
+  const { data: session } = useSession();
   const [dev, setDev] = useState<string | null>(null);
   const [issue, setIssue] = useState<string | null>(null);
+  const [details, setDetails] = useState("");
   const [booked, setBooked] = useState(false);
   const [booking, setBooking] = useState<Booking | null>(null);
+  const [saving, setSaving] = useState(false);
+  const [saveError, setSaveError] = useState(false);
 
   const nameRef = useRef<HTMLInputElement>(null);
   const phoneRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
   const modelRef = useRef<HTMLInputElement>(null);
   const dateRef = useRef<HTMLInputElement>(null);
   const timeRef = useRef<HTMLSelectElement>(null);
@@ -27,14 +33,41 @@ const Quote: NextPageWithTitle = () => {
     estimateLabel = `${selectedIssue.label} · ${selectedDevice.label}`;
   }
 
-  const book = () => {
+  const book = async () => {
     const b: Booking = {
       name: nameRef.current?.value || "Walk-in",
       phone: phoneRef.current?.value || "",
       model: modelRef.current?.value || "device",
       date: dateRef.current?.value || "the next open slot",
       time: timeRef.current?.value || "",
+      details,
     };
+    const email = emailRef.current?.value || session?.user?.email || "";
+
+    setSaving(true);
+    setSaveError(false);
+    try {
+      const res = await fetch("/api/bookings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: b.name,
+          email,
+          phone: b.phone,
+          model: b.model,
+          issue: selectedIssue ? selectedIssue.label : null,
+          details: b.details,
+          date: b.date,
+          time: b.time,
+        }),
+      });
+      if (!res.ok) throw new Error("save failed");
+    } catch {
+      setSaveError(true);
+    } finally {
+      setSaving(false);
+    }
+
     setBooking(b);
     setBooked(true);
   };
@@ -44,9 +77,13 @@ const Quote: NextPageWithTitle = () => {
     : "";
   const bookingWaLink = booking
     ? whatsappLink(
-        `Hi BEAPS, I booked a repair.\nName: ${booking.name}\nPhone: ${booking.phone}\nDevice: ${booking.model}\nFault: ${selectedIssue ? selectedIssue.label : "to be diagnosed"}\nSlot: ${booking.date} ${booking.time}`
+        `Hi BEAPS, I booked a repair.\nName: ${booking.name}\nPhone: ${booking.phone}\nDevice: ${booking.model}\nFault: ${selectedIssue ? selectedIssue.label : "to be diagnosed"}${booking.details ? `\nDetails: ${booking.details}` : ""}\nSlot: ${booking.date} ${booking.time}`
       )
     : "";
+
+  const shareEstimateLink = whatsappLink(
+    `Hi BEAPS, I got this estimate on your site:\n${estimateLabel}\n${estimate}${details ? `\n\nWhat's wrong: ${details}` : ""}\n\nCan you confirm this for my device?`
+  );
 
   return (
     <div data-screen-label="Instant quote" style={{ maxWidth: 900, margin: "0 auto", padding: "56px 20px 72px" }}>
@@ -74,10 +111,25 @@ const Quote: NextPageWithTitle = () => {
           ))}
         </div>
 
+        <label style={{ display: "flex", flexDirection: "column", gap: 7, fontSize: 13, color: "var(--text-secondary)", marginTop: 18 }}>
+          Describe what's wrong (optional, helps us quote faster)
+          <textarea
+            value={details}
+            onChange={(e) => setDetails(e.target.value)}
+            placeholder="e.g. Screen has a black line down the middle since I dropped it yesterday..."
+            className="text-field"
+            rows={3}
+            style={{ height: "auto", minHeight: 84, resize: "vertical", fontFamily: "inherit", lineHeight: 1.5, padding: "10px 14px" }}
+          />
+        </label>
+
         <div style={{ marginTop: 28, padding: 22, borderRadius: 18, border: "1px solid var(--orange-a20)", background: "linear-gradient(120deg, rgba(31,161,58,0.14), rgba(10,10,10,0.6))" }}>
           <div style={{ fontSize: 13, color: "var(--text-secondary)" }}>{estimateLabel}</div>
           <div style={{ fontFamily: "'Geist Mono', monospace", fontSize: 36, fontWeight: 600, letterSpacing: "-0.03em", marginTop: 6 }}>{estimate}</div>
           <div style={{ fontSize: 13, color: "var(--text-tertiary)", marginTop: 8 }}>Confirmed after a free diagnostic. Parts carry a 90-day warranty.</div>
+          <a href={shareEstimateLink} target="_blank" rel="noreferrer" className="btn-outline sm" style={{ marginTop: 16, display: "inline-flex" }}>
+            Share this estimate on WhatsApp
+          </a>
         </div>
       </div>
       </Reveal>
@@ -96,6 +148,16 @@ const Quote: NextPageWithTitle = () => {
               <label style={{ display: "flex", flexDirection: "column", gap: 7, fontSize: 13, color: "var(--text-secondary)" }}>
                 Phone / WhatsApp
                 <input ref={phoneRef} type="tel" placeholder="07xx xxx xxx" className="text-field" style={{ fontFamily: "'Geist Mono', monospace" }} />
+              </label>
+              <label style={{ display: "flex", flexDirection: "column", gap: 7, fontSize: 13, color: "var(--text-secondary)" }}>
+                Email {session?.user?.email ? "(from your sign-in)" : "(so you can track this booking)"}
+                <input
+                  ref={emailRef}
+                  type="email"
+                  placeholder="you@example.com"
+                  defaultValue={session?.user?.email || ""}
+                  className="text-field"
+                />
               </label>
               <label style={{ display: "flex", flexDirection: "column", gap: 7, fontSize: 13, color: "var(--text-secondary)" }}>
                 Model
@@ -118,9 +180,14 @@ const Quote: NextPageWithTitle = () => {
               </label>
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: 14, marginTop: 20, flexWrap: "wrap" }}>
-              <button type="button" className="btn-solid md" onClick={book}>Book this slot</button>
+              <button type="button" className="btn-solid md" onClick={book} disabled={saving}>{saving ? "Booking…" : "Book this slot"}</button>
               <span style={{ fontSize: 13, color: "var(--text-tertiary)" }}>Or just walk in — no appointment needed.</span>
             </div>
+            {saveError && (
+              <p style={{ margin: "10px 0 0", fontSize: 13, color: "var(--red-400, #e05d5d)" }}>
+                We couldn't save this to our system, but your slot request below still works — confirm it on WhatsApp.
+              </p>
+            )}
           </>
         )}
 

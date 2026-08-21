@@ -1,11 +1,16 @@
 import { createContext, useContext, useMemo, useState, ReactNode } from "react";
-import { PRODUCTS, money, whatsappLink } from "../lib/data";
+import { money, whatsappLink } from "../lib/data";
 import type { CartItem } from "../lib/types";
 
-type CartMap = Record<string, number>;
+interface CartLine {
+  name: string;
+  price: number;
+  qty: number;
+}
+
+type CartMap = Record<string, CartLine>;
 
 interface CartContextValue {
-  cart: CartMap;
   cartItems: CartItem[];
   cartTotal: number;
   cartTotalFmt: string;
@@ -14,7 +19,7 @@ interface CartContextValue {
   cartEmpty: boolean;
   cartOpen: boolean;
   toggleCart: () => void;
-  addTo: (id: string) => void;
+  addTo: (product: { id: string; name: string; price: number }) => void;
   bump: (id: string, d: number) => void;
   waLink: string;
 }
@@ -25,17 +30,25 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [cart, setCart] = useState<CartMap>({});
   const [cartOpen, setCartOpen] = useState(false);
 
-  const addTo = (id: string) => {
-    setCart((c) => ({ ...c, [id]: (c[id] || 0) + 1 }));
+  const addTo = (product: { id: string; name: string; price: number }) => {
+    setCart((c) => {
+      const existing = c[product.id];
+      return {
+        ...c,
+        [product.id]: { name: product.name, price: product.price, qty: (existing?.qty || 0) + 1 },
+      };
+    });
     setCartOpen(true);
   };
 
   const bump = (id: string, d: number) => {
     setCart((c) => {
       const next = { ...c };
-      const q = (next[id] || 0) + d;
+      const line = next[id];
+      if (!line) return c;
+      const q = line.qty + d;
       if (q <= 0) delete next[id];
-      else next[id] = q;
+      else next[id] = { ...line, qty: q };
       return next;
     });
   };
@@ -43,18 +56,11 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const toggleCart = () => setCartOpen((v) => !v);
 
   const cartItems = useMemo<CartItem[]>(
-    () =>
-      Object.keys(cart).map((id) => {
-        const p = PRODUCTS.find((x) => x.id === id)!;
-        return { id, name: p.name, priceFmt: money(p.price), qty: cart[id] };
-      }),
+    () => Object.entries(cart).map(([id, line]) => ({ id, name: line.name, priceFmt: money(line.price), qty: line.qty })),
     [cart]
   );
 
-  const cartTotal = useMemo(
-    () => Object.keys(cart).reduce((t, id) => t + PRODUCTS.find((x) => x.id === id)!.price * cart[id], 0),
-    [cart]
-  );
+  const cartTotal = useMemo(() => Object.values(cart).reduce((t, line) => t + line.price * line.qty, 0), [cart]);
 
   const cartCount = cartItems.reduce((t, c) => t + c.qty, 0);
 
@@ -67,7 +73,6 @@ export function CartProvider({ children }: { children: ReactNode }) {
   }, [cartItems, cartTotal]);
 
   const value: CartContextValue = {
-    cart,
     cartItems,
     cartTotal,
     cartTotalFmt: money(cartTotal),
