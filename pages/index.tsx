@@ -53,7 +53,7 @@ const FEATURES: FeatureItem[] = [
         <circle cx="17.5" cy="17.5" r="2.5"></circle>
       </>
     ),
-    label: "Pickup & delivery in CBD",
+    label: "We pick up & deliver",
   },
 ];
 
@@ -78,7 +78,7 @@ const HOW_IT_WORKS = [
   { n: "01", title: "Tell us the fault", desc: "Use the instant quote or WhatsApp a photo of the damage." },
   { n: "02", title: "Free diagnostic", desc: "We open it, test it and confirm the exact price before any work." },
   { n: "03", title: "Repair & test", desc: "Genuine parts fitted, then a full function test with you watching." },
-  { n: "04", title: "Collect with warranty", desc: "90-day warranty slip, or we deliver it back to you in the CBD." },
+  { n: "04", title: "Collect with warranty", desc: "90-day warranty slip, or we deliver it back to you wherever you are." },
 ];
 
 const TRUST_FACTS = [

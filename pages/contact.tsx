@@ -72,7 +72,7 @@ const Contact: NextPageWithTitle = () => {
           <div style={{ padding: 22, border: "1px solid var(--border-subtle)", borderRadius: 18, background: "var(--surface-card)" }}>
             <h3 style={{ margin: 0, fontSize: 16, fontWeight: 600, letterSpacing: "-0.02em" }}>Getting to {addressDetail}</h3>
             <p style={{ margin: "8px 0 0", fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.6 }}>
-              Enter from the street, take the lift up and follow signage to {addressDetail}. If you cannot make it in, ask about CBD pickup and delivery.
+              Enter from the street, take the lift up and follow signage to {addressDetail}. If you cannot make it in, ask about pickup and delivery — any location.
             </p>
           </div>
         </div>
