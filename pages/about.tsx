@@ -22,10 +22,10 @@ const About: NextPageWithTitle = () => {
         <div>
           <h1 className="animate-fade-up" style={{ margin: 0, fontSize: "clamp(30px, 4.6vw, 48px)", fontWeight: 700, letterSpacing: "-0.032em" }}>A bench, not a counter</h1>
           <p className="animate-fade-up delay-200" style={{ margin: "18px 0 0", fontSize: 17, lineHeight: 1.6, color: "var(--text-secondary)" }}>
-            Bernard has been fixing phones for over 11 years, and BEAPS Mobile Fix now works out of the Old Mutual Building on Kimathi Street. Most of what walks through the door is a cracked screen, a tired battery or a phone that met the rain — and most of it leaves the same day.
+            BEAPS Mobile Fix has been repairing phones for over 11 years, now working out of the Old Mutual Building on Kimathi Street. Most jobs are a cracked screen, a tired battery, or water damage. Most leave the same day.
           </p>
           <p className="animate-fade-up delay-300" style={{ margin: "14px 0 0", fontSize: 17, lineHeight: 1.6, color: "var(--text-secondary)" }}>
-            Every job starts with a free diagnostic so you know the real cost before we touch anything, and once we're in, you see the faulty part come out with your own eyes. If a board is beyond economical repair, we'll tell you plainly instead of billing you for hope — that's the whole idea behind working at a bench instead of a counter.
+            Every job starts with a free diagnostic, so you know the cost before we touch anything. You see the faulty part come out yourself. If a board can't be fixed economically, we'll tell you straight instead of charging you to find out.
           </p>
           <div style={{ display: "grid", gridTemplateColumns: autoFit(120), gap: 18, marginTop: 30 }}>
             {STATS.map((s) => (

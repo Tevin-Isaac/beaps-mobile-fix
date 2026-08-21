@@ -121,7 +121,7 @@ const Quote: NextPageWithTitle = () => {
           <span className="quote-step-num">1</span>
           Your device
         </div>
-        <div style={{ display: "grid", gridTemplateColumns: autoFit(150), gap: 10, marginTop: 14 }}>
+        <div style={{ display: "grid", gridTemplateColumns: autoFit(128), gap: 10, marginTop: 14 }}>
           {DEVICES.map((d) => (
             <div
               key={d.id}
