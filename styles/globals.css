@@ -714,6 +714,7 @@ button {
 }
 
 .chip {
+  position: relative;
   padding: 11px 16px;
   border-radius: 999px;
   border: 1px solid;
@@ -959,6 +960,78 @@ button {
 }
 .text-field:focus {
   border-color: var(--border-focus);
+}
+
+.quote-card {
+  padding: 26px;
+  border: 1px solid var(--border-subtle);
+  border-radius: 24px;
+  background: var(--surface-card);
+}
+.quote-step-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.quote-step-num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--brand-tint);
+  color: var(--orange-400);
+  font-family: "Geist Mono", monospace;
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.quote-option {
+  position: relative;
+  padding: 16px 12px;
+  border-radius: 14px;
+  border-width: 1px;
+  border-style: solid;
+  cursor: pointer;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.quote-option:hover {
+  transform: translateY(-2px);
+}
+.quote-check {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--brand-solid);
+  color: var(--text-on-brand);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.quote-estimate {
+  margin-top: 14px;
+  padding: 30px 26px;
+  border-radius: 24px;
+  background: linear-gradient(135deg, #0f3318, #163c1c 45%, #0a0a0a 100%);
+  text-align: center;
+}
+.quote-send-btn {
+  margin-top: 20px;
+  width: 100%;
+  max-width: 380px;
 }
 
 .footer-link {
