@@ -42,6 +42,15 @@ model Testimonial {
   createdAt DateTime @default(now())
 }
 
+model FlashSale {
+  id        String    @id @default("main")
+  active    Boolean   @default(false)
+  title     String    @default("Flash Sale")
+  message   String    @default("")
+  endsAt    DateTime?
+  updatedAt DateTime  @updatedAt
+}
+
 model Setting {
   id            String   @id @default("main")
   phoneDisplay  String

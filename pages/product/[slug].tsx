@@ -2,6 +2,7 @@ import type { GetServerSideProps } from "next";
 import { money } from "../../lib/data";
 import { useCart } from "../../context/CartContext";
 import { useSettings } from "../../context/SettingsContext";
+import ShareButton from "../../components/ShareButton";
 import type { NextPageWithTitle, Product } from "../../lib/types";
 import { prisma } from "../../lib/prisma";
 
@@ -27,7 +28,7 @@ const ProductPage: NextPageWithTitle<ProductPageProps> = ({ product: p }) => {
           {p.installments && (
             <div style={{ marginTop: 8, fontSize: 13, color: "var(--orange-400)" }}>Lipa Mdogo Mdogo available</div>
           )}
-          <div style={{ display: "flex", gap: 12, marginTop: 22, flexWrap: "wrap" }}>
+          <div style={{ display: "flex", gap: 12, marginTop: 22, flexWrap: "wrap", alignItems: "center" }}>
             <button type="button" className="btn-solid md" onClick={() => addTo({ id: p.id, name: p.name, price: p.price })}>Add to order</button>
             <a
               href={whatsappLink(`Hi BEAPS, I'd like to ask about this product:\n\n${p.name}\nKSh ${money(p.price)} — ${p.note}`)}
@@ -37,6 +38,7 @@ const ProductPage: NextPageWithTitle<ProductPageProps> = ({ product: p }) => {
             >
               Ask on WhatsApp
             </a>
+            <ShareButton path={`/product/${p.slug}`} title={p.name} className="share-btn" />
           </div>
         </div>
       </div>

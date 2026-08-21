@@ -51,6 +51,13 @@ export interface Testimonial {
   avatar: string | null;
 }
 
+export interface FlashSale {
+  active: boolean;
+  title: string;
+  message: string;
+  endsAt: string | null;
+}
+
 export interface Booking {
   name: string;
   phone: string;

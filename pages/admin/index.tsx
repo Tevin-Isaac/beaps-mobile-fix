@@ -7,13 +7,88 @@ import { prisma } from "../../lib/prisma";
 import { money } from "../../lib/data";
 import { DEFAULT_SETTINGS, SiteSettings } from "../../context/SettingsContext";
 import Avatar from "../../components/Avatar";
-import type { NextPageWithTitle, Product, Repair, Testimonial } from "../../lib/types";
+import type { NextPageWithTitle, Product, Repair, Testimonial, FlashSale } from "../../lib/types";
 
 interface AdminProps {
   products: Product[];
   repairs: Repair[];
   testimonials: Testimonial[];
   settings: SiteSettings;
+  flashSale: FlashSale;
+}
+
+function toDatetimeLocal(iso: string | null): string {
+  if (!iso) return "";
+  const d = new Date(iso);
+  const pad = (n: number) => String(n).padStart(2, "0");
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+
+function FlashSalePanel({ initial }: { initial: FlashSale }) {
+  const [sale, setSale] = useState(initial);
+  const [title, setTitle] = useState(initial.title);
+  const [message, setMessage] = useState(initial.message);
+  const [endsAt, setEndsAt] = useState(toDatetimeLocal(initial.endsAt));
+  const [saving, setSaving] = useState(false);
+
+  const save = async (active: boolean) => {
+    setSaving(true);
+    const res = await fetch("/api/flash-sale", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        active,
+        title,
+        message,
+        endsAt: endsAt ? new Date(endsAt).toISOString() : null,
+      }),
+    });
+    setSaving(false);
+    if (res.ok) setSale(await res.json());
+  };
+
+  return (
+    <div style={{ padding: 22, border: "1px solid var(--border-subtle)", borderRadius: 20, background: "var(--surface-card)" }}>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
+        <h2 style={{ margin: 0, fontSize: 18, fontWeight: 600 }}>Flash sale</h2>
+        <span style={{ fontSize: 12, fontWeight: 600, padding: "4px 10px", borderRadius: 999, background: sale.active ? "var(--brand-tint-strong)" : "var(--surface-raised)", color: sale.active ? "var(--orange-300)" : "var(--text-tertiary)" }}>
+          {sale.active ? "Live" : "Not running"}
+        </span>
+      </div>
+      <p style={{ margin: "6px 0 0", fontSize: 13, color: "var(--text-secondary)" }}>
+        When live, this replaces the "coming soon" banner on the Shop page with your sale details.
+      </p>
+      <div style={{ display: "grid", gap: 12, marginTop: 16 }}>
+        <input className="text-field" placeholder="Title (e.g. Weekend Flash Sale)" value={title} onChange={(e) => setTitle(e.target.value)} />
+        <textarea
+          className="text-field"
+          placeholder="Message (e.g. 15% off all power banks and earbuds)"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          rows={2}
+          style={{ height: "auto", minHeight: 60, padding: "10px 14px", fontFamily: "inherit", resize: "vertical" }}
+        />
+        <label style={{ display: "flex", flexDirection: "column", gap: 6, fontSize: 12.5, color: "var(--text-secondary)" }}>
+          Ends at (optional)
+          <input className="text-field" type="datetime-local" value={endsAt} onChange={(e) => setEndsAt(e.target.value)} style={{ maxWidth: 260 }} />
+        </label>
+      </div>
+      <div style={{ display: "flex", gap: 10, marginTop: 16, flexWrap: "wrap" }}>
+        {!sale.active ? (
+          <button type="button" className="btn-solid md" onClick={() => save(true)} disabled={saving || !title}>
+            {saving ? "Launching…" : "Launch flash sale"}
+          </button>
+        ) : (
+          <button type="button" className="btn-outline md" onClick={() => save(false)} disabled={saving}>
+            {saving ? "Ending…" : "End flash sale"}
+          </button>
+        )}
+        <button type="button" className="btn-outline sm" onClick={() => save(sale.active)} disabled={saving}>
+          Save details
+        </button>
+      </div>
+    </div>
+  );
 }
 
 const SETTINGS_FIELDS: { key: keyof SiteSettings; label: string }[] = [
@@ -260,7 +335,7 @@ function TestimonialsPanel({ initial }: { initial: Testimonial[] }) {
 
 const emptyForm = { name: "", cat: "", price: "", tag: "New", note: "", image: "", installments: false };
 
-const Admin: NextPageWithTitle<AdminProps> = ({ products: initial, repairs: initialRepairs, testimonials, settings }) => {
+const Admin: NextPageWithTitle<AdminProps> = ({ products: initial, repairs: initialRepairs, testimonials, settings, flashSale }) => {
   const { data: session, status } = useSession();
   const [products, setProducts] = useState(initial);
   const [repairs, setRepairs] = useState(initialRepairs);
@@ -278,7 +353,7 @@ const Admin: NextPageWithTitle<AdminProps> = ({ products: initial, repairs: init
     setAdding(false);
     if (res.ok) {
       const p = await res.json();
-      setProducts((prev) => [...prev, p]);
+      setProducts((prev) => [p, ...prev]);
       setForm(emptyForm);
     }
   };
@@ -310,6 +385,10 @@ const Admin: NextPageWithTitle<AdminProps> = ({ products: initial, repairs: init
 
       <div style={{ marginTop: 28 }}>
         <SettingsPanel initial={settings} />
+      </div>
+
+      <div style={{ marginTop: 20 }}>
+        <FlashSalePanel initial={flashSale} />
       </div>
 
       <h2 style={{ margin: "36px 0 0", fontSize: 22, fontWeight: 700, letterSpacing: "-0.02em" }}>Products</h2>
@@ -359,13 +438,22 @@ export default Admin;
 export const getServerSideProps: GetServerSideProps<AdminProps> = async (ctx) => {
   const session = await getServerSession(ctx.req, ctx.res, authOptions);
   if (!session?.user?.isAdmin) {
-    return { props: { products: [], repairs: [], testimonials: [], settings: DEFAULT_SETTINGS } };
+    return {
+      props: {
+        products: [],
+        repairs: [],
+        testimonials: [],
+        settings: DEFAULT_SETTINGS,
+        flashSale: { active: false, title: "Flash Sale", message: "", endsAt: null },
+      },
+    };
   }
-  const [rows, repairRows, testimonialRows, settingRow] = await Promise.all([
-    prisma.product.findMany({ orderBy: { createdAt: "asc" } }),
+  const [rows, repairRows, testimonialRows, settingRow, saleRow] = await Promise.all([
+    prisma.product.findMany({ orderBy: { createdAt: "desc" } }),
     prisma.repairService.findMany({ orderBy: { createdAt: "asc" } }),
     prisma.testimonial.findMany({ orderBy: { createdAt: "desc" } }),
     prisma.setting.findUnique({ where: { id: "main" } }),
+    prisma.flashSale.findUnique({ where: { id: "main" } }),
   ]);
   const products: Product[] = rows.map((r) => ({
     id: r.id,
@@ -404,5 +492,8 @@ export const getServerSideProps: GetServerSideProps<AdminProps> = async (ctx) =>
         hours: settingRow.hours,
       }
     : DEFAULT_SETTINGS;
-  return { props: { products, repairs, testimonials, settings } };
+  const flashSale: FlashSale = saleRow
+    ? { active: saleRow.active, title: saleRow.title, message: saleRow.message, endsAt: saleRow.endsAt ? saleRow.endsAt.toISOString() : null }
+    : { active: false, title: "Flash Sale", message: "", endsAt: null };
+  return { props: { products, repairs, testimonials, settings, flashSale } };
 };
