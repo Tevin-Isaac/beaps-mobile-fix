@@ -343,7 +343,6 @@ const Home: NextPageWithTitle<HomeProps> = ({ featured, testimonials }) => {
             overflow: "hidden",
             border: "1px solid var(--orange-a20)",
             borderRadius: 24,
-            background: "linear-gradient(120deg, rgba(31,161,58,0.16), rgba(20,20,20,0.9))",
             padding: 44,
             display: "flex",
             alignItems: "center",
@@ -352,13 +351,19 @@ const Home: NextPageWithTitle<HomeProps> = ({ featured, testimonials }) => {
             flexWrap: "wrap",
           }}
         >
-          <div>
-            <h2 style={{ margin: 0, fontSize: "clamp(26px, 3.4vw, 34px)", fontWeight: 600, letterSpacing: "-0.03em" }}>Phone acting up? Find out today.</h2>
-            <p style={{ margin: "10px 0 0", fontSize: 16, color: "var(--text-secondary)" }}>{addressLine} — {addressDetail}. {hours}.</p>
+          <img
+            src="/cta-workbench.jpg"
+            alt=""
+            style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", zIndex: 0 }}
+          />
+          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(120deg, rgba(10,26,13,0.55), rgba(6,6,6,0.88))", zIndex: 0 }} />
+          <div style={{ position: "relative", zIndex: 1 }}>
+            <h2 style={{ margin: 0, fontSize: "clamp(26px, 3.4vw, 34px)", fontWeight: 600, letterSpacing: "-0.03em", color: "#ffffff" }}>Phone acting up? Find out today.</h2>
+            <p style={{ margin: "10px 0 0", fontSize: 16, color: "rgba(255,255,255,0.75)" }}>{addressLine} — {addressDetail}. {hours}.</p>
           </div>
-          <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+          <div style={{ position: "relative", zIndex: 1, display: "flex", gap: 12, flexWrap: "wrap" }}>
             <a href={whatsappLink("Hi BEAPS, I'd like to ask about a repair.")} target="_blank" rel="noreferrer" className="btn-solid">WhatsApp the shop</a>
-            <button type="button" className="btn-outline" onClick={() => router.push("/contact")}>Directions</button>
+            <button type="button" className="btn-outline-invert" onClick={() => router.push("/contact")}>Directions</button>
           </div>
         </div>
       </section>

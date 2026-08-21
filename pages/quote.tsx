@@ -105,9 +105,15 @@ const Quote: NextPageWithTitle = () => {
   );
 
   return (
-    <div data-screen-label="Instant quote" style={{ maxWidth: 900, margin: "0 auto", padding: "56px 20px 72px" }}>
-      <h1 className="animate-fade-up" style={{ margin: 0, fontSize: "clamp(30px, 4.6vw, 48px)", fontWeight: 700, letterSpacing: "-0.032em" }}>Instant quote</h1>
-      <p className="animate-fade-up delay-200" style={{ margin: "14px 0 0", fontSize: 17, color: "var(--text-secondary)" }}>Pick your device and fault for a price range, then send it straight to our WhatsApp — no forms, no waiting.</p>
+    <div data-screen-label="Instant quote" style={{ maxWidth: 900, margin: "0 auto", padding: "40px 20px 72px" }}>
+      <div className="animate-fade-up quote-hero">
+        <img src="/quote-hero.jpg" alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", zIndex: 0 }} />
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(6,6,6,0.35), rgba(6,6,6,0.9))", zIndex: 0 }} />
+        <div style={{ position: "relative", zIndex: 1 }}>
+          <h1 style={{ margin: 0, fontSize: "clamp(30px, 4.6vw, 48px)", fontWeight: 700, letterSpacing: "-0.032em", color: "#ffffff" }}>Instant quote</h1>
+          <p style={{ margin: "14px 0 0", fontSize: 17, color: "rgba(255,255,255,0.8)", maxWidth: 520 }}>Pick your device and fault for a price range, then send it straight to our WhatsApp — no forms, no waiting.</p>
+        </div>
+      </div>
 
       <Reveal>
       <div className="quote-card" style={{ marginTop: 32 }}>

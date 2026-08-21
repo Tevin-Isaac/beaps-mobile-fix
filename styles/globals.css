@@ -962,6 +962,17 @@ button {
   border-color: var(--border-focus);
 }
 
+.quote-hero {
+  position: relative;
+  overflow: hidden;
+  border-radius: 24px;
+  padding: 40px 28px;
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
 .quote-card {
   padding: 26px;
   border: 1px solid var(--border-subtle);
